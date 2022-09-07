@@ -40,4 +40,10 @@ arlo = robot.Robot()
 
 print(arlo.go_diff(66,31,1,1))
 sleep(10)
+
+print(arlo.go_diff(31,66,1,1))
+sleep(10)
+
+print(arlo.go_diff(66,31,1,1))
+sleep(10)
 print(arlo.stop)
