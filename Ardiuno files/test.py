@@ -54,6 +54,11 @@ print(arlo.go_diff(52,80,1,1))
 sleep(10)
 print(arlo.go_diff(0,30,1,1))
 sleep(0.1)
+print(arlo.go_diff(52,80,1,1))
+sleep(10)
+print(arlo.go_diff(0,30,1,1))
+sleep(0.1)
+
 
 #print(arlo.go_diff(85,47,1,1))
 #sleep(10)
