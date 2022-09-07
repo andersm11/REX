@@ -50,7 +50,7 @@ print(arlo.go_diff(0,30,1,1))
 sleep(0.1)
 
 # Mod uret
-print(arlo.go_diff(51.7,80,1,1))
+print(arlo.go_diff(51.7,79.5,1,1))
 sleep(10)
 print(arlo.go_diff(0,30,1,1))
 sleep(0.1)
