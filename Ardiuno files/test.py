@@ -48,7 +48,7 @@ arlo = robot.Robot()
 #sleep(10)
 
 # Mod uret
-print(arlo.go_diff(47.6,82.6,1,1))
+print(arlo.go_diff(47,80,1,1))
 sleep(5)
 print(arlo.go_diff(0,30,1,1))
 sleep(0.1)
