@@ -4,7 +4,7 @@ from time import sleep
 arlo = robot.Robot()
 
 # 1 meter
-print(arlo.go_diff(66,64,1,1))
+print(arlo.go_diff(50,50,1,1))
 sleep(2)
 print(arlo.stop)
 
