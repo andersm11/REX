@@ -38,6 +38,6 @@ arlo = robot.Robot()
 
 # Continuous motion (8)
 
-print(arlo.go_diff(70,30,1,1))
+print(arlo.go_diff(67,30,1,1))
 sleep(10)
 print(arlo.stop)
