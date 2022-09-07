@@ -12,7 +12,7 @@ arlo = robot.Robot()
 #print(arlo.go_diff(0,30,1,1))
 #sleep(0.1)
 #print(arlo.stop)
-for i in range(3):
+for i in range(12):
     print(arlo.go_diff(66,64,1,1))
     sleep(2)
 
