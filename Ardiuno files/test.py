@@ -17,7 +17,7 @@ for i in range(12):
     sleep(2)
 
     print(arlo.go_diff(64,64,1,0))
-    sleep(0.65)
+    sleep(0.7)
 
 # Square
 # print(arlo.go_diff(66,64,1,1))
