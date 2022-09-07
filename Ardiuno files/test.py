@@ -3,7 +3,28 @@ from time import sleep
 
 arlo = robot.Robot()
 
+print(arlo.go_diff(64,64,1,1))
+sleep(1.5)
+
 print(arlo.go_diff(64,64,1,0))
 sleep(0.6)
-print(arlo.stop)
+
+print(arlo.go_diff(64,64,1,1))
+sleep(1.5)
+
+print(arlo.go_diff(64,64,1,0))
+sleep(0.6)
+
+print(arlo.go_diff(64,64,1,1))
+sleep(1.5)
+
+print(arlo.go_diff(64,64,1,0))
+sleep(0.6)
+
+print(arlo.go_diff(64,64,1,1))
+sleep(1.5)
+
+print(arlo.go_diff(64,64,1,0))
+sleep(0.6)
+
 print("finish")
