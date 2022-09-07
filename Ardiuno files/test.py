@@ -4,6 +4,6 @@ from time import sleep
 arlo = robot.Robot()
 
 print(arlo.go_diff(64,64,1,0))
-sleep(2)
+sleep(0.66)
 print(arlo.stop)
 print("finish")
