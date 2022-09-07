@@ -66,6 +66,16 @@ sleep(10)
 print(arlo.go_diff(0,30,1,1))
 sleep(0.1)
 
+print(arlo.go_diff(85,47,1,1))
+sleep(10)
+print(arlo.go_diff(0,30,1,1))
+sleep(0.1)
+
+# Mod uret
+print(arlo.go_diff(51.7,79,1,1))
+sleep(10)
+print(arlo.go_diff(0,30,1,1))
+sleep(0.1)
 
 
 #print(arlo.go_diff(31,62,1,1))
