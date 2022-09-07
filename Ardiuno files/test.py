@@ -6,8 +6,8 @@ arlo = robot.Robot()
 # 1 meter
 print(arlo.go_diff(50,48.5,1,1))
 sleep(3)
-print(arlo.go_diff(0,10,1,1))
-sleep(0.02)
+print(arlo.go_diff(0,30,1,1))
+sleep(0.002)
 #print(arlo.stop)
 
 # Square
