@@ -46,6 +46,8 @@ arlo = robot.Robot()
 
 print(arlo.go_diff(83,45.5,1,1))
 sleep(5)
+print(arlo.go_diff(0,30,1,1))
+sleep(0.1)
 
 #print(arlo.go_diff(31,62,1,1))
 #sleep(10)
