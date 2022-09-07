@@ -4,8 +4,8 @@ from time import sleep
 arlo = robot.Robot()
 
 # 1 meter
-print(arlo.go_diff(50,50,1,1))
-sleep(2.96)
+print(arlo.go_diff(48,48,1,1))
+sleep(3)
 print(arlo.stop)
 
 # Square
