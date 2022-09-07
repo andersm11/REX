@@ -4,8 +4,8 @@ from time import sleep
 arlo = robot.Robot()
 
 # 1 meter
-#print(arlo.go_diff(49,49,1,1))
-#sleep(3)
+print(arlo.go_diff(49,49,1,1))
+sleep(3)
 #print(arlo.stop)
 
 # Square
@@ -37,9 +37,10 @@ arlo = robot.Robot()
 #print("finish")
 
 # Continuous motion (8)
+#
 
-print(arlo.go_diff(86,47,1,1))
-sleep(5)
+#print(arlo.go_diff(86,47,1,1))
+#sleep(5)
 
 #print(arlo.go_diff(31,62,1,1))
 #sleep(10)
