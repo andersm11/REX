@@ -7,7 +7,7 @@ arlo = robot.Robot()
 print(arlo.go_diff(50,48.5,1,1))
 sleep(3)
 print(arlo.go_diff(0,30,1,1))
-sleep(0.002)
+sleep(0.05)
 #print(arlo.stop)
 
 # Square
