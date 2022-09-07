@@ -1,13 +1,16 @@
 import robot 
 from time import sleep 
 
+#venstre hjul m/s pr tik: 0.0066 
+#højre hjul m/s pr tik: 0.0069 
+
 arlo = robot.Robot()
 
 # 1 meter
-print(arlo.go_diff(50,48.5,1,1))
-sleep(3)
-print(arlo.go_diff(0,30,1,1))
-sleep(0.1)
+#print(arlo.go_diff(50,48.5,1,1))
+#sleep(3)
+#print(arlo.go_diff(0,30,1,1))
+#sleep(0.1)
 #print(arlo.stop)
 
 # Square
@@ -41,8 +44,8 @@ sleep(0.1)
 # Continuous motion (8)
 #
 
-#print(arlo.go_diff(86,47,1,1))
-#sleep(5)
+print(arlo.go_diff(86.34,45.5,1,1))
+sleep(5)
 
 #print(arlo.go_diff(31,62,1,1))
 #sleep(10)
