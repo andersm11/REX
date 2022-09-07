@@ -39,5 +39,5 @@ arlo = robot.Robot()
 # Continuous motion (8)
 
 print(arlo.go_diff(64,30,1,1))
-sleep(5)
+sleep(10)
 print(arlo.stop)
