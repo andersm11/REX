@@ -5,7 +5,7 @@ from time import sleep
 #højre hjul m/s pr tik: 0.0069 
 
 arlo = robot.Robot()
-print(arlo.go_diff(40,40,1,1))
+#print(arlo.go_diff(40,40,1,1))
 #a = arlo.read_front_ping_sensor()
 #while a > 300:
 #    a = arlo.read_front_ping_sensor()
@@ -15,6 +15,7 @@ print(arlo.go_diff(40,40,1,1))
 #
 dist = True
 while dist:
+    arlo.go_diff(40,40,1,1)
     a = arlo.read_front_ping_sensor()
     b = arlo.read_back_ping_sensor()
     c = arlo.read_right_ping_sensor()
@@ -23,7 +24,7 @@ while dist:
     print("a =", a, ", b=", b, ", c=", c, ", d=",d)
     if a < 300 or b < 300 or c < 300 or d < 300:
         print(arlo.go_diff(40,40,0,0))
-        sleep(0.5)
+        sleep(1)
         print(arlo.go_diff(64,64,1,0))
         sleep(0.7)
 
