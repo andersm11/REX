@@ -26,9 +26,6 @@ while dist == true:
 
 arlo.stop()
 
-    print(arlo.go_diff(40, 0, 1, 1))
-    sleep(2)
-
 
 # 1 meter
 #print(arlo.go_diff(50,48.5,1,1))
