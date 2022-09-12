@@ -6,12 +6,13 @@ from time import sleep
 
 arlo = robot.Robot()
 
+print(arlo.read_front_ping_sensor())
 # 1 meter
-print(arlo.go_diff(50,48.5,1,1))
-sleep(3)
-print(arlo.go_diff(0,30,1,1))
-sleep(0.1)
-print(arlo.stop)
+#print(arlo.go_diff(50,48.5,1,1))
+#sleep(3)
+#print(arlo.go_diff(0,30,1,1))
+#sleep(0.1)
+#print(arlo.stop)
 #for i in range(12):
 #    print(arlo.go_diff(68,64,1,1))
 #    sleep(2)
