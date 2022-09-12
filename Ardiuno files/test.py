@@ -22,7 +22,7 @@ while dist:
     sleep(0.2)
     print("a =", a, ", b=", b, ", c=", c, ", d=",d)
     if a < 300 or b < 300 or c < 300 or d < 300:
-        print(arlo.go(40,40,0,0))
+        print(arlo.go_diff(40,40,0,0))
         sleep(0.5)
         print(arlo.go_diff(64,64,1,0))
         sleep(0.7)
