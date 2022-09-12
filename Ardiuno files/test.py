@@ -5,6 +5,7 @@ from time import sleep
 #højre hjul m/s pr tik: 0.0069 
 
 arlo = robot.Robot()
+a = arlo.read_front_ping_sensor()
 while a > 300:
     a = arlo.read_front_ping_sensor()
     sleep(1)
