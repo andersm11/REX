@@ -10,7 +10,7 @@ for i in range(10):
     sleep(1)
     print(a)
     if a <= 300:
-        print(jsjs)
+        print("jsjs")
         arlo.stop()
 
 
