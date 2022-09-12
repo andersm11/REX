@@ -5,13 +5,11 @@ from time import sleep
 #højre hjul m/s pr tik: 0.0069 
 
 arlo = robot.Robot()
-for i in range(10):
+while a > 300:
     a = arlo.read_front_ping_sensor()
     sleep(1)
     print(a)
-    if a <= 300:
-        print("jsjs")
-        arlo.stop()
+arlo.stop()
 
 
 # 1 meter
