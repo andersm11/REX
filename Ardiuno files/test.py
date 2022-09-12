@@ -6,7 +6,10 @@ from time import sleep
 
 arlo = robot.Robot()
 
-print(arlo.read_front_ping_sensor())
+while dist > 100:
+    dist = arlo.read_front_ping_sensor()
+    print(dist)
+
 # 1 meter
 #print(arlo.go_diff(50,48.5,1,1))
 #sleep(3)
