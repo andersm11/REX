@@ -6,12 +6,28 @@ from time import sleep
 
 arlo = robot.Robot()
 print(arlo.go_diff(40,40,1,1))
-a = arlo.read_front_ping_sensor()
-while a > 300:
+#a = arlo.read_front_ping_sensor()
+#while a > 300:
+#    a = arlo.read_front_ping_sensor()
+#    sleep(0.2)
+#    print(a)
+#arlo.stop()
+#
+dist = true
+while dist == true:
     a = arlo.read_front_ping_sensor()
+    b = arlo.read_back_ping_sensor()
+    c = arlo.read_right_ping_sensor()
+    d = arlo.read_left_ping_sensor()
     sleep(0.2)
-    print(a)
+    print("a =", a, ", b=", b, ", c=", c, ", d=",d)
+    if a > 300 || b > 300 || c > 300 || d > 300:
+        dist = false
+
 arlo.stop()
+
+    print(arlo.go_diff(40, 0, 1, 1))
+    sleep(2)
 
 
 # 1 meter
