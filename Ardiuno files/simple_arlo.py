@@ -13,6 +13,7 @@ leftSpeed = 64
 rightSpeed = 64
 print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
 
+
 # Wait a bit while robot moves forward
 sleep(3)
 
@@ -23,16 +24,16 @@ print(arlo.stop())
 sleep(0.041)
 
 # send a go_diff command to drive backwards the same way we came from
-print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
-
-# Wait a bit while robot moves backwards
-sleep(3)
-
-# send a stop command
-print(arlo.stop())
-
-# Wait a bit before next command
-sleep(0.041)
+#print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
+#
+## Wait a bit while robot moves backwards
+#sleep(3)
+#
+## send a stop command
+#print(arlo.stop())
+#
+## Wait a bit before next command
+#sleep(0.041)
 
 
 
@@ -55,28 +56,28 @@ sleep(0.041)
 
 
 
-# send a go_diff command to drive forward in a curve turning right
-leftSpeed = 64
-rightSpeed = 32
-print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
-
-# Wait a bit while robot moves forward
-sleep(3)
-
-# send a stop command
-print(arlo.stop())
-
-# Wait a bit before next command
-sleep(0.041)
-
-# send a go_diff command to drive backwards the same way we came from
-print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
-
-# Wait a bit while robot moves backwards
-sleep(3)
-
-# send a stop command
-print(arlo.stop())
+## send a go_diff command to drive forward in a curve turning right
+#leftSpeed = 64
+#rightSpeed = 32
+#print(arlo.go_diff(leftSpeed, rightSpeed, 1, 1))
+#
+## Wait a bit while robot moves forward
+#sleep(3)
+#
+## send a stop command
+#print(arlo.stop())
+#
+## Wait a bit before next command
+#sleep(0.041)
+#
+## send a go_diff command to drive backwards the same way we came from
+#print(arlo.go_diff(leftSpeed, rightSpeed, 0, 0))
+#
+## Wait a bit while robot moves backwards
+#sleep(3)
+#
+## send a stop command
+#print(arlo.stop())
 
 
 
