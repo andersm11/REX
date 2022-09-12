@@ -13,8 +13,8 @@ print(arlo.go_diff(40,40,1,1))
 #    print(a)
 #arlo.stop()
 #
-dist = true
-while dist == true:
+dist = True
+while True:
     a = arlo.read_front_ping_sensor()
     b = arlo.read_back_ping_sensor()
     c = arlo.read_right_ping_sensor()
@@ -22,7 +22,7 @@ while dist == true:
     sleep(0.2)
     print("a =", a, ", b=", b, ", c=", c, ", d=",d)
     if a > 300 or b > 300 or c > 300 or d > 300:
-        dist = false
+        False
 
 arlo.stop()
 
