@@ -9,7 +9,7 @@ for i in range(10):
     a = arlo.read_front_ping_sensor()
     sleep(1)
     print(a)
-    if a <= 100:
+    if a <= 300:
         arlo.stop()
 
 
