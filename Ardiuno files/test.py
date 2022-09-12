@@ -9,7 +9,7 @@ print(arlo.go_diff(40,40,1,1))
 a = arlo.read_front_ping_sensor()
 while a > 300:
     a = arlo.read_front_ping_sensor()
-    sleep(1)
+    sleep(0.2)
     print(a)
 arlo.stop()
 
