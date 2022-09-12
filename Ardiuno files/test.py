@@ -6,9 +6,8 @@ from time import sleep
 
 arlo = robot.Robot()
 for i in range(10):
-    print(arlo.go_diff(40,40,1,1))
-    sleep(1)
     a = arlo.read_front_ping_sensor()
+    print(a)
     if a <= 100:
         arlo.stop()
 
