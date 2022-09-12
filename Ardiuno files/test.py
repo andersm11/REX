@@ -21,7 +21,7 @@ while dist == true:
     d = arlo.read_left_ping_sensor()
     sleep(0.2)
     print("a =", a, ", b=", b, ", c=", c, ", d=",d)
-    if a > 300 || b > 300 || c > 300 || d > 300:
+    if a > 300 or b > 300 or c > 300 or d > 300:
         dist = false
 
 arlo.stop()
