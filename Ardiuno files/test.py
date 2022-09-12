@@ -5,11 +5,13 @@ from time import sleep
 #højre hjul m/s pr tik: 0.0069 
 
 arlo = robot.Robot()
-dist = 0
-while dist > 100:
-    dist = arlo.read_front_ping_sensor()
+for i in range(10):
+    print(arlo.go_diff(40,40,1,1))
     sleep(1)
-    print(dist)
+    a = arlo.read_front_ping_sensor()
+    if a <= 100:
+        arlo.stop()
+
 
 # 1 meter
 #print(arlo.go_diff(50,48.5,1,1))
