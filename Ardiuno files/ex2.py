@@ -32,5 +32,6 @@ def subEx2():
     arlo.stop()
     print(llist)
     plt.plot(llist)
+    plt.show()
 
 subEx2() 
