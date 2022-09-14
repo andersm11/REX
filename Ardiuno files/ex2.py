@@ -1,6 +1,6 @@
 import robot 
 from time import sleep, time  
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 
 arlo = robot.Robot()
