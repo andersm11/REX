@@ -27,7 +27,7 @@ def subEx1():
 def subEx2():
     llist = []
     for i in range(40):
-        a = arlo.read_back_ping_sensor()
+        a = arlo.read_front_ping_sensor()
         llist.insert(i, a)   
     arlo.stop()
     print(llist)
