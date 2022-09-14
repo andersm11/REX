@@ -1,5 +1,6 @@
 import robot 
 from time import sleep, time  
+import matplotlib.pyplot as plt
 
 
 arlo = robot.Robot()
@@ -30,5 +31,6 @@ def subEx2():
         llist.insert(i, a)
     arlo.stop()
     print(llist)
+    plt.plot(llist)
 
 subEx2() 
