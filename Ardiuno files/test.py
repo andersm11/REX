@@ -1,39 +1,8 @@
 import robot 
-from time import sleep 
+from time import sleep, time  
 
 #venstre hjul m/s pr tik: 0.0066 
 #højre hjul m/s pr tik: 0.0069 
-
-arlo = robot.Robot()
-for i in range(10):
-    a = arlo.read_front_ping_sensor()
-    print(a)
-
-
-#while a > 300:
-#    a = arlo.read_front_ping_sensor()
-#    sleep(0.2)
-#    print(a)
-#arlo.stop()
-#
-dist = True
-while dist:
-    arlo.go_diff(40,40,1,1)
-    a = arlo.read_front_ping_sensor()
-    b = arlo.read_back_ping_sensor()
-    c = arlo.read_right_ping_sensor()
-    d = arlo.read_left_ping_sensor()
-    sleep(0.2)
-    print("a =", a, ", b=", b, ", c=", c, ", d=",d)
-    if a < 300 or b < 300 or c < 300 or d < 300:
-        print(arlo.go_diff(40,40,0,0))
-        sleep(1)
-        print(arlo.go_diff(64,64,1,0))
-        sleep(0.7)
-
-
-arlo.stop()
-
 
 # 1 meter
 #print(arlo.go_diff(50,48.5,1,1))
@@ -105,4 +74,4 @@ arlo.stop()
 
 #print(arlo.go_diff(31,62,1,1))
 #sleep(10)
-print(arlo.stop)
+#print(arlo.stop)
