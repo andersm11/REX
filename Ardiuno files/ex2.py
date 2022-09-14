@@ -30,3 +30,5 @@ def q2():
         llist.insert(i, a)
     arlo.stop()
     print(llist)
+
+q2() 
