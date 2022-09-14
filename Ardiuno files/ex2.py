@@ -29,9 +29,10 @@ def subEx2():
     for i in range(40):
         a = arlo.read_front_ping_sensor()
         llist.insert(i, a)
+    plt.plot(llist)
+    plt.show()    
     arlo.stop()
     print(llist)
-    plt.plot(llist)
-    plt.show()
+    
 
 subEx2() 
