@@ -4,8 +4,8 @@ from time import sleep, time
 
 arlo = robot.Robot()
 
-#Question 1)
-def q1():
+#subExercise 1)
+def subEx1():
     dist = True
     while dist:
         arlo.go_diff(40,40,1,1)
@@ -22,8 +22,8 @@ def q1():
             sleep(0.7)
     arlo.stop()
 
-#Question 2)
-def q2():
+#subExercise 2)
+def subEx2():
     llist = []
     for i in range(40):
         a = arlo.read_front_ping_sensor()
@@ -31,4 +31,4 @@ def q2():
     arlo.stop()
     print(llist)
 
-q2() 
+subEx2() 
