@@ -16,7 +16,7 @@ def subEx1():
         d = arlo.read_left_ping_sensor()
         sleep(0.2)
         print("a =", a, ", b=", b, ", c=", c, ", d=",d)
-        if a < 300 or b < 300 or c < 300 or d < 300:
+        if a < 400 or b < 400 or c < 400 or d < 400:
             #print(arlo.go_diff(40,40,0,0))
             #sleep(1)
             print(arlo.go_diff(64,64,1,0))
