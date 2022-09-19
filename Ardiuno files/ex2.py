@@ -22,15 +22,17 @@ def subEx1():
             print(arlo.go_diff(64,64,1,0))
             sleep(0.7)
     arlo.stop()
+subEx1()
 
 #subExercise 2)
-def subEx2():
-    llist = []
-    for i in range(40):
-        a = arlo.read_front_ping_sensor()
-        llist.insert(i, a)   
-    arlo.stop()
-    print(llist)
-    
+#def subEx2():
+#    llist = []
+#    for i in range(40):
+#        a = arlo.read_front_ping_sensor()
+#        llist.insert(i, a)
+#    arlo.stop()
+#    print(llist)
+#
+#
+#subEx2()
 
-subEx2() 
