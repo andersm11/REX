@@ -11,12 +11,11 @@ def subEx1():
     while dist:
         arlo.go_diff(40,40,1,1)
         a = arlo.read_front_ping_sensor()
-        b = arlo.read_back_ping_sensor()
         c = arlo.read_right_ping_sensor()
         d = arlo.read_left_ping_sensor()
         sleep(0.2)
-        print("a =", a, ", b=", b, ", c=", c, ", d=",d)
-        if a < 400 or b < 400 or c < 400 or d < 400:
+        print("a =", a, "c=", c, ", d=",d)
+        if a < 400 or c < 400 or d < 400:
             #print(arlo.go_diff(40,40,0,0))
             #sleep(1)
             print(arlo.go_diff(64,64,1,0))
