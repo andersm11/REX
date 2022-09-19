@@ -9,23 +9,29 @@ def npdf(x,mean,stdd):
 def p(x):
     return 0.3*npdf(x,2,1) + 0.4*npdf(x,5,2) + 0.3*npdf(x,9,1)
     
+def uniform_aux(x):
+    return p(x)/(1/15)
 
+def normal_aux(x):
+    return p(x)/npdf(x,5,4)
+  
 
 def sample1():
-    samples = np.random.uniform(0,15,100)
+    samples = np.random.uniform(0,15,200)
     return samples
 
 def sample2():
-    samples = np.random.normal(5,4,100)
+    samples = np.random.normal(5,4,200)
     return samples
 
-def weight(samples):
-    w = []
-    for x in samples:
-        temp = (p(x)/(1/15))
-        w.append(temp)
-    return w
+def u_weight(samples):
+    new_samples = np.array(list(map(uniform_aux,samples)))
+    return new_samples
 
+def n_weight(samples):
+    new_samples = np.array(list(map(normal_aux,samples)))
+    return new_samples
+    
 def normalize_weights(weights):
     normalized = []
     for w in weights:
@@ -33,15 +39,14 @@ def normalize_weights(weights):
     return normalized
 
 def resample(samples,n_weights):
-    resamples = np.random.choice(samples,100,p=n_weights,replace=True)
+    resamples = np.random.choice(samples,200,p=n_weights,replace=True)
     return resamples
     
     
 
-samples = sample1()
-weights = weight(samples)
+samples = sample2()
+weights = n_weight(samples)
 n_weights = normalize_weights(weights)
-print("samples:",samples, "\n")
 resamples = resample(samples,n_weights)
 
 x1 = list(range(0,15,1))
@@ -52,14 +57,14 @@ x2 = []
 for i in x:
     x2.append(i*10) 
 
-print(len(samples),len(n_weights))
+
 plt.subplot(1,2,1)
 plt.plot(x2,'r')
 plt.hist(resamples)
 plt.scatter(samples,n_weights,color='black')
 plt.title("resamples")
-plt.subplot(1,2,2)
 
+plt.subplot(1,2,2)
 plt.hist(samples)
 plt.scatter(samples,n_weights,color ='black')
 plt.title("samples")
