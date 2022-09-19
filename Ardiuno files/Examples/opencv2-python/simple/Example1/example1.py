@@ -1,6 +1,7 @@
 # This script shows how to open a camera in OpenCV and grab frames and show these.
 # Kim S. Pedersen, 2022
-
+import cv2 as cv
+print( cv.__version__ )
 import cv2 # Import the OpenCV library
 
 
