@@ -30,6 +30,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     
     # Show frames
     cv2.imshow(WIN_RF, frameReference)
-    
+    savedImg = "test1.png"
+    cv2.imwrite(savedImg, frameReference)
 
 # Finished successfully
