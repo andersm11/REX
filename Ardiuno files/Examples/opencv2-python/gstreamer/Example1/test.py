@@ -8,7 +8,7 @@ def findAruco(img, marker_size=6, total_markers=250,draw=True):
     gray=cv2.cvtColor(img,cv2.COLOR_BGRA2GRAY)
     key = getattr(aruco,f"DICT_{marker_size}X{marker_size}_{total_markers}")
     arucoDict=aruco.Dictionary_get(key)
-    arucoParam=aruco.DetectorParameters_create()
+    arucoParam=aruco.DetectorParameters_create(cv2.aruco.DICT_6X6_50)
     bbox, ids,_ = aruco.detectMarkers(gray,arucoDict,parameters=arucoParam)
     print(ids)
     if draw:
