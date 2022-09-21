@@ -8,8 +8,22 @@ import numpy as np
 
 print("OpenCV version = " + cv2.__version__)
 
+def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
+    """Utility function for setting parameters for the gstreamer camera pipeline"""
+    return (
+        "libcamerasrc !"
+        "video/x-raw, width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
+        "videoconvert ! "
+        "appsink"
+        % (
+            capture_width,
+            capture_height,
+            framerate,
+        )
+    )
+
 # Open a camera device for capturing
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
 
 if not cam.isOpened(): # Error
     print("Could not open camera")
