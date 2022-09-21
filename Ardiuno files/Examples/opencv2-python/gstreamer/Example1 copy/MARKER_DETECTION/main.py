@@ -2,11 +2,25 @@ import cv2 as cv
 from cv2 import aruco
 import numpy as np
 
+def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
+    """Utility function for setting parameters for the gstreamer camera pipeline"""
+    return (
+        "libcamerasrc !"
+        "video/x-raw, width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
+        "videoconvert ! "
+        "appsink"
+        % (
+            capture_width,
+            capture_height,
+            framerate,
+        )
+    )
+
 marker_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
 
 param_markers = aruco.DetectorParameters_create()
 
-cap = cv.VideoCapture(0)
+cap = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
 
 while True:
     ret, frame = cap.read()
