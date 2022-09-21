@@ -3,7 +3,7 @@
 import cv2 as cv
 print( cv.__version__ )
 import cv2 # Import the OpenCV library
-
+import cv2.aruco as aruco
 
 print("OpenCV version = " + cv2.__version__)
 
@@ -31,9 +31,5 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     # Show frames
     cv2.imshow(WIN_RF, frameReference)
     
-arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
-arucoParams = cv2.aruco.DetectorParameters_create()
-(corners, ids, rejected) = cv2.aruco.detectMarkers(cam, arucoDict,
-	parameters=arucoParams)
 
 # Finished successfully
