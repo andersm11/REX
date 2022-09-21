@@ -5,7 +5,7 @@ from cv2 import aruco
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import pandas as pd
-%matplotlib nbagg
+#%matplotlib nbagg
 
 #del 2
 aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
@@ -30,7 +30,7 @@ plt.show()
 
 
 #del 4
-%%time
+#%%time
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 aruco_dict = aruco.Dictionary_get(aruco.DICT_6X6_250)
 parameters =  aruco.DetectorParameters_create()
