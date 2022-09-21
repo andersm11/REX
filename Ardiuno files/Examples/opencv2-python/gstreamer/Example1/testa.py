@@ -19,6 +19,7 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
             framerate,
         )
     )
+print("OpenCV version = " + cv2.__version__)
 
 cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
 
