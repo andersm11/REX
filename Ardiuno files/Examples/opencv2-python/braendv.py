@@ -39,16 +39,16 @@ dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 
 
 
-#while cv2.waitKey(4) == -1: # Wait for a key pressed event
-retval, frameReference = cam.read() # Read frame
+while cv2.waitKey(4) == -1: # Wait for a key pressed event
+    retval, frameReference = cam.read() # Read frame
+        
+    if not retval: # Error
+        print(" < < <  Game over!  > > > ")
+        exit(-1)
+    (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,
+        parameters=arucoParams)
     
-if not retval: # Error
-    print(" < < <  Game over!  > > > ")
-    exit(-1)
-(corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,
-    parameters=arucoParams)
-
-cv2.aruco.drawDetectedMarkers(frameReference,corners)
-print(ids)
-cv2.imshow("billede",frameReference)
-cv2.imwrite("test1.png", frameReference)
+    cv2.aruco.drawDetectedMarkers(frameReference,corners)
+    print(ids)
+    cv2.imshow("billede",frameReference)
+    cv2.imwrite("test1.png", frameReference)
