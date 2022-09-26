@@ -47,8 +47,9 @@ if not retval: # Error
     exit(-1)
 (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,
     parameters=arucoParams)
-
-cv2.aruco.drawDetectedMarkers(frameReference,corners)
+# Aruco Perimeter
+aruco_perimeter = cv2.arcLength(corners[0], True)
+cv2.aruco.drawDetectedMarkers(frameReference,aruco_perimeter)
 print(ids)
 cv2.imshow("billede",frameReference)
 cv2.imwrite("test1.png", frameReference)
