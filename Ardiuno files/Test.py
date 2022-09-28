@@ -25,9 +25,9 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
         )
     )
 
-# Open a camera device for capturing gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER
-#cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
-cam = cv2.VideoCapture(0)
+# Open a camera device for capturing gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAME
+cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+#cam = cv2.VideoCapture(0)
 arlo = robot.Robot()
 
 cam_matrix = np.array([[1.628,0,680],[0,1.628,480],[0,0,1]])
@@ -49,18 +49,20 @@ z = np.array([0,0,1])
 x = np.array([1,0,0])
 box_id = 3
 
-def CheckID():
-    if ids == box_id:
-        return True
-    else:
-        return False
 
-def find(idcheck):
-    while idcheck == False:
+def find(ids):
+    id = False
+    if ids == box_id:
+        id = True
+    else:
+        id = False
+    while id == False:
         arlo.go_diff(50,50,0,1)
         camread()
-        CheckID(ids)
-        find(CheckID)
+        if ids == box_id:
+            id = True
+        else:
+            id = False 
     arlo.stop
 
 def correction(sign,beta):
@@ -74,10 +76,6 @@ def correction(sign,beta):
             camread()
     else:
         arlo.stop
-
-
-    
-
 
 def camread():
     retval, frameReference = cam.read() # Read frame
@@ -98,7 +96,10 @@ def camread():
         print("beta", beta, "sign:", sign)
     return sign, beta, ids
 
-while cv2.waitKey(4) == -1:
+run = True
+while run == True:
     camread()
-    find(CheckID(ids))
+    find(ids)
     correction(sign,beta)
+    run = False
+    
