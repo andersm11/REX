@@ -43,10 +43,9 @@ arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
 dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 
-z = np.array([[[0,0,1]]])
-x = np.array([[[1,0,0]]])
-z = np.reshape(z,(3,))
-x = np.reshape(x,(3,))
+z = np.array([0,0,1])
+x = np.array([1,0,0])
+
 
 
 while cv2.waitKey(4) == -1: # Wait for a key pressed event
@@ -64,13 +63,9 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_matrix,0)
     if tvec is not None:
         tvec = np.reshape(tvec,(3,))
-        tvec_norm = np.linalg.norm(tvec)
-        print("trans vector:", tvec, "magitude:", tvec_norm,   "\n")
-        #k = distance
-        #k = np.reshape(k,(3,))
-        beta = np.arccos(tvec_norm * z)
-        print("dot:", (tvec_norm * z))
-        print("arrcos:", np.arccos([0.30,0,0]))
+        tvec_norm = tvec/np.linalg.norm(tvec)
+        beta = (np.rad2deg(np.arccos(np.dot(tvec_norm,z)))-89)*100
+        print("dot:",np.dot(tvec_norm, z) )
         sign = np.sign(np.dot(np.transpose(x),tvec))
         print("beta", beta, "sign:", sign, "k:", tvec_norm, "\n")
         
