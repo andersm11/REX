@@ -104,6 +104,7 @@ def Take_pic():
 
 while cv2.waitKey(4) == -1: # Wait for a key pressed event
     # Read frame
+    arlo.stop()
     retval, frameReference = Take_pic()
     if not retval: # Error
         print(" < < <  Game over!  > > > ")
