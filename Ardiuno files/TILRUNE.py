@@ -80,17 +80,14 @@ def CheckID(id):
         return True
     else:
         return False
-def Turn(sign):
+def Turn(sign,angle):
     if sign == -1:
         arlo.go_diff(30,30,0,1)
-        sleep(0.5)
-        arlo.stop()
-        exit(1)
+        sleep(0.019*angle)
     else:
         arlo.go_diff(30,30,1,0)
-        sleep(0.5)
-        arlo.stop()
-        exit(1)
+        sleep(0.019*angle)
+
 
 def Take_pic():
     with stderr_redirector(io.StringIO()):
@@ -126,8 +123,8 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         print("beta", beta, "sign:", sign)
 
     if CheckID(ids) is True:
-        if 10 < beta:
-            Turn(sign)
+        if 8 < beta:
+            Turn(sign,angle)
         else:
             arlo.stop()
     else:
