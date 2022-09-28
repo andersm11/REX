@@ -26,7 +26,7 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
     )
 
 # Open a camera device for capturing gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAME
-#cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
 #cam = cv2.VideoCapture(0)
 arlo = robot.Robot()
 
