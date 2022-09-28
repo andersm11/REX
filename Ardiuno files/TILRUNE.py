@@ -62,7 +62,7 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
 #cam = cv2.VideoCapture(0)
 arlo = robot.Robot()
 
-cam_matrix = np.array([[1628,0,512],[0,1628,360],[0,0,1]])
+cam_matrix = np.array([[1672,0,540],[0,1672,400],[0,0,1]])
 
 
 
