@@ -3,7 +3,7 @@
 import robot 
 from pickle import FALSE, TRUE
 from time import sleep, time  
-from types import None
+#from types import None
 import cv2 # Import the OpenCV library
 import cv2.aruco
 import ctypes
