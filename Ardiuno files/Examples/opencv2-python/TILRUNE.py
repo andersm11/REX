@@ -27,7 +27,7 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
 # Open a camera device for capturing gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER
 cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
 
-cam_matrix = np.array([[1.628,0,512],[0,1.628,360],[0,0,1]])
+cam_matrix = np.array([[1.628,0,720],[0,1.628,360],[0,0,1]])
 
 if not cam.isOpened(): # Error
     print("Could not open camera")
@@ -67,7 +67,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         print("trans vector:", tvec, "Distance:", distance,   "\n")
         k = tvec/(len(tvec))
         #k = np.reshape(k,(3,))
-        beta = np.arccos(np.dot(k , z))
+        beta = np.rad2deg(np.arccos(np.dot(k , z)))
         sign = np.sign(np.dot(np.transpose(x),tvec))
         print("beta", beta, "sign:", sign, "\n")
         
