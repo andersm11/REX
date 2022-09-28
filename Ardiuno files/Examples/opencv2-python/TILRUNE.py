@@ -25,9 +25,10 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
     )
 
 # Open a camera device for capturing gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER
-cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+#cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+cam = cv2.VideoCapture(0)
 
-cam_matrix = np.array([[1.628,0,720],[0,1.628,360],[0,0,1]])
+cam_matrix = np.array([[1.628,0,680],[0,1.628,360],[0,0,1]])
 
 if not cam.isOpened(): # Error
     print("Could not open camera")
@@ -63,13 +64,15 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_matrix,0)
     if tvec is not None:
         tvec = np.reshape(tvec,(3,))
-        distance = np.linalg.norm(tvec)
-        print("trans vector:", tvec, "Distance:", distance,   "\n")
-        k = tvec/(len(tvec))
+        magnitude = np.linalg.norm(tvec)
+        print("trans vector:", tvec, "magitude:", magnitude,   "\n")
+        #k = distance
         #k = np.reshape(k,(3,))
-        beta = np.rad2deg(np.arccos(np.dot(k , z)))
+        beta = np.arccos(magnitude * z)
+        print("dot:", (magnitude * z))
+        print("arrcos:", np.arccos([0.30,0,0]))
         sign = np.sign(np.dot(np.transpose(x),tvec))
-        print("beta", beta, "sign:", sign, "\n")
+        print("beta", beta, "sign:", sign, "k:", magnitude, "\n")
         
     cv2.imshow("billede",frameReference)
 
