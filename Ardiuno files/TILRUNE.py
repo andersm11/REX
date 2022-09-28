@@ -85,10 +85,10 @@ def CheckID(id):
 def Turn(angle):
     if angle <= 0:
         arlo.go_diff(30,30,0,1)
-        sleep(0.005*abs(angle))
+        sleep(0.0005*abs(angle))
     else:
         arlo.go_diff(30,30,1,0)
-        sleep(0.005*abs(angle))
+        sleep(0.0005*abs(angle))
 
 
 def Take_pic():
@@ -122,7 +122,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         print("dot:",np.dot(tvec_norm, z) )
         sign = np.sign(np.dot(np.transpose(x),tvec))
         angle = beta*sign
-        print("beta", beta, "sign:", sign)
+        print("beta", angle, "sign:", sign)
 
     if CheckID(ids) is True:
         if 2 < beta:
