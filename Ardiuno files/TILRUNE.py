@@ -76,11 +76,12 @@ z = np.array([0,0,1],dtype=float)
 x = np.array([1,0,0],dtype=float)
 box_id = 3
 def CheckID(id):
-    
-    if id is not None and id.any() == box_id:
-        return True
-    else:
-        return False
+    if id is not None:
+        if id.any() == box_id:
+            return True
+        else:
+            return False
+    return False
 def Turn(sign,angle):
     if sign == -1:
         arlo.go_diff(30,30,0,1)
