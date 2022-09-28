@@ -83,7 +83,7 @@ def CheckID(id):
             return False
     return False
 def Turn(sign,angle):
-    if sign == -1:
+    if angle <= 0:
         arlo.go_diff(30,30,0,1)
         sleep(0.019*abs(angle))
     else:
@@ -126,7 +126,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
 
     if CheckID(ids) is True:
         if 8 < beta:
-            Turn(sign,angle)
+            Turn(angle)
         else:
             length = np.linalg.norm(tvec)
             if length < 30:
