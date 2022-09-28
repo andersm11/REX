@@ -59,41 +59,35 @@ def Turn(sign):
     else:
         arlo.go_diff(20,20,1,0)
 
-def S_n_D():
-    while cv2.waitKey(4) == -1: # Wait for a key pressed event
-        sleep(0.2)
-        retval, frameReference = cam.read() # Read frame
 
-        if not retval: # Error
-            print(" < < <  Game over!  > > > ")
-            exit(-1)
-        (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,
-            parameters=arucoParams)
-
-        cv2.aruco.drawDetectedMarkers(frameReference,corners)
-        print(ids)
-        rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_matrix,0)
-        if tvec is not None:
-            tvec2 = np.reshape(tvec[0,:],(3,))
-            tvec_norm = tvec2/np.linalg.norm(tvec2)
-            beta = (np.rad2deg(np.arccos(np.dot(tvec_norm,z)))-89)*100
-            print("dot:",np.dot(tvec_norm, z) )
-            sign = np.sign(np.dot(np.transpose(x),tvec2))
-            print("beta", beta, "sign:", sign)
-        if CheckID(ids) is True:
-            if 10 < beta:
-                Turn(sign)
-            else:
-                arlo.stop()
+while cv2.waitKey(4) == -1: # Wait for a key pressed event
+    retval, frameReference = cam.read() # Read frame
+    if not retval: # Error
+        print(" < < <  Game over!  > > > ")
+        exit(-1)
+    (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,
+        parameters=arucoParams)
+    cv2.aruco.drawDetectedMarkers(frameReference,corners)
+    print(ids)
+    rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_matrix,0)
+    if tvec is not None:
+        tvec2 = np.reshape(tvec[0,:],(3,))
+        tvec_norm = tvec2/np.linalg.norm(tvec2)
+        beta = (np.rad2deg(np.arccos(np.dot(tvec_norm,z)))-89)*100
+        print("dot:",np.dot(tvec_norm, z) )
+        sign = np.sign(np.dot(np.transpose(x),tvec2))
+        print("beta", beta, "sign:", sign)
+    if CheckID(ids) is True:
+        if 10 < beta:
+            Turn(sign)
         else:
-            arlo.go_diff(20,20,1,0)
-            sleep(1)
             arlo.stop()
-        cv2.imshow("billede",frameReference)
-
-S_n_D()
-
-# Finished successfully
+    else:
+        arlo.go_diff(20,20,1,0)
+        sleep(1)
+        arlo.stop()
+    cv2.imshow("billede",frameReference)
+ Finished successfully
 
 
 
