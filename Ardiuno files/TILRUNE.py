@@ -85,10 +85,10 @@ def CheckID(id):
 def Turn(sign,angle):
     if sign == -1:
         arlo.go_diff(30,30,0,1)
-        sleep(0.019*angle)
+        sleep(0.019*abs(angle))
     else:
         arlo.go_diff(30,30,1,0)
-        sleep(0.019*angle)
+        sleep(0.019*abs(angle))
 
 
 def Take_pic():
