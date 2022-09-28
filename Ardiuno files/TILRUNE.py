@@ -56,9 +56,9 @@ def Turn(sign):
 
 def Take_pic():
     cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
-    if not cam.isOpened(): # Error
-        print("Could not open camera")
-        exit(-1)
+    #if not cam.isOpened(): # Error
+    #    print("Could not open camera")
+    #    exit(-1)
     retval, frameReference = cam.read() 
     return retval, frameReference
 
