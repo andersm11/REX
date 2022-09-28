@@ -25,8 +25,8 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
     )
 
 # Open a camera device for capturing gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER
-#cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
-cam = cv2.VideoCapture(0)
+cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+#cam = cv2.VideoCapture(0)
 
 cam_matrix = np.array([[1.628,0,680],[0,1.628,360],[0,0,1]])
 
