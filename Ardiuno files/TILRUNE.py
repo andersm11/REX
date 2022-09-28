@@ -60,6 +60,7 @@ def Take_pic():
         print("Could not open camera")
         exit(-1)
     retval, frameReference = cam.read() 
+    cam.release()
     return retval, frameReference
 
 while cv2.waitKey(4) == -1: # Wait for a key pressed event
