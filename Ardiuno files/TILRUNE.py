@@ -87,10 +87,12 @@ def Turn(angle):
         arlo.go_diff(30,30,0,1)
         print(0.0005*abs(angle))
         sleep(0.0005*abs(angle))
+        arlo.stop()
     else:
         arlo.go_diff(30,30,1,0)
         print(0.0005*abs(angle))
         sleep(0.0005*abs(angle))
+        arlo.stop()
 
 
 def Take_pic():
