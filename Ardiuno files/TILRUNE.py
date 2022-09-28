@@ -76,7 +76,8 @@ z = np.array([0,0,1],dtype=float)
 x = np.array([1,0,0],dtype=float)
 box_id = 3
 def CheckID(id):
-    if id == box_id:
+    
+    if id is not None and id == box_id:
         return True
     else:
         return False
@@ -122,7 +123,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         angle = beta*sign
         print("beta", beta, "sign:", sign)
 
-    if CheckID(ids[0]) is True:
+    if CheckID(ids) is True:
         if 8 < beta:
             Turn(sign,angle)
         else:
