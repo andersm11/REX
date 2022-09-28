@@ -49,8 +49,8 @@ z = np.array([0,0,1])
 x = np.array([1,0,0])
 box_id = 3
 
-def CheckID(id):
-    if id == box_id:
+def CheckID():
+    if ids == box_id:
         return True
     else:
         return False
@@ -58,15 +58,20 @@ def CheckID(id):
 def find(idcheck):
     while idcheck == False:
         arlo.go_diff(50,50,0,1)
+        camread()
+        CheckID(ids)
+        find(CheckID)
     arlo.stop
 
 def correction(sign,beta):
     if sign == -1:
         while beta >= 10:
             arlo.go_diff(30,30,0,1)
+            camread()
     elif sign == 1:
         while beta >= 10:
             arlo.go_diff(30,30,1,0)
+            camread()
     else:
         arlo.stop
 
