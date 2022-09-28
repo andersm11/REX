@@ -47,6 +47,7 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
     return (
         "libcamerasrc !"
+        "videobox autocrop=true"
         "video/x-raw, width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
         "videoconvert ! "
         "appsink"
@@ -62,7 +63,7 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
 #cam = cv2.VideoCapture(0)
 arlo = robot.Robot()
 
-cam_matrix = np.array([[1.628,0,600],[0,1.628,400],[0,0,1]])
+cam_matrix = np.array([[1.628,0,680],[0,1.628,480],[0,0,1]])
 
 
 
