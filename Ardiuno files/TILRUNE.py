@@ -125,7 +125,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         print("beta", beta, "sign:", sign)
 
     if CheckID(ids) is True:
-        if 8 < beta:
+        if 10 < beta:
             Turn(angle)
         else:
             length = np.linalg.norm(tvec)
