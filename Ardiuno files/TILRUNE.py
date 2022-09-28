@@ -3,6 +3,7 @@
 import robot 
 from pickle import FALSE, TRUE
 from time import sleep, time  
+from types import None
 import cv2 # Import the OpenCV library
 import cv2.aruco
 import ctypes
@@ -71,8 +72,8 @@ arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
 dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 
-z = np.array([0,0,1])
-x = np.array([1,0,0])
+z = np.array([0,0,1],dtype=float)
+x = np.array([1,0,0],dtype=float)
 box_id = 3
 def CheckID(id):
     if id == box_id:
@@ -109,11 +110,10 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_matrix,0)
     if tvec is not None:
         tvec2 = np.reshape(tvec[0,:],(3,))
-        #tvec_norm = tvec2/np.linalg.norm(tvec2)
-        #beta = np.rad2deg(np.arccos(np.dot(tvec_norm,z)))
-        #print("dot:",np.dot(tvec_norm, z) )
-        beta = np.rad2deg(np.arccos(z/tvec2))
-        sign = np.sign(np.dot(np.transpose(x),tvec))
+        tvec_norm = tvec2/np.linalg.norm(tvec2)
+        beta = np.rad2deg(np.arccos(np.dot(tvec_norm,z)))
+        print("dot:",np.dot(tvec_norm, z) )
+        sign = np.sign(np.dot(np.transpose(x),tvec2))
         print("beta", beta, "sign:", sign)
     if CheckID(ids) is True:
         if 10 < beta:
@@ -121,9 +121,9 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         else:
             arlo.stop()
     else:
-        #arlo.go_diff(30,30,1,0)
+        arlo.go_diff(30,30,1,0)
         sleep(0.5)
-        #arlo.stop()
+        arlo.stop()
 
  
  
