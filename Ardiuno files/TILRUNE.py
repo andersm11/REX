@@ -82,9 +82,15 @@ def CheckID(id):
         return False
 def Turn(sign):
     if sign == -1:
-        print("-1")
+        arlo.go_diff(30,30,0,1)
+        sleep(0.5)
+        arlo.stop()
+        exit(1)
     else:
-        print("1")
+        arlo.go_diff(30,30,1,0)
+        sleep(0.5)
+        arlo.stop()
+        exit(1)
 
 def Take_pic():
     with stderr_redirector(io.StringIO()):
@@ -116,7 +122,9 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         beta = np.rad2deg(np.arccos(np.dot(tvec_norm,z)))
         print("dot:",np.dot(tvec_norm, z) )
         sign = np.sign(np.dot(np.transpose(x),tvec))
+        angle = beta*sign
         print("beta", beta, "sign:", sign)
+
     if CheckID(ids) is True:
         if 10 < beta:
             Turn(sign)
