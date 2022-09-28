@@ -112,7 +112,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         #tvec2 = np.reshape(tvec[0,:],(3,))
         tvec = tvec[0].reshape((3,))
         tvec_norm = tvec/np.linalg.norm(tvec)
-        print(tvec[0].shape)
+        print(tvec.shape)
         beta = np.rad2deg(np.arccos(np.dot(tvec_norm,z)))
         print("dot:",np.dot(tvec_norm, z) )
         sign = np.sign(np.dot(np.transpose(x),tvec))
