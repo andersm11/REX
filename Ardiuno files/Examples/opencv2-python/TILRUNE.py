@@ -2,7 +2,7 @@
 # Kim S. Pedersen, 2022
 import robot 
 from pickle import FALSE, TRUE
-from time import sleep
+from time import sleep, time  
 #from types import NoneType
 import cv2 # Import the OpenCV library
 import cv2.aruco
@@ -60,7 +60,6 @@ def Turn(sign):
         arlo.go_diff(20,20,1,0)
 
 def S_n_D():
-    found = False
     while cv2.waitKey(4) == -1: # Wait for a key pressed event
         sleep(0.2)
         retval, frameReference = cam.read() # Read frame
@@ -90,9 +89,9 @@ def S_n_D():
             arlo.go_diff(20,20,1,0)
             sleep(1)
             arlo.stop()
-
-
         cv2.imshow("billede",frameReference)
+
+S_n_D()
 
 # Finished successfully
 
