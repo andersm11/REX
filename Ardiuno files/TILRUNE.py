@@ -131,7 +131,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
             length = np.linalg.norm(tvec)
             if length < 30:
                 exit(1)
-            arlo.go_diff(52,50,1,1)
+            arlo.go_diff(55,50,1,1)
             print(length)
             sleep(0.028*(length-15))
             arlo.stop()
