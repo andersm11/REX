@@ -10,7 +10,7 @@ import numpy as np
 
 print("OpenCV version = " + cv2.__version__)
 
-def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
+def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=1):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
     return (
         "libcamerasrc !"
