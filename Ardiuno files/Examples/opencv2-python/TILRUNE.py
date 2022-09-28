@@ -37,9 +37,9 @@ if not cam.isOpened(): # Error
     exit(-1)
 
 # Open a window
-WIN_RF = "Example 1"
-cv2.namedWindow(WIN_RF)
-cv2.moveWindow(WIN_RF, 100, 100)
+#WIN_RF = "Example 1"
+#cv2.namedWindow(WIN_RF)
+#cv2.moveWindow(WIN_RF, 100, 100)
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
@@ -83,11 +83,13 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         else:
             arlo.stop()
     else:
-        arlo.go_diff(20,20,1,0)
-        sleep(1)
+        arlo.go_diff(30,30,1,0)
+        sleep(0.5)
         arlo.stop()
     cv2.imshow("billede",frameReference)
- Finished successfully
+ 
+ 
+ #Finished successfully
 
 
 
