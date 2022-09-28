@@ -62,7 +62,7 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
 #cam = cv2.VideoCapture(0)
 arlo = robot.Robot()
 
-cam_matrix = np.array([[1.628,0,680],[0,1.628,480],[0,0,1]])
+cam_matrix = np.array([[1628,0,512],[0,1628,360],[0,0,1]])
 
 
 
@@ -110,7 +110,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     if tvec is not None:
         tvec2 = np.reshape(tvec[0,:],(3,))
         tvec_norm = tvec2/np.linalg.norm(tvec2)
-        beta = (np.rad2deg(np.arccos(np.dot(tvec_norm,z)))-89)*100
+        beta = np.rad2deg(np.arccos(np.dot(tvec_norm,z)))
         print("dot:",np.dot(tvec_norm, z) )
         sign = np.sign(np.dot(np.transpose(x),tvec2))
         print("beta", beta, "sign:", sign)
