@@ -23,7 +23,7 @@ arlo = robot.Robot()
 # sleep(2)
 
 print(arlo.go_diff(30,30,1,0))
-sleep(1)
+sleep(1.5)
 
 # print(arlo.go_diff(66,64,1,1))
 # sleep(2)
