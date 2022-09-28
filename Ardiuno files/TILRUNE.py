@@ -101,10 +101,9 @@ def Take_pic():
     retval, frameReference = cam.read() 
     cam.release()
     return retval, frameReference
-arlo.stop()
+
 while cv2.waitKey(4) == -1: # Wait for a key pressed event
     # Read frame
-    
     retval, frameReference = Take_pic()
     if not retval: # Error
         print(" < < <  Game over!  > > > ")
@@ -126,11 +125,12 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         print("beta", beta, "sign:", sign)
 
     if CheckID(ids) is True:
-        arlo.stop()
         if 8 < beta:
             Turn(sign,angle)
         else:
             length = np.linalg.norm(tvec)
+            if length < 30:
+                exit(1)
             arlo.go_diff(50,50,1,1)
             print(length)
             sleep(0.028*(length-15))
