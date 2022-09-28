@@ -77,7 +77,7 @@ x = np.array([1,0,0],dtype=float)
 box_id = 3
 def CheckID(id):
     
-    if id is not None and id == box_id:
+    if id is not None and id.any() == box_id:
         return True
     else:
         return False
