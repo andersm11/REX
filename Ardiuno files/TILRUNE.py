@@ -82,7 +82,7 @@ def CheckID(id):
         else:
             return False
     return False
-def Turn(sign,angle):
+def Turn(angle):
     if angle <= 0:
         arlo.go_diff(30,30,0,1)
         sleep(0.019*abs(angle))
