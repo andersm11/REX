@@ -108,11 +108,11 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     print(ids)
     rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_matrix,0)
     if tvec is not None:
-        #tvec2 = np.reshape(tvec[0,:],(3,))
+        tvec2 = np.reshape(tvec[0,:],(3,))
         #tvec_norm = tvec2/np.linalg.norm(tvec2)
         #beta = np.rad2deg(np.arccos(np.dot(tvec_norm,z)))
         #print("dot:",np.dot(tvec_norm, z) )
-        beta = np.rad2deg(np.arccos(z/tvec))
+        beta = np.rad2deg(np.arccos(z/tvec2))
         sign = np.sign(np.dot(np.transpose(x),tvec))
         print("beta", beta, "sign:", sign)
     if CheckID(ids) is True:
