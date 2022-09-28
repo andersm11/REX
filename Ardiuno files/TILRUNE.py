@@ -76,7 +76,7 @@ z = np.array([0,0,1],dtype=float)
 x = np.array([1,0,0],dtype=float)
 box_id = 3
 def CheckID(id):
-    if id.any() == box_id:
+    if id[0] == box_id:
         return True
     else:
         return False
