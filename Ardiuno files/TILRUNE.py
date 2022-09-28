@@ -127,7 +127,9 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
             Turn(sign,angle)
         else:
             length = np.linalg.norm(tvec)
-            arlo.go_diff(30,30,1,1)
+            arlo.go_diff(50,50,1,1)
+            print(length)
+            sleep(0.028*length)
             if length < 20:
                 arlo.stop()
     else:
