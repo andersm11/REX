@@ -10,7 +10,7 @@ import numpy as np
 
 print("OpenCV version = " + cv2.__version__)
 
-def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=1):
+def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
     return (
         "libcamerasrc !"
@@ -26,7 +26,7 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=1):
     )
 
 # Open a camera device for capturing gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER
-cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+
 #cam = cv2.VideoCapture(0)
 arlo = robot.Robot()
 
@@ -56,9 +56,14 @@ def Turn(sign):
     else:
         arlo.go_diff(20,20,1,0)
 
+def Take_pic():
+    cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+    retval, frameReference = cam.read() 
+    return retval, frameReference
 
 while cv2.waitKey(4) == -1: # Wait for a key pressed event
-    retval, frameReference = cam.read() # Read frame
+    # Read frame
+    retval, frameReference = Take_pic()
     if not retval: # Error
         print(" < < <  Game over!  > > > ")
         exit(-1)
