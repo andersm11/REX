@@ -64,15 +64,15 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_matrix,0)
     if tvec is not None:
         tvec = np.reshape(tvec,(3,))
-        magnitude = np.linalg.norm(tvec)
-        print("trans vector:", tvec, "magitude:", magnitude,   "\n")
+        tvec_norm = np.linalg.norm(tvec)
+        print("trans vector:", tvec, "magitude:", tvec_norm,   "\n")
         #k = distance
         #k = np.reshape(k,(3,))
-        beta = np.arccos(magnitude * z)
-        print("dot:", (magnitude * z))
+        beta = np.arccos(tvec_norm * z)
+        print("dot:", (tvec_norm * z))
         print("arrcos:", np.arccos([0.30,0,0]))
         sign = np.sign(np.dot(np.transpose(x),tvec))
-        print("beta", beta, "sign:", sign, "k:", magnitude, "\n")
+        print("beta", beta, "sign:", sign, "k:", tvec_norm, "\n")
         
     cv2.imshow("billede",frameReference)
 
