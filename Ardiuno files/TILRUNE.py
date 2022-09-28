@@ -128,8 +128,8 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         else:
             arlo.stop()
     else:
-        arlo.go_diff(60,60,1,0)
-        sleep(0.5)
+        arlo.go_diff(45,45,1,0)
+        sleep(0.35)
         arlo.stop()
 
  
