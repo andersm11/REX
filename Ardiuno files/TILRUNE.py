@@ -32,9 +32,7 @@ arlo = robot.Robot()
 
 cam_matrix = np.array([[1.628,0,680],[0,1.628,480],[0,0,1]])
 
-if not cam.isOpened(): # Error
-    print("Could not open camera")
-    exit(-1)
+
 
 
 
@@ -58,6 +56,9 @@ def Turn(sign):
 
 def Take_pic():
     cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+    if not cam.isOpened(): # Error
+        print("Could not open camera")
+        exit(-1)
     retval, frameReference = cam.read() 
     return retval, frameReference
 
