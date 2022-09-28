@@ -6,7 +6,40 @@ from time import sleep, time
 #from types import NoneType
 import cv2 # Import the OpenCV library
 import cv2.aruco
+import ctypes
+import io
+from contextlib import contextmanager
+import os
+import sys
+import tempfile
 import numpy as np
+
+
+libc = ctypes.CDLL(None)
+c_stderr = ctypes.c_void_p.in_dll(libc, 'stderr')
+
+@contextmanager
+def stderr_redirector(stream):
+    original_stderr_fd = sys.stderr.fileno()
+
+    def _redirect_stderr(to_fd):
+        libc.fflush(c_stderr)
+        sys.stderr.close()
+        os.dup2(to_fd, original_stderr_fd)
+        sys.stderr = io.TextIOWrapper(os.fdopen(original_stderr_fd, 'wb'))
+
+    saved_stderr_fd = os.dup(original_stderr_fd)
+    try:
+        tfile = tempfile.TemporaryFile(mode='w+b')
+        _redirect_stderr(tfile.fileno())
+        yield
+        _redirect_stderr(saved_stderr_fd)
+        tfile.flush()
+        tfile.seek(0, io.SEEK_SET)
+        stream.write(tfile.read().decode())
+    finally:
+        tfile.close()
+        os.close(saved_stderr_fd)
 
 print("OpenCV version = " + cv2.__version__)
 
@@ -54,7 +87,8 @@ def Turn(sign):
         arlo.go_diff(20,20,1,0)
 
 def Take_pic():
-    cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+    with stderr_redirector(io.StringIO()):
+        cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
     if not cam.isOpened(): # Error
         print("Could not open camera")
         exit(-1)
