@@ -87,7 +87,6 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         sleep(1)
         arlo.stop()
     cv2.imshow("billede",frameReference)
- Finished successfully
 
 
 
