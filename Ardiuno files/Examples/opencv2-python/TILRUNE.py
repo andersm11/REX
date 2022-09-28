@@ -64,7 +64,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     if tvec is not None:
         tvec2 = np.reshape(tvec[0,:],(3,))
         tvec_norm = tvec2/np.linalg.norm(tvec2)
-        beta = (np.rad2deg(np.arccos(np.dot(tvec_norm,z)))-89)*100
+        beta = ((np.arccos(np.dot(tvec_norm,z)))-1.56)*10000
         print("dot:",np.dot(tvec_norm, z) )
         sign = np.sign(np.dot(np.transpose(x),tvec2))
         print("beta", beta, "sign:", sign, "k:", tvec_norm, "\n")
