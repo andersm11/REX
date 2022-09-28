@@ -88,8 +88,8 @@ def Turn(sign):
 
 def Take_pic():
     with stderr_redirector(io.StringIO()):
-        #cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
-        cam = cv2.VideoCapture(0)
+        cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+        #cam = cv2.VideoCapture(0)
     if not cam.isOpened(): # Error
         print("Could not open camera")
         exit(-1)
