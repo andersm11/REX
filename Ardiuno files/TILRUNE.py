@@ -82,9 +82,9 @@ def CheckID(id):
         return False
 def Turn(sign):
     if sign == -1:
-        arlo.go_diff(20,20,0,1)
+        arlo.go_diff(30,30,0,1)
     else:
-        arlo.go_diff(20,20,1,0)
+        arlo.go_diff(30,30,1,0)
 
 def Take_pic():
     with stderr_redirector(io.StringIO()):
