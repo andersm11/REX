@@ -64,9 +64,14 @@ def correction(sign,beta):
     if sign == -1:
         while beta >= 10:
             arlo.go_diff(30,30,0,1)
-    else:
+    elif sign == 1:
         while beta >= 10:
             arlo.go_diff(30,30,1,0)
+    else:
+        arlo.stop
+
+
+    
 
 
 def camread():
