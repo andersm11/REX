@@ -25,8 +25,8 @@ def gstreamer_pipeline(capture_width=1024, capture_height=720, framerate=30):
     )
 
 # Open a camera device for capturing gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER
-cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
-#cam = cv2.VideoCapture(0)
+#cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
+cam = cv2.VideoCapture(0)
 
 cam_matrix = np.array([[1.628,0,680],[0,1.628,360],[0,0,1]])
 
@@ -62,11 +62,11 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
     print(ids)
     rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_matrix,0)
     if tvec is not None:
-        tvec = np.reshape(tvec,(3,))
-        tvec_norm = tvec/np.linalg.norm(tvec)
+        tvec2 = np.reshape(tvec[0,:],(3,))
+        tvec_norm = tvec2/np.linalg.norm(tvec2)
         beta = (np.rad2deg(np.arccos(np.dot(tvec_norm,z)))-89)*100
         print("dot:",np.dot(tvec_norm, z) )
-        sign = np.sign(np.dot(np.transpose(x),tvec))
+        sign = np.sign(np.dot(np.transpose(x),tvec2))
         print("beta", beta, "sign:", sign, "k:", tvec_norm, "\n")
         
     cv2.imshow("billede",frameReference)
