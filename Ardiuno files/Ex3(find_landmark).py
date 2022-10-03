@@ -129,7 +129,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
         print("beta", angle, "sign:", sign)
 
     if CheckID(ids) is True:
-        if 4 < beta:
+        if 3 < beta:
             Turn(angle)
         else:
             length = np.linalg.norm(tvec)
@@ -137,7 +137,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
                 exit(1)
             arlo.go_diff(54,50,1,1)
             print(length)
-            sleep(0.028*(length-15))
+            sleep(0.028*(length-5))
             arlo.stop()
             exit(1)
     else:
