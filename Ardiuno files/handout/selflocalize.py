@@ -1,10 +1,13 @@
+from statistics import median
 import cv2
+from cv2 import sqrt
 import particle
 import camera
 import numpy as np
 import time
 from timeit import default_timer as timer
 import sys
+from time import sleep, time  
 
 
 # Flags
@@ -137,13 +140,18 @@ try:
     num_particles = 1000
     particles = initialize_particles(num_particles)
 
+    found_objects = []
+    rotation_count = 0
+
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
+
 
     # Driving parameters
     velocity = 0.0 # cm/sec
     angular_velocity = 0.0 # radians/sec
 
     # Initialize the robot (XXX: You do this)
+    arlo = robot.Robot()
 
     # Allocate space for world map
     world = np.zeros((500,500,3), dtype=np.uint8)
@@ -177,6 +185,37 @@ try:
             elif action == ord('d'): # Right
                 angular_velocity -= 0.2
 
+
+        #THIS MIGHT BE SHIT
+        if len(found_objects) < 2:
+            arlo.go_diff(30,30,1,0)
+            sleep(0.5)
+            arlo.stop()
+        if len(found_objects) == 2:
+            obj1 = found_objects[0]
+            obj2 = found_objects[1]
+            angle = (obj1[1]**2+obj2[1]**2-300**2)/(2*obj1[1]*obj2[1]) #Compute angle between landmarks
+            mid_angle = angle/2
+            median_line = (1/2)*(sqrt(2*obj1[1]**2 + 2*obj2[1]*2 - 300**2)) #Compute median of triangle
+            arlo.go_diff(30,30,1,0)
+            sleep(0.019*abs(angle))
+            arlo.stop
+            colour = cam.get_next_frame()
+            objectIDs, dists, angles = cam.detect_aruco_objects()
+            if not isinstance(objectIDs, type(None)):
+                arlo.go_diff(30,30,0,1)
+                sleep(0.019*abs(mid_angle))
+                arlo.stop()
+                arlo.go_diff(52,50,1,1)
+                sleep(0.028*(median_line))
+                arlo.stop()
+            else:
+                arlo.go_diff(30,30,0,1)
+                sleep(0.019*abs(angle)*2)
+                arlo.stop()
+                arlo.go_diff(52,50,1,1)
+                sleep(0.028*(median_line))
+                arlo.stop()
 
 
         
