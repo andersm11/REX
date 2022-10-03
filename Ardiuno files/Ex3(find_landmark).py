@@ -137,7 +137,7 @@ while cv2.waitKey(4) == -1: # Wait for a key pressed event
                 exit(1)
             arlo.go_diff(50,50,1,1)
             print(length)
-            sleep(0.028*(length-5))
+            sleep(0.028*(length))
             arlo.stop()
             exit(1)
     else:
