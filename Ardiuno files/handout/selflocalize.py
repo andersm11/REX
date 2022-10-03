@@ -1,3 +1,4 @@
+from cmath import sin
 from statistics import median
 import cv2
 from cv2 import sqrt
@@ -13,7 +14,23 @@ from time import sleep, time
 # Flags
 showGUI = True  # Whether or not to open GUI windows
 onRobot = True # Whether or not we are running on the Arlo robot
+theta = "Theta"
 
+def el(lx,ly,x,y):
+    d = distance(lx,ly,x,y)
+    return np.transpose([lx-x,ly-y])/d
+
+def distance(lx,ly,x,y):
+    return sqrt(((lx-x)**2)+((ly-y)**2)) #Distance from particle (x,y) to landmark (lx,ly)
+
+def e_theta(theta):
+    return np.transpose(np.cos(theta),np.sin(theta))
+
+def e_theta_hat(theta):
+    return np.transpose(-(np.sin(theta),np.cos(theta)))
+
+def particle_angle(lx,ly,x,y,theta):
+    return np.sign(np.dot(el(lx,ly,x,y),e_theta_hat(theta))*np.arccos(np.dot(el(lx,ly,x,y),e_theta(theta))))
 
 def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
@@ -140,8 +157,7 @@ try:
     num_particles = 1000
     particles = initialize_particles(num_particles)
 
-    found_objects = []
-    rotation_count = 0
+    found_objects = [] #use this to save found objects (if needed)
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
@@ -233,7 +249,15 @@ try:
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-                # XXX: Do something for each detected object - remember, the same ID may appear several times
+                if objectIDs[i] in landmarkIDs:
+                    if not isinstance(found_objects, type(None)):
+                        for ob in found_objects:
+                            if ob[0] == objectIDs[i]:
+                                ob = (objectIDs[i],dists[i],angles[i])
+                        else:
+                            found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
+                    found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
+                    # XXX: Do something for each detected object - remember, the same ID may appear several times
 
             # Compute particle weights
             # XXX: You do this
