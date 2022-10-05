@@ -382,7 +382,7 @@ try:
             normalize_weights(particles)
             particles = resample_gaussian(particles)
             print(len(particles),"\n")
-            print("first 10:",particles[0:10],"\n")
+            print("first 10:",particles[0:10].getWeight(),"\n")
             #particles = add_uncertainty(particles,0.2,0.2)
             # Draw detected objects
             cam.draw_aruco_objects(colour)
