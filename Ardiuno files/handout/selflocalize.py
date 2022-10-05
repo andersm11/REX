@@ -20,6 +20,8 @@ onRobot = True # Whether or not we are running on the Arlo robot
 
 
 def el(lx,ly,x,y):
+    print("lx:",lx,"ly:",ly,"\n")
+    print("x:",x,"y:",y,"\n")
     d = distance(lx,ly,x,y)
     print("d:",d,"\n")
     return np.transpose([lx-x,ly-y])/d
