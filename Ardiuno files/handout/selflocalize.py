@@ -1,6 +1,6 @@
 from cmath import sin
 from statistics import median
-from Ardiuno files.handout.particle import add_uncertainty
+from particle import add_uncertainty
 import cv2
 from cv2 import sqrt
 import particle
