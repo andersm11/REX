@@ -25,7 +25,9 @@ def el(lx,ly,x,y):
     return np.transpose([lx-x,ly-y])/d
 
 def distance(lx,ly,x,y):
-    return sqrt(((lx-x)**2)+((ly-y)**2)) #Distance from particle (x,y) to landmark (lx,ly)
+    result = sqrt(((lx-x)**2)+((ly-y)**2))
+    print("result:",result,"\n")
+    return result#Distance from particle (x,y) to landmark (lx,ly)
 
 def e_theta(theta):
     return np.transpose(np.cos(theta),np.sin(theta))
