@@ -10,7 +10,7 @@ import time
 from timeit import default_timer as timer
 import sys
 from time import sleep, time  
-import robot 
+
 
 # Flags
 showGUI = True  # Whether or not to open GUI windows
@@ -135,7 +135,7 @@ def isRunningOnArlo():
 
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
-    sys.path.append("REX/Ardiuno files/robot.py ")
+    sys.path.append("../robot.py ")
 
 
 
