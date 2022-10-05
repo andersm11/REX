@@ -9,8 +9,6 @@ import time
 from timeit import default_timer as timer
 import sys
 from time import sleep, time  
-from sklearn import preprocessing
-
 
 # Flags
 showGUI = True  # Whether or not to open GUI windows
@@ -263,8 +261,13 @@ try:
             def gaussian_pdf(d,dm,stdd):
                 return (1/np.sqrt(2*np.pi*stdd**2))*np.exp(-(((dm-d)**2)/(2*stdd**2)))
             
-            def p(x):
-                return 0.3*gaussian_pdf(x,2,1) + 0.4*gaussian_pdf(x,5,2) + 0.3*gaussian_pdf(x,9,1)
+            def p():
+                return particles
+                
+                # particles er defineret ved:
+                # num_particles = 1000 
+                # particles = initialize_particles(num_particles)
+                # For ex2.2; 0.3*gaussian_pdf(x,2,1) + 0.4*gaussian_pdf(x,5,2) + 0.3*gaussian_pdf(x,9,1)
             
             def gaussian(x,n,k):
                 return p(x)/gaussian_pdf(x,n,k)
