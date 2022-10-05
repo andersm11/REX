@@ -27,7 +27,7 @@ def el(lx,ly,x,y):
     return np.transpose([lx-x,ly-y])/d
 
 def distance(lx,ly,x,y):
-    result = sqrt(((lx-x)**2)+((ly-y)**2))
+    result = np.sqrt(((lx-x)**2)+((ly-y)**2))
     print("result:",result,"\n")
     return result#Distance from particle (x,y) to landmark (lx,ly)
 
