@@ -64,6 +64,7 @@ def normalize_weights(particles):
     print("w_sum:",w_sum,"\n")
     for p2 in particles:
         norm_weight = p2.getWeight()/(w_sum)
+        print("nw:",norm_weight)
         p2.setWeight(norm_weight)
 
 
