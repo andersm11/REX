@@ -347,7 +347,7 @@ try:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
 
 
-        
+        sleep(0.5)
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
