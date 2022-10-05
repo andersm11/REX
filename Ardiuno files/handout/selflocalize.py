@@ -69,7 +69,7 @@ def normalize_weights(particles):
 
 
 def resample_gaussian(sw_list):
-    resamples = np.random.choice(sw_list[0],100,p=sw_list[1],replace=True)
+    resamples = np.random.choice(sw_list[0],1000,p=sw_list[1],replace=True)
     return resamples
 
 def simple_sample(b):
@@ -258,7 +258,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 100
+    num_particles = 1000
     particles = initialize_particles(num_particles)
 
     found_objects = [] #use this to save found objects (if needed)
@@ -347,7 +347,7 @@ try:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
 
 
-        sleep(0.5)
+        
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
