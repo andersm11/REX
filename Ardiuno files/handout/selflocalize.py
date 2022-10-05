@@ -379,6 +379,7 @@ try:
             compute_weights(objectIDs,dists,angles,particles)
             normalize_weights(particles)
             particles = resample_gaussian(particles)
+            print(len(particles))
             particles = add_uncertainty(particles,0.2,0.2)
             # Draw detected objects
             cam.draw_aruco_objects(colour)
