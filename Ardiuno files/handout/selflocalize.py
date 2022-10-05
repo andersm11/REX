@@ -1,5 +1,6 @@
 from cmath import sin
 from statistics import median
+from Ardiuno files.handout.particle import add_uncertainty
 import cv2
 from cv2 import sqrt
 import particle
@@ -30,6 +31,66 @@ def e_theta_hat(theta):
 
 def particle_angle(lx,ly,x,y,theta):
     return np.sign(np.dot(el(lx,ly,x,y),e_theta_hat(theta))*np.arccos(np.dot(el(lx,ly,x,y),e_theta(theta))))
+
+def gaussian_pdf_distance(d,dm,stdd):
+                return (1.0/np.sqrt(2.0*np.pi*stdd**2))*np.exp(-(((dm-d)**2)/(2.0*stdd**2)))
+
+def gaussian_pdf_angle(m_angle,lx,ly,x,y,theta,stdd):
+                return (1.0/np.sqrt(2.0*np.pi*stdd**2))*np.exp(-(((m_angle-particle_angle(lx,ly,x,y,theta))**2)/(2.0*stdd**2)))
+
+
+def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
+    pweights = []
+    for op in old_particles:
+        weight = 1
+        for i in len(landmarkIDs):
+            d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
+            dm = landmark_d[i]
+            weight = weight * gaussian_pdf_distance(d,dm,0.2)*gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),theta,0.2)
+        pweights.append((old_particles,weight))
+    return pweights
+
+def normalize_weights(pweights):
+    nweights = []
+    for p in pweights:
+        norm_weight = p[1]/(sum(p[:,len(p)]))
+        nweights.append(pweights[0],norm_weight)
+    return nweights
+
+
+def resample_gaussian(sw_list):
+    resamples = np.random.choice(sw_list[0],1000,p=sw_list[1],replace=True)
+    return resamples
+
+
+    # particles er defineret ved:
+    # num_particles = 1000 
+    # particles = initialize_particles(num_particles)
+    # For ex2.2; 0.3*gaussian_pdf(x,2,1) + 0.4*gaussian_pdf(x,5,2) + 0.3*gaussian_pdf(x,9,1)
+            
+#def gaussian(x,n,k):
+#    return p(x)/gaussian_pdf_distance(x,n,k)
+#
+#def sample_gaussian(n,k,værdi):
+#    samples = np.random.normal(n,k,værdi)
+#    #værdi kunne være 1000
+#    return samples
+#            
+#def weight_gaussian(samples):
+#    weighted_samples = np.array(list(map(gaussian,samples)))
+#    return weighted_samples
+#
+#def gaussian_normalize_weight():
+#    def normalize_weights(weights):
+#        normalized = []
+#        for w in weights:
+#            normalized.append(w/(sum(weights)))
+#        return normalized
+
+
+
+
+
 
 def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
@@ -69,7 +130,7 @@ CBLACK = (0, 0, 0)
 landmarkIDs = [1, 9]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (300.0, 0.0)  # Coordinates for landmark 2
+    9: (300.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -246,61 +307,23 @@ try:
             # List detected objects
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-                if objectIDs[i] in landmarkIDs:
-                    if not isinstance(found_objects, type(None)):
-                        for ob in found_objects:
-                            if ob[0] == objectIDs[i]:
-                                ob = (objectIDs[i],dists[i],angles[i])
-                        else:
-                            found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
-                    found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
+                #if objectIDs[i] in landmarkIDs:
+                #    if not isinstance(found_objects, type(None)):
+                #        for ob in found_objects:
+                #            if ob[0] == objectIDs[i]:
+                #                ob = (objectIDs[i],dists[i],angles[i])
+                #        else:
+                #            found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
+                #    found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
                     # XXX: Do something for each detected object - remember, the same ID may appear several times
 
             # Compute particle weights
             # XXX: You do this
-            def gaussian_pdf(d,dm,stdd):
-                return (1/np.sqrt(2*np.pi*stdd**2))*np.exp(-(((dm-d)**2)/(2*stdd**2)))
             
-            def p():
-                return particles
-                
-                # particles er defineret ved:
-                # num_particles = 1000 
-                # particles = initialize_particles(num_particles)
-                # For ex2.2; 0.3*gaussian_pdf(x,2,1) + 0.4*gaussian_pdf(x,5,2) + 0.3*gaussian_pdf(x,9,1)
-            
-            def gaussian(x,n,k):
-                return p(x)/gaussian_pdf(x,n,k)
-
-            def sample_gaussian(n,k,værdi):
-                samples = np.random.normal(n,k,værdi)
-                #værdi kunne være 1000
-                return samples
-            
-            def weight_gaussian(samples):
-                weighted_samples = np.array(list(map(gaussian,samples)))
-                return weighted_samples
-
-            def gaussian_normalize_weight():
-                 def normalize_weights(weights):
-                    normalized = []
-                    for w in weights:
-                        normalized.append(w/(sum(weights)))
-                    return normalized
-
-            
-            # Resampling
-            # XXX: You do this
-            def resample_gaussian(samples,n_weights):
-                resamples = np.random.choice(samples,1000,p=n_weights,replace=True)
-                return resamples
-            
-            samples_norm = sample_gaussian()
-            weights_norm = weight_gaussian(samples_norm)
-            n_weights_norm = gaussian_normalize_weight(weights_norm)
-            resamples_norm = resample_gaussian(samples_norm, n_weights_norm)
-
-
+            particles_w_weights = compute_weights(objectIDs,dists,angles,particles)
+            particles_w_normweights = normalize_weights(particles_w_weights)
+            particles = resample_gaussian(particles_w_normweights)
+            particles = add_uncertainty(particles,0.2,0.2)
             # Draw detected objects
             cam.draw_aruco_objects(colour)
         else:
