@@ -35,7 +35,7 @@ def e_theta(theta):
     return np.transpose(np.cos(theta),np.sin(theta))
 
 def e_theta_hat(theta):
-    return np.transpose(-(np.sin(theta),np.cos(theta)))
+    return np.transpose((-np.sin(theta),-np.cos(theta)))
 
 def particle_angle(lx,ly,x,y,theta):
     return np.sign(np.dot(el(lx,ly,x,y),e_theta_hat(theta))*np.arccos(np.dot(el(lx,ly,x,y),e_theta(theta))))
