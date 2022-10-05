@@ -65,7 +65,7 @@ def resample_gaussian(sw_list):
 
 def simple_sample(b):
     b = sqrt(b)
-    return (1.0/2.0)*np.sum(np.random.uniform(low=-b,high=b,size=(12,)))
+    return (1.0/2.0)*np.sum(np.random.uniform(low=-b,high=b,size=12))
 
 def sample_motion_model_velocity(particle,v,w):
     x = particle.getX()
