@@ -44,7 +44,6 @@ def gaussian_pdf_angle(m_angle,lx,ly,x,y,theta,stdd):
 
 
 def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
-    pweights = []
     for op in old_particles:
         weight = 1
         for i in range(len(landmarkIDs)):
@@ -52,15 +51,17 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
                 d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
                 dm = landmark_d[i]
                 weight = weight * gaussian_pdf_distance(d,dm,0.2)*gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.2)
-        pweights.append((old_particles,weight))
-    return pweights
+        op.setWeight((old_particles,weight))
 
-def normalize_weights(pweights):
-    nweights = []
-    for p in pweights:
-        norm_weight = p[1]/(sum(p[:,len(p)]))
-        nweights.append(pweights[0],norm_weight)
-    return nweights
+
+def normalize_weights(particles):
+    sum = 0
+    for p1 in particles:
+        sum += p1.getWeight
+    for p2 in particles:
+        norm_weight = p2.getWeight()/(sum)
+        p2.setWeight(norm_weight)
+
 
 
 def resample_gaussian(sw_list):
@@ -370,9 +371,9 @@ try:
             # Compute particle weights
             # XXX: You do this
             
-            particles_w_weights = compute_weights(objectIDs,dists,angles,particles)
-            particles_w_normweights = normalize_weights(particles_w_weights)
-            particles = resample_gaussian(particles_w_normweights)
+            compute_weights(objectIDs,dists,angles,particles)
+            normalize_weights(particles)
+            particles = resample_gaussian(particles)
             particles = add_uncertainty(particles,0.2,0.2)
             # Draw detected objects
             cam.draw_aruco_objects(colour)
