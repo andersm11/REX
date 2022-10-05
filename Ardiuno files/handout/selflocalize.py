@@ -41,6 +41,7 @@ def gaussian_pdf_distance(d,dm,stdd):
 
 def gaussian_pdf_angle(m_angle,lx,ly,x,y,theta,stdd):
                 print("lx:",lx,"ly:",ly,"\n")
+                print("x:",x,"y:",y,"\n")
                 return (1.0/np.sqrt(2.0*np.pi*stdd**2))*np.exp(-(((m_angle-particle_angle(lx,ly,x,y,theta))**2)/(2.0*stdd**2)))
 
 
