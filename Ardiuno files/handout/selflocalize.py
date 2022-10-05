@@ -9,6 +9,7 @@ import time
 from timeit import default_timer as timer
 import sys
 from time import sleep, time  
+from sklearn import preprocessing
 
 
 # Flags
@@ -41,7 +42,7 @@ def isRunningOnArlo():
 
 if isRunningOnArlo():
     # XXX: You need to change this path to point to where your robot.py file is located
-    sys.path.append("../../../../Arlo/Robot/")
+    sys.path.append("REX/Ardiuno files/robot.py ")
 
 
 
@@ -67,14 +68,12 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [7, 8]
+landmarkIDs = [1, 9]
 landmarks = {
     1: (0.0, 0.0),  # Coordinates for landmark 1
     2: (300.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
-
-
 
 
 
@@ -261,9 +260,43 @@ try:
 
             # Compute particle weights
             # XXX: You do this
+            def gaussian_pdf(d,dm,stdd):
+                return (1/np.sqrt(2*np.pi*stdd**2))*np.exp(-(((dm-d)**2)/(2*stdd**2)))
+            
+            def p(x):
+                return 0.3*gaussian_pdf(x,2,1) + 0.4*gaussian_pdf(x,5,2) + 0.3*gaussian_pdf(x,9,1)
+            
+            def gaussian(x,n,k):
+                return p(x)/gaussian_pdf(x,n,k)
 
+            def sample_gaussian(n,k,værdi):
+                samples = np.random.normal(n,k,værdi)
+                #værdi kunne være 1000
+                return samples
+            
+            def weight_gaussian(samples):
+                weighted_samples = np.array(list(map(gaussian,samples)))
+                return weighted_samples
+
+            def gaussian_normalize_weight():
+                 def normalize_weights(weights):
+                    normalized = []
+                    for w in weights:
+                        normalized.append(w/(sum(weights)))
+                    return normalized
+
+            
             # Resampling
             # XXX: You do this
+            def resample_gaussian(samples,n_weights):
+                resamples = np.random.choice(samples,1000,p=n_weights,replace=True)
+                return resamples
+            
+            samples_norm = sample_gaussian()
+            weights_norm = weight_gaussian(samples_norm)
+            n_weights_norm = gaussian_normalize_weight(weights_norm)
+            resamples_norm = resample_gaussian(samples_norm, n_weights_norm)
+
 
             # Draw detected objects
             cam.draw_aruco_objects(colour)
