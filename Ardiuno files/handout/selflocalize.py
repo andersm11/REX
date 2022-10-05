@@ -49,11 +49,11 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
         weight = 1
         for i in range(len(landmarkIDs)):
             if landmarkIDs[i] in landmarks and landmarkIDs[i] not in checked_landmarks:
-                checked_landmarks.append(landmarkIDs[i])
                 d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
                 dm = landmark_d[i]
                 weight = weight * gaussian_pdf_distance(d,dm,0.2)*gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.2)
                 print(weight)
+            checked_landmarks.append(landmarkIDs[i])
         op.setWeight(weight)
       
         
