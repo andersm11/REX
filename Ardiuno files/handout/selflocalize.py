@@ -67,7 +67,9 @@ def normalize_weights(particles):
 
 
 def resample_gaussian(particles):
-    weights = particles[:].getWeight()
+    weights = []
+    for p in particles:
+        weights.append(p.getWeight())
     resamples = np.random.choice(particles,1000,p=weights,replace=True)
     return resamples
 
