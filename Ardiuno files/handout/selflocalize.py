@@ -20,15 +20,11 @@ onRobot = True # Whether or not we are running on the Arlo robot
 
 
 def el(lx,ly,x,y):
-    print("lx:",lx,"ly:",ly,"\n")
-    print("x:",x,"y:",y,"\n")
     d = distance(lx,ly,x,y)
-    print("d:",d,"\n")
     return np.transpose([lx-x,ly-y])/d
 
 def distance(lx,ly,x,y):
     result = np.sqrt(((lx-x)**2)+((ly-y)**2))
-    print("result:",result,"\n")
     return result#Distance from particle (x,y) to landmark (lx,ly)
 
 def e_theta(theta):
@@ -44,8 +40,6 @@ def gaussian_pdf_distance(d,dm,stdd):
                 return (1.0/np.sqrt(2.0*np.pi*stdd**2))*np.exp(-(((dm-d)**2)/(2.0*stdd**2)))
 
 def gaussian_pdf_angle(m_angle,lx,ly,x,y,theta,stdd):
-                print("lx:",lx,"ly:",ly,"\n")
-                print("x:",x,"y:",y,"\n")
                 return (1.0/np.sqrt(2.0*np.pi*stdd**2))*np.exp(-(((m_angle-particle_angle(lx,ly,x,y,theta))**2)/(2.0*stdd**2)))
 
 
@@ -75,7 +69,6 @@ def resample_gaussian(sw_list):
 
 def simple_sample(b):
     b = sqrt(b)
-    print(b)
     return (1.0/2.0)*np.sum(np.random.uniform(low=-b,high=b,size=12))
 
 def sample_motion_model_velocity(particle,v,w):
