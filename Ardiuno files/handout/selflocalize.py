@@ -21,6 +21,7 @@ onRobot = True # Whether or not we are running on the Arlo robot
 
 def el(lx,ly,x,y):
     d = distance(lx,ly,x,y)
+    print("d:",d,"\n")
     return np.transpose([lx-x,ly-y])/d
 
 def distance(lx,ly,x,y):
@@ -39,6 +40,7 @@ def gaussian_pdf_distance(d,dm,stdd):
                 return (1.0/np.sqrt(2.0*np.pi*stdd**2))*np.exp(-(((dm-d)**2)/(2.0*stdd**2)))
 
 def gaussian_pdf_angle(m_angle,lx,ly,x,y,theta,stdd):
+                print("lx:",lx,"ly:",ly,"\n")
                 return (1.0/np.sqrt(2.0*np.pi*stdd**2))*np.exp(-(((m_angle-particle_angle(lx,ly,x,y,theta))**2)/(2.0*stdd**2)))
 
 
