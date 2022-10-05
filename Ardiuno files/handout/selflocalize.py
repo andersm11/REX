@@ -51,7 +51,7 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
                 d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
                 dm = landmark_d[i]
                 weight = weight * gaussian_pdf_distance(d,dm,0.2)*gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.2)
-        op.setWeight((old_particles,weight))
+        op.setWeight(weight)
 
 
 def normalize_weights(particles):
@@ -59,7 +59,6 @@ def normalize_weights(particles):
     for p1 in particles:
         weight = p1.getWeight()
         w_sum.append(weight)
-        print("weight",weight,"\n")
     ww_sum = sum(w_sum)
     for p2 in particles:
         norm_weight = p2.getWeight()/(ww_sum)
