@@ -14,7 +14,7 @@ from time import sleep, time
 # Flags
 showGUI = True  # Whether or not to open GUI windows
 onRobot = True # Whether or not we are running on the Arlo robot
-theta = "Theta"
+
 
 def el(lx,ly,x,y):
     d = distance(lx,ly,x,y)
@@ -46,7 +46,7 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
         for i in len(landmarkIDs):
             d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
             dm = landmark_d[i]
-            weight = weight * gaussian_pdf_distance(d,dm,0.2)*gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),theta,0.2)
+            weight = weight * gaussian_pdf_distance(d,dm,0.2)*gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.2)
         pweights.append((old_particles,weight))
     return pweights
 
@@ -80,6 +80,21 @@ def sample_motion_model_velocity(particle,v,w):
     particle.setY(new_y)
     particle.setTheta(new_theta)
     return particle
+
+
+def sample_motion_model_velocity_withT(particle,v,w,delta_t):
+    x = particle.getX()
+    y = particle.getY()
+    theta = particle.getTheta()
+    v_hat = v + simple_sample(0.1*v**2+0.2*w**2)
+    w_hat = w + simple_sample(0.1*v**2+0.2*w**2)
+    epsilon = simple_sample(0.1*v**2+0.2*w**2)
+    new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t)
+    new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
+    new_theta = theta + w_hat*delta_t + epsilon*delta_t
+    particle.setX(new_x)
+    particle.setY(new_y)
+    particle.setTheta(new_theta)
 
     # particles er defineret ved:
     # num_particles = 1000 
@@ -308,6 +323,15 @@ try:
         #        arlo.go_diff(52,50,1,1)
         #        sleep(0.028*(median_line))
         #        arlo.stop()
+
+        #VERY  simple test for our robot:
+        arlo.go_diff(30,30,1,0)
+        sleep(0.5)
+        arlo.stop()
+        velocity = 0
+        angular_velocity = np.deg2rad(26.3)
+        for p in particles:
+            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
 
 
         
