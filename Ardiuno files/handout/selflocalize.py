@@ -64,7 +64,6 @@ def normalize_weights(particles):
     print("w_sum:",w_sum,"\n")
     for p2 in particles:
         norm_weight = p2.getWeight()/(w_sum)
-        print("nw:",norm_weight)
         p2.setWeight(norm_weight)
 
 
@@ -382,7 +381,6 @@ try:
             compute_weights(objectIDs,dists,angles,particles)
             normalize_weights(particles)
             particles = resample_gaussian(particles)
-            print(len(particles),"\n")
             #particles = add_uncertainty(particles,0.2,0.2)
             # Draw detected objects
             cam.draw_aruco_objects(colour)
