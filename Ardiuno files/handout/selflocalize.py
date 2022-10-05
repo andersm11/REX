@@ -62,6 +62,24 @@ def resample_gaussian(sw_list):
     resamples = np.random.choice(sw_list[0],1000,p=sw_list[1],replace=True)
     return resamples
 
+def simple_sample(b):
+    b = sqrt(b)
+    return (1.0/2.0)*np.sum(np.random.uniform(low=-b,high=b,size=(12,)))
+
+def sample_motion_model_velocity(particle,v,w):
+    x = particle.getX()
+    y = particle.getY()
+    theta = particle.getTheta()
+    v_hat = v + simple_sample(0.1*v**2+0.2*w**2)
+    w_hat = w + simple_sample(0.1*v**2+0.2*w**2)
+    epsilon = simple_sample(0.1*v**2+0.2*w**2)
+    new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat)
+    new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat)
+    new_theta = theta + w_hat + epsilon
+    particle.setX(new_x)
+    particle.setY(new_y)
+    particle.setTheta(new_theta)
+    return particle
 
     # particles er defineret ved:
     # num_particles = 1000 
@@ -261,35 +279,35 @@ try:
 
 
         #THIS MIGHT BE SHIT
-        if len(found_objects) < 2:
-            arlo.go_diff(30,30,1,0)
-            sleep(0.5)
-            arlo.stop()
-        if len(found_objects) == 2:
-            obj1 = found_objects[0]
-            obj2 = found_objects[1]
-            angle = (obj1[1]**2+obj2[1]**2-300**2)/(2*obj1[1]*obj2[1]) #Compute angle between landmarks
-            mid_angle = angle/2
-            median_line = (1/2)*(sqrt(2*obj1[1]**2 + 2*obj2[1]*2 - 300**2)) #Compute median of triangle
-            arlo.go_diff(30,30,1,0)
-            sleep(0.019*abs(angle))
-            arlo.stop
-            colour = cam.get_next_frame()
-            objectIDs, dists, angles = cam.detect_aruco_objects()
-            if not isinstance(objectIDs, type(None)):
-                arlo.go_diff(30,30,0,1)
-                sleep(0.019*abs(mid_angle))
-                arlo.stop()
-                arlo.go_diff(52,50,1,1)
-                sleep(0.028*(median_line))
-                arlo.stop()
-            else:
-                arlo.go_diff(30,30,0,1)
-                sleep(0.019*abs(angle)*2)
-                arlo.stop()
-                arlo.go_diff(52,50,1,1)
-                sleep(0.028*(median_line))
-                arlo.stop()
+        #if len(found_objects) < 2:
+        #    arlo.go_diff(30,30,1,0)
+        #    sleep(0.5)
+        #    arlo.stop()
+        #if len(found_objects) == 2:
+        #    obj1 = found_objects[0]
+        #    obj2 = found_objects[1]
+        #    angle = (obj1[1]**2+obj2[1]**2-300**2)/(2*obj1[1]*obj2[1]) #Compute angle between landmarks
+        #    mid_angle = angle/2
+        #    median_line = (1/2)*(sqrt(2*obj1[1]**2 + 2*obj2[1]*2 - 300**2)) #Compute median of triangle
+        #    arlo.go_diff(30,30,1,0)
+        #    sleep(0.019*abs(angle))
+        #    arlo.stop
+        #    colour = cam.get_next_frame()
+        #    objectIDs, dists, angles = cam.detect_aruco_objects()
+        #    if not isinstance(objectIDs, type(None)):
+        #        arlo.go_diff(30,30,0,1)
+        #        sleep(0.019*abs(mid_angle))
+        #        arlo.stop()
+        #        arlo.go_diff(52,50,1,1)
+        #        sleep(0.028*(median_line))
+        #        arlo.stop()
+        #    else:
+        #        arlo.go_diff(30,30,0,1)
+        #        sleep(0.019*abs(angle)*2)
+        #        arlo.stop()
+        #        arlo.go_diff(52,50,1,1)
+        #        sleep(0.028*(median_line))
+        #        arlo.stop()
 
 
         
