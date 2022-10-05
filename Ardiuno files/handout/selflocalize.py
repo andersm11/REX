@@ -58,6 +58,7 @@ def normalize_weights(particles):
     w_sum = []
     for p1 in particles:
         w_sum.append(p1.getWeight())
+        print("w_sum:",w_sum,"\n")
     ww_sum = sum(w_sum)
     for p2 in particles:
         norm_weight = p2.getWeight()/(ww_sum)
@@ -66,7 +67,7 @@ def normalize_weights(particles):
 
 
 def resample_gaussian(sw_list):
-    resamples = np.random.choice(sw_list[0],1000,p=sw_list[1],replace=True)
+    resamples = np.random.choice(sw_list[0],100,p=sw_list[1],replace=True)
     return resamples
 
 def simple_sample(b):
@@ -255,7 +256,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 1000
+    num_particles = 100
     particles = initialize_particles(num_particles)
 
     found_objects = [] #use this to save found objects (if needed)
