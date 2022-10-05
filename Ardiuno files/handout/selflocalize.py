@@ -58,14 +58,22 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
 
 
 def normalize_weights(particles):
-    w_sum = 0.0
-    print("f p w:",particles[0].getWeight(),"\n")
-    for p1 in particles:
-        w_sum += p1.getWeight()
-    print("w_sum:",w_sum,"\n")
-    for p2 in particles:
-        norm_weight = p2.getWeight()/(w_sum)
-        p2.setWeight(norm_weight)
+    #w_sum = 0.0
+    #print("f p w:",particles[0].getWeight(),"\n")
+    #for p1 in particles:
+    #    w_sum += p1.getWeight()
+    #print("w_sum:",w_sum,"\n")
+    #for p2 in particles:
+    #    norm_weight = p2.getWeight()/(w_sum)
+    #    p2.setWeight(norm_weight)
+    p_weights = []
+    for p in particles:
+        p_weights.append(p.getWeight())
+    norm = np.linalg.norm(p_weights)
+    normal = p_weights/norm
+    for i in range(len(particles)):
+        particles[i].setWeight(normal[i])
+        
 
 
 
