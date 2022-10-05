@@ -32,7 +32,7 @@ def distance(lx,ly,x,y):
     return result#Distance from particle (x,y) to landmark (lx,ly)
 
 def e_theta(theta):
-    return np.transpose(np.cos(theta),np.sin(theta))
+    return np.transpose((np.cos(theta),np.sin(theta)))
 
 def e_theta_hat(theta):
     return np.transpose((-np.sin(theta),-np.cos(theta)))
