@@ -76,7 +76,7 @@ def normalize_weights(particles):
     for p in particles:
         p_weights.append(p.getWeight())
     norm = np.linalg.norm(p_weights)
-    print("norm:",sum(norm),"\n")
+    print("norm:",norm,"\n")
     normal = p_weights/norm
     print("normal:",sum(normal),"\n")
     for i in range(len(particles)):
