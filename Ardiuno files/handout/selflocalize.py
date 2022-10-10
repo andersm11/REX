@@ -384,9 +384,9 @@ try:
                 #    found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
                     # XXX: Do something for each detected object - remember, the same ID may appear several times
                 if objectIDs[i] not in landmarkIDs:
-                    np.delete(objectIDs,i) 
-                    np.delete(dists,i) 
-                    np.delete(angles,i) 
+                    objectIDs = np.delete(objectIDs,i) 
+                    dists = np.delete(dists,i) 
+                    angles = np.delete(angles,i) 
             print(objectIDs)
             if len(objectIDs) > 0:
                 # Compute particle weights
