@@ -1,4 +1,5 @@
 from cmath import sin
+import copy
 from statistics import median
 import math
 from random_numbers import randn
@@ -388,7 +389,7 @@ try:
             
             compute_weights(objectIDs,dists,angles,particles)
             normalize_weights(particles)
-            particles = resample_gaussian(particles)
+            particles = copy.deepcopy(resample_gaussian(particles))
             #particles = add_uncertainty(particles,0.2,0.2)
             # Draw detected objects
             cam.draw_aruco_objects(colour)
