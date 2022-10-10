@@ -54,7 +54,7 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
                 #print("d:",d,"dm:",dm,"landmark[i][0]",landmarks[landmarkIDs[i]][0],"landmark[i][1]",landmarks[landmarkIDs[i]][1],"\n")
                 gpdfd = gaussian_pdf_distance(d,dm,100)
                 print("gpdfd:" ,gpdfd,"\n")
-                gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),5)
+                gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),20)
                 print("gpdfa:",gpdfa,"\n")
                 weight1 = weight * gpdfd   #something wrong
                 print("w1:",weight1,"\n")
