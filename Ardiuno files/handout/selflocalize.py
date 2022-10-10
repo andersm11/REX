@@ -45,12 +45,10 @@ def gaussian_pdf_angle(m_angle,lx,ly,x,y,theta,stdd):
 
 
 def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
-    stand_dev = 
     for op in old_particles:
         weight = 1
         for i in range(len(landmarkIDs)):
             if landmarkIDs[i] in landmarks:
-                stand_dev = np.std()
                 d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
                 dm = landmark_d[i]
                 #print("d:",d,"dm:",dm,"landmark[i][0]",landmarks[landmarkIDs[i]][0],"landmark[i][1]",landmarks[landmarkIDs[i]][1],"\n")
