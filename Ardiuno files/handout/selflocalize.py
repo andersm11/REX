@@ -58,7 +58,7 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
                 #print("gpdfa:",gpdfa,"\n")
                 weight = weight * gpdfd   #something wrong
                 #weight = weight * gpdfa
-                print("weight:",weight)
+                #print("weight:",weight)
         op.setWeight(weight) 
       
         
