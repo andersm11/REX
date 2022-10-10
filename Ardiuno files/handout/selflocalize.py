@@ -1,6 +1,6 @@
 from cmath import sin
 from statistics import median
-
+import math
 from random_numbers import randn
 from particle import add_uncertainty
 import cv2
@@ -37,10 +37,10 @@ def particle_angle(lx,ly,x,y,theta):
     return np.sign(np.dot(el(lx,ly,x,y),e_theta_hat(theta))*np.arccos(np.dot(el(lx,ly,x,y),e_theta(theta))))
 
 def gaussian_pdf_distance(d,dm,stdd):
-                return (1.0/np.sqrt(2.0*np.pi*stdd**2))*np.exp(-(((dm-d)**2)/(2.0*stdd**2)))
+                return (1.0/np.sqrt(2.0*math.pi*stdd**2.0))*np.exp(-(((dm-d)**2)/(2.0*stdd**2.0)))
 
 def gaussian_pdf_angle(m_angle,lx,ly,x,y,theta,stdd):
-                return (1.0/np.sqrt(2.0*np.pi*stdd**2))*np.exp(-(((m_angle-particle_angle(lx,ly,x,y,theta))**2)/(2.0*stdd**2)))
+                return (1.0/np.sqrt(2.0*np.pi*stdd**2.0))*np.exp(-(((m_angle-particle_angle(lx,ly,x,y,theta))**2.0)/(2.0*stdd**2.0)))
 
 
 def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
