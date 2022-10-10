@@ -87,6 +87,7 @@ def resample_gaussian(particles):
     weights = []
     for p in particles:
         weights.append(p.getWeight())
+    print(sum(weights))
     resamples = np.random.choice(particles,1000,p=weights,replace=True)
     return resamples
 
