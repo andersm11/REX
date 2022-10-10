@@ -387,6 +387,7 @@ try:
                     np.delete(objectIDs,i) 
                     np.delete(dists,i) 
                     np.delete(angles,i) 
+            print(objectIDs)
             if len(objectIDs) > 0:
                 # Compute particle weights
                 # XXX: You do this
