@@ -48,16 +48,15 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
     for op in old_particles:
         weight = 1
         for i in range(len(landmarkIDs)):
-            if landmarkIDs[i] in landmarks:
-                d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
-                dm = landmark_d[i]
-                #print("d:",d,"dm:",dm,"landmark[i][0]",landmarks[landmarkIDs[i]][0],"landmark[i][1]",landmarks[landmarkIDs[i]][1],"\n")
-                gpdfd = gaussian_pdf_distance(d,dm,20)
-                #print("gpdfd:" ,gpdfd,"\n")
-                gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.3)
-                #print("gpdfa:",gpdfa,"\n")
-                weight = weight * gpdfd * gpdfa  
-                #print("weight:",weight)
+            d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
+            dm = landmark_d[i]
+            #print("d:",d,"dm:",dm,"landmark[i][0]",landmarks[landmarkIDs[i]][0],"landmark[i][1]",landmarks[landmarkIDs[i]][1],"\n")
+            gpdfd = gaussian_pdf_distance(d,dm,20)
+            #print("gpdfd:" ,gpdfd,"\n")
+            gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.3)
+            #print("gpdfa:",gpdfa,"\n")
+            weight = weight * gpdfd   
+            #print("weight:",weight)
         op.setWeight(weight) 
       
         
