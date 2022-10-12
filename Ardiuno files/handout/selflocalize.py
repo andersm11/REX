@@ -292,7 +292,7 @@ try:
         else:
             cos = cosinus(found_dists,300)
             print(cos)
-            print("in cos:",np.arccos(cos))
+            print("in cos:",math.acos(cos))
             if found_id[1] == 2:
                 angle = -(cos/2)
             else:
