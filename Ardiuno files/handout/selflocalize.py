@@ -51,9 +51,8 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
             d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
             dm = landmark_d[i]
             gpdfd = gaussian_pdf_distance(d,dm,20) 
-            print("IMPLEMENT WITH ANGLE")
             gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.3)
-            weight = weight * gpdfd   
+            weight = weight * gpdfd  * gpdfa 
         op.setWeight(weight) 
       
         
@@ -81,9 +80,6 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t):
     x = particle.getX()
     y = particle.getY()
     theta = particle.getTheta()
-    #v_hat = v + simple_sample(0.1*v**2+0.2*w**2)
-    #w_hat = w + simple_sample(0.1*v**2+0.2*w**2)
-    #epsilon = simple_sample(0.1*v**2+0.2*w**2)
     v_hat = v + randn(0,0.1*v**2+0.2*w**2)
     w_hat = w + randn(0,0.1*v**2+0.2*w**2)
     epsilon = randn(0,0.1*v**2+0.2*w**2)
@@ -93,35 +89,6 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t):
     particle.setX(new_x)
     particle.setY(new_y)
     particle.setTheta(new_theta)
-
-    # particles er defineret ved:
-    # num_particles = 1000 
-    # particles = initialize_particles(num_particles)
-    # For ex2.2; 0.3*gaussian_pdf(x,2,1) + 0.4*gaussian_pdf(x,5,2) + 0.3*gaussian_pdf(x,9,1)
-            
-#def gaussian(x,n,k):
-#    return p(x)/gaussian_pdf_distance(x,n,k)
-#
-#def sample_gaussian(n,k,værdi):
-#    samples = np.random.normal(n,k,værdi)
-#    #værdi kunne være 1000
-#    return samples
-#            
-#def weight_gaussian(samples):
-#    weighted_samples = np.array(list(map(gaussian,samples)))
-#    return weighted_samples
-#
-#def gaussian_normalize_weight():
-#    def normalize_weights(weights):
-#        normalized = []
-#        for w in weights:
-#            normalized.append(w/(sum(weights)))
-#        return normalized
-
-
-
-
-
 
 def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
