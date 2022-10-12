@@ -307,11 +307,11 @@ try:
                 angular_velocity = 0
                 print("DRIVING\n")
                 arlo.go_diff(52,50,1,1)
-                sleep(0.028*(mid_distance)/2)
+                sleep(0.028*(mid_distance))
                 arlo.stop()
                 velocity = 35
                 for p in particles:
-                    sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028*(mid_distance)/2))
+                    sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028*(mid_distance)))
                 found_dists.clear()
                 found_id.clear()
             else:
