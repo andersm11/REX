@@ -370,7 +370,9 @@ try:
                 # XXX: You do this
                 compute_weights(objectIDs,dists,angles,particles)
                 normalize_weights(particles)
-                particles = copy.deepcopy(resample_gaussian(particles))
+                resamples = resample_gaussian(particles)
+                for i in range(len(resamples)):
+                    particles[i] = copy.deepcopy(resamples[i])
                 #particles = add_uncertainty(particles,0.2,0.2)
                 # Draw detected objects
             cam.draw_aruco_objects(colour)
