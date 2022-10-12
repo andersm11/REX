@@ -351,7 +351,7 @@ try:
             # List detected objects
             for i in range(len(objectIDs)-1):
                 print(len(objectIDs))
-                print(objectIDs[i])
+                print(objectIDs)
                 print(dists[i])
                 print(angles[i])
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
