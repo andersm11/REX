@@ -301,6 +301,7 @@ try:
         else:
             x_diff = est_pose.getX() - 150
             y_diff = est_pose.getY() - 0
+            print("x:",est_pose.getX(),"y:",est_pose.getY())
             print("x diff", x_diff, "y_diff:", y_diff)
             print("THETA:",est_pose.getTheta())
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
