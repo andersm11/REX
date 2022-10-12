@@ -222,6 +222,7 @@ def initialize_particles(num_particles):
 
     return particles
 unit_vector = [1,0]
+count = 0
 found_id = []
 found_dists = []
 # Main program #
@@ -314,7 +315,8 @@ try:
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
         print("angle between:",angle_between)
-        if len(found_id) == 2 :
+        count += 1
+        if count > 50:
             if angle_between > 20:
                 Turn(angle_between)
                 angular_velocity = np.deg2rad(52)
