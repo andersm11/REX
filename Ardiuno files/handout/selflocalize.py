@@ -61,7 +61,7 @@ def triangle_median(sides, middel_side):
     return median_distance
 
 def cosinus(sides,middel_side):
-    middel_angle = (sides[0]**2+sides[1]**2-middel_side**2)/(2*sides[0]*sides[1])
+    middel_angle = np.arccos((sides[0]**2+sides[1]**2-middel_side**2)/(2*sides[0]*sides[1]))
     return middel_angle
 
 def normalize_weights(particles):
@@ -292,9 +292,9 @@ try:
         else:
             cos = cosinus(found_dists,300)
             if found_id[1] == 2:
-                angle = np.arccos(-(cos/2))
+                angle = -(cos/2)
             else:
-                angle = np.arccos(cos/2)
+                angle = cos/2
             mid_distance = triangle_median(found_dists,300)
             print("angle:",angle, "mid_distance:", mid_distance, "\n")
             if mid_distance > 50:
