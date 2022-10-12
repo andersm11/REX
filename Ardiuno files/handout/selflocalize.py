@@ -307,7 +307,10 @@ try:
             angle = np.rad2deg(est_pose.getTheta())
             print("angle:",angle)
             Turn(angle)
-
+            angular_velocity = angle
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle))
+            angular_velocity = 0
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
         #    if found_id[1] == 2:
