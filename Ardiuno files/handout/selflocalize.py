@@ -350,6 +350,7 @@ try:
         if not isinstance(objectIDs, type(None)):
             # List detected objects
             for i in range(len(objectIDs)):
+                print(i)
                 print(objectIDs[i])
                 print(dists[i])
                 print(angles[i])
