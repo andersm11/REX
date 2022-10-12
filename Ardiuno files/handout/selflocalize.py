@@ -323,6 +323,8 @@ try:
                 for p in particles:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
                 angular_velocity = 0
+            print("turning!!!!!!")
+            exit()
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
         #    if found_id[1] == 2:
