@@ -350,6 +350,9 @@ try:
         if not isinstance(objectIDs, type(None)):
             # List detected objects
             for i in range(len(objectIDs)):
+                print(objectIDs[i])
+                print(dists[i])
+                print(angles[i])
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 #if objectIDs[i] in landmarkIDs:
                 #    if not isinstance(found_objects, type(None)):
