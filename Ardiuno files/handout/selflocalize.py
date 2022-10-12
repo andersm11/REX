@@ -326,7 +326,7 @@ try:
                 #            found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
                 #    found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
                     # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] in landmarkIDs:
+                if objectIDs[i] in landmarkIDs and objectIDs[i] not in accepted_ids:
                     accepted_ids.append(objectIDs[i])
                     accepted_dists.append(dists[i])
                     accepted_angles.append(angles[i])
