@@ -218,7 +218,7 @@ def initialize_particles(num_particles):
         particles.append(p)
 
     return particles
-
+    
 found_id = []
 found_dists = []
 # Main program #
