@@ -298,12 +298,15 @@ try:
             else:
                 angle = cos/2
             mid_distance = triangle_median(found_dists,300)
+            print("angle:",angle, "mid_distance:", mid_distance, "\n")
             if mid_distance > 50:
+                print("TURNING\n")
                 Turn(angle)
                 angular_velocity = np.deg2rad(angle)
                 for p in particles:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.019*abs(angle)))
                 angular_velocity = 0
+                print("DRIVING\n")
                 arlo.go_diff(52,50,1,1)
                 sleep(0.028*(mid_distance)/2)
                 arlo.stop()
