@@ -304,6 +304,10 @@ try:
             print("x:",est_pose.getX(),"y:",est_pose.getY())
             print("x diff", x_diff, "y_diff:", y_diff)
             print("THETA:",est_pose.getTheta())
+            angle = np.rad2deg(est_pose.getTheta())
+            print("angle:",angle)
+            Turn(angle)
+
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
         #    if found_id[1] == 2:
