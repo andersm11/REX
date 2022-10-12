@@ -218,7 +218,7 @@ def initialize_particles(num_particles):
         particles.append(p)
 
     return particles
-    
+
 found_id = []
 found_dists = []
 # Main program #
@@ -285,6 +285,7 @@ try:
 
         
 
+
         #VERY  simple test for our robot:
         print("found id:",found_id,"\n")
         print("found dists:",found_dists,"\n")
@@ -298,33 +299,36 @@ try:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
             angular_velocity = 0
         else:
-            cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
-            print("degrees:",cos)
-            if found_id[1] == 2:
-                angle = -(cos/2)
-            else:
-                angle = cos/2
-            mid_distance = triangle_median(found_dists,300)
-            print("angle:",angle, "mid_distance:", mid_distance, "\n")
-            if mid_distance > 5:
-                print("TURNING\n")
-                Turn(angle)
-                angular_velocity = np.deg2rad(angle)
-                for p in particles:
-                    sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.019*abs(angle)))
-                angular_velocity = 0
-                print("DRIVING\n")
-                arlo.go_diff(54,50,1,1)
-                sleep(0.028*(mid_distance))
-                arlo.stop()
-                velocity = 35
-                for p in particles:
-                    sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028*(mid_distance)))
-                found_dists.clear()
-                found_id.clear()
-            else:
-                print(" I THINK I AM IN THE MIDDLE")
-        # Use motor controls to update particles
+            x_diff = est_pose.getX() - 150
+            y_diff = est_pose.getY() - 0
+            print(est_pose.getTheta())
+        #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
+        #    print("degrees:",cos)
+        #    if found_id[1] == 2:
+        #        angle = -(cos/2)
+        #    else:
+        #        angle = cos/2
+        #    mid_distance = triangle_median(found_dists,300)
+        #    print("angle:",angle, "mid_distance:", mid_distance, "\n")
+        #    if mid_distance > 5:
+        #        print("TURNING\n")
+        #        Turn(angle)
+        #        angular_velocity = np.deg2rad(angle)
+        #        for p in particles:
+        #            sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.019*abs(angle)))
+        #        angular_velocity = 0
+        #        print("DRIVING\n")
+        #        arlo.go_diff(54,50,1,1)
+        #        sleep(0.028*(mid_distance))
+        #        arlo.stop()
+        #        velocity = 35
+        #        for p in particles:
+        #            sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028*(mid_distance)))
+        #        found_dists.clear()
+        #        found_id.clear()
+        #    else:
+        #        print(" I THINK I AM IN THE MIDDLE")
+        ## Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
 
