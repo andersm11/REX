@@ -349,11 +349,7 @@ try:
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(objectIDs, type(None)):
             # List detected objects
-            for i in range(len(objectIDs)-1):
-                print(len(objectIDs))
-                print(objectIDs)
-                print(dists[i])
-                print(angles[i])
+            for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 #if objectIDs[i] in landmarkIDs:
                 #    if not isinstance(found_objects, type(None)):
@@ -364,10 +360,11 @@ try:
                 #            found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
                 #    found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
                     # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] not in landmarkIDs:
+            if objectIDs[i] not in landmarkIDs:
                     objectIDs = np.delete(objectIDs,i) 
                     dists = np.delete(dists,i) 
                     angles = np.delete(angles,i) 
+
             print(objectIDs)
             if len(objectIDs) > 0:
                 # Compute particle weights
