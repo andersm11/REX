@@ -208,8 +208,11 @@ def draw_world(est_pose, particles, world):
     cv2.circle(world, a, 5, CMAGENTA, 2)
     cv2.line(world, a, b, CMAGENTA, 2)
 
+def rotate_vector(x,y,angle):
+    new_x = x * np.cos(angle) - y * np.sin(angle)
+    new_y = x * np.sin(angle) + y * np.cos(angle)
 
-
+    return (new_x,new_y)
 def initialize_particles(num_particles):
     particles = []
     for i in range(num_particles):
@@ -218,7 +221,7 @@ def initialize_particles(num_particles):
         particles.append(p)
 
     return particles
-
+unit_vector = [1,0]
 found_id = []
 found_dists = []
 # Main program #
@@ -301,16 +304,16 @@ try:
         else:
             x_diff = est_pose.getX() - 150
             y_diff = est_pose.getY() - 0
+            dest_vector = [x_diff,y_diff]
             print("x:",est_pose.getX(),"y:",est_pose.getY())
             print("x diff", x_diff, "y_diff:", y_diff)
             print("THETA:",est_pose.getTheta())
-            angle = np.rad2deg(est_pose.getTheta())
-            print("angle:",angle)
-            Turn(angle)
-            angular_velocity = angle
-            for p in particles:
-                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle))
-            angular_velocity = 0
+            pose_angle = np.rad2deg(est_pose.getTheta())
+            new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle)
+            print("angle:",pose_angle, "new vector:",new_vector)
+            norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
+            angle_between = np.arccos(np.dot(new_vector,norm_dest_vector))
+            print("angle between:",angle_between)
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
         #    if found_id[1] == 2:
@@ -340,6 +343,12 @@ try:
         ## Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
+
+        
+#
+
+
+
 
 
         # Fetch next frame
