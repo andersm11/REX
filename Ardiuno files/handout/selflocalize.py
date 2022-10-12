@@ -290,10 +290,8 @@ try:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
             angular_velocity = 0
         else:
-            cos = cosinus(found_dists,300.0)
+            cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
             print(cos)
-            print("in cos:",math.acos(math.radians(cos)))
-            print("degrees:", np.rad2deg(math.acos(math.radians(cos))))
             if found_id[1] == 2:
                 angle = -(cos/2)
             else:
