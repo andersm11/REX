@@ -352,11 +352,11 @@ try:
                     # XXX: Do something for each detected object - remember, the same ID may appear several times
                 if objectIDs[i] in landmarkIDs and objectIDs[i] not in accepted_ids:
                     accepted_ids.append(objectIDs[i])
-                    accepted_dists.append(dists[i]+22.0)
+                    accepted_dists.append(dists[i]+50.0)
                     accepted_angles.append(angles[i])
                     if objectIDs[i] not in found_id:
                         found_id.append(objectIDs[i])
-                        found_dists.append(dists[i]+22.0)
+                        found_dists.append(dists[i]+50.0)
 
             objectIDs = accepted_ids
             dists = accepted_dists
