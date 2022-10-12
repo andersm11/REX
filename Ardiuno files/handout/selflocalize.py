@@ -297,7 +297,7 @@ try:
         sleep(0.5)
         arlo.stop()
         velocity = 0
-        angular_velocity = np.deg2rad(26.3)
+        angular_velocity = np.deg2rad(52)
         for p in particles:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
         angular_velocity = 0
@@ -314,6 +314,12 @@ try:
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
         print("angle between:",angle_between)
+        if angle_between > 5:
+            Turn(angle_between)
+            angular_velocity = np.deg2rad(52)
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
+            angular_velocity = 0
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
         #    if found_id[1] == 2:
