@@ -99,12 +99,10 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t):
 def Turn(angle):
     if angle <= 0:
         arlo.go_diff(30,30,0,1)
-        print(0.019*abs(angle))
         sleep(0.019*abs(angle))
         arlo.stop()
     else:
         arlo.go_diff(30,30,1,0)
-        print(0.019*abs(angle))
         sleep(0.019*abs(angle))
         arlo.stop()
 
@@ -294,9 +292,9 @@ try:
         else:
             cos = cosinus(found_dists,300)
             if found_id[1] == 2:
-                angle = -(cos/2)
+                angle = np.rad2deg(-(cos/2))
             else:
-                angle = cos/2
+                angle = np.rad2deg(cos/2)
             mid_distance = triangle_median(found_dists,300)
             print("angle:",angle, "mid_distance:", mid_distance, "\n")
             if mid_distance > 50:
