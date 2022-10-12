@@ -50,13 +50,10 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
         for i in range(len(landmarkIDs)):
             d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
             dm = landmark_d[i]
-            #print("d:",d,"dm:",dm,"landmark[i][0]",landmarks[landmarkIDs[i]][0],"landmark[i][1]",landmarks[landmarkIDs[i]][1],"\n")
-            gpdfd = gaussian_pdf_distance(d,dm,20)
-            #print("gpdfd:" ,gpdfd,"\n")
+            gpdfd = gaussian_pdf_distance(d,dm,20) 
+            print("IMPLEMENT WITH ANGLE")
             gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.3)
-            #print("gpdfa:",gpdfa,"\n")
             weight = weight * gpdfd   
-            #print("weight:",weight)
         op.setWeight(weight) 
       
         
@@ -73,7 +70,6 @@ def resample_gaussian(particles):
     weights = []
     for p in particles:
         weights.append(p.getWeight())
-    print(weights)
     print("sum:",sum(weights))
     resamples = np.random.choice(particles,1000,p=weights,replace=True)
     return resamples
@@ -349,6 +345,9 @@ try:
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(objectIDs, type(None)):
             # List detected objects
+            accepted_ids = []
+            accepted_dists = []
+            accepted_angles = []
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 #if objectIDs[i] in landmarkIDs:
@@ -360,11 +359,14 @@ try:
                 #            found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
                 #    found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
                     # XXX: Do something for each detected object - remember, the same ID may appear several times
-            if objectIDs[i] not in landmarkIDs:
-                    objectIDs = np.delete(objectIDs,i) 
-                    dists = np.delete(dists,i) 
-                    angles = np.delete(angles,i) 
+                if objectIDs[i] in landmarkIDs:
+                    accepted_ids.append(objectIDs[i])
+                    accepted_dists.append(dists[i])
+                    accepted_angles.append(angles[i])
 
+            objectIDs = accepted_ids
+            dists = accepted_dists
+            angles = accepted_angles
             print(objectIDs)
             if len(objectIDs) > 0:
                 # Compute particle weights
