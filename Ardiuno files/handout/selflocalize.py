@@ -292,9 +292,9 @@ try:
         else:
             cos = cosinus(found_dists,300)
             if found_id[1] == 2:
-                angle = np.rad2deg(-(cos/2))
+                angle = np.arccos(-(cos/2))
             else:
-                angle = np.rad2deg(cos/2)
+                angle = np.arccos(cos/2)
             mid_distance = triangle_median(found_dists,300)
             print("angle:",angle, "mid_distance:", mid_distance, "\n")
             if mid_distance > 50:
