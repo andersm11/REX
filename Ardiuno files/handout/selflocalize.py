@@ -292,28 +292,28 @@ try:
         #VERY  simple test for our robot:
         print("found id:",found_id,"\n")
         print("found dists:",found_dists,"\n")
-        if len(found_id) < 2:
-            arlo.go_diff(30,30,1,0)
-            sleep(0.5)
-            arlo.stop()
-            velocity = 0
-            angular_velocity = np.deg2rad(26.3)
-            for p in particles:
-                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
-            angular_velocity = 0
-        else:
-            x_diff = est_pose.getX() - 150
-            y_diff = est_pose.getY() - 0
-            dest_vector = [x_diff,y_diff]
-            print("x:",est_pose.getX(),"y:",est_pose.getY())
-            print("x diff", x_diff, "y_diff:", y_diff)
-            print("THETA:",est_pose.getTheta())
-            pose_angle = np.rad2deg(est_pose.getTheta())
-            new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle)
-            print("pose angle:",pose_angle, "new vector:",new_vector)
-            norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
-            angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
-            print("angle between:",angle_between)
+
+        arlo.go_diff(30,30,1,0)
+        sleep(0.5)
+        arlo.stop()
+        velocity = 0
+        angular_velocity = np.deg2rad(26.3)
+        for p in particles:
+            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
+        angular_velocity = 0
+
+        x_diff = est_pose.getX() - 150
+        y_diff = est_pose.getY() - 0
+        dest_vector = [x_diff,y_diff]
+        print("x:",est_pose.getX(),"y:",est_pose.getY())
+        print("x diff", x_diff, "y_diff:", y_diff)
+        print("THETA:",est_pose.getTheta())
+        pose_angle = np.rad2deg(est_pose.getTheta())
+        new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle)
+        print("pose angle:",pose_angle, "new vector:",new_vector)
+        norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
+        angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
+        print("angle between:",angle_between)
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
         #    if found_id[1] == 2:
