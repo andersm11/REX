@@ -343,7 +343,7 @@ try:
                 resamples = resample_gaussian(particles)
                 for i in range(len(resamples)):
                     particles[i] = copy.deepcopy(resamples[i])
-                particles = add_uncertainty(particles,0.2,0.2)
+                add_uncertainty(particles,10,1)
                 # Draw detected objects
             cam.draw_aruco_objects(colour)
         else:
