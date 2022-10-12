@@ -291,7 +291,7 @@ try:
             angular_velocity = 0
         else:
             cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
-            print(cos)
+            print("degrees:",cos)
             if found_id[1] == 2:
                 angle = -(cos/2)
             else:
@@ -306,7 +306,7 @@ try:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.019*abs(angle)))
                 angular_velocity = 0
                 print("DRIVING\n")
-                arlo.go_diff(52,50,1,1)
+                arlo.go_diff(54,50,1,1)
                 sleep(0.028*(mid_distance))
                 arlo.stop()
                 velocity = 35
