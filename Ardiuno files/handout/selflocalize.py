@@ -56,7 +56,13 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
         op.setWeight(weight) 
       
         
+def triangle_median(sides, middel_side):
+    median_distance = np.sqrt((sides[0]**2+sides[1]**2-middel_side)/4)
+    return median_distance
 
+def cosinus(sides,middel_side):
+    middel_angle = (sides[0]**2+sides[1]**2-middel_side**2)/(2*sides[0]*sides[1])
+    return middel_angle
 
 def normalize_weights(particles):
     sum = 0
@@ -89,6 +95,18 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t):
     particle.setX(new_x)
     particle.setY(new_y)
     particle.setTheta(new_theta)
+
+def Turn(angle):
+    if angle <= 0:
+        arlo.go_diff(30,30,0,1)
+        print(0.019*abs(angle))
+        sleep(0.019*abs(angle))
+        arlo.stop()
+    else:
+        arlo.go_diff(30,30,1,0)
+        print(0.019*abs(angle))
+        sleep(0.019*abs(angle))
+        arlo.stop()
 
 def isRunningOnArlo():
     """Return True if we are running on Arlo, otherwise False.
@@ -195,7 +213,8 @@ def initialize_particles(num_particles):
 
     return particles
 
-
+found_id = []
+found_dists = []
 # Main program #
 try:
     if showGUI:
@@ -258,48 +277,41 @@ try:
                 angular_velocity -= 0.2
 
 
-        #THIS MIGHT BE SHIT
-        #if len(found_objects) < 2:
-        #    arlo.go_diff(30,30,1,0)
-        #    sleep(0.5)
-        #    arlo.stop()
-        #if len(found_objects) == 2:
-        #    obj1 = found_objects[0]
-        #    obj2 = found_objects[1]
-        #    angle = (obj1[1]**2+obj2[1]**2-300**2)/(2*obj1[1]*obj2[1]) #Compute angle between landmarks
-        #    mid_angle = angle/2
-        #    median_line = (1/2)*(sqrt(2*obj1[1]**2 + 2*obj2[1]*2 - 300**2)) #Compute median of triangle
-        #    arlo.go_diff(30,30,1,0)
-        #    sleep(0.019*abs(angle))
-        #    arlo.stop
-        #    colour = cam.get_next_frame()
-        #    objectIDs, dists, angles = cam.detect_aruco_objects()
-        #    if not isinstance(objectIDs, type(None)):
-        #        arlo.go_diff(30,30,0,1)
-        #        sleep(0.019*abs(mid_angle))
-        #        arlo.stop()
-        #        arlo.go_diff(52,50,1,1)
-        #        sleep(0.028*(median_line))
-        #        arlo.stop()
-        #    else:
-        #        arlo.go_diff(30,30,0,1)
-        #        sleep(0.019*abs(angle)*2)
-        #        arlo.stop()
-        #        arlo.go_diff(52,50,1,1)
-        #        sleep(0.028*(median_line))
-        #        arlo.stop()
+        
 
         #VERY  simple test for our robot:
-        arlo.go_diff(30,30,1,0)
-        sleep(0.5)
-        arlo.stop()
-        velocity = 0
-        angular_velocity = np.deg2rad(26.3)
-        for p in particles:
-            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
-
-
-        
+        if len(found_id) < 2:
+            arlo.go_diff(30,30,1,0)
+            sleep(0.5)
+            arlo.stop()
+            velocity = 0
+            angular_velocity = np.deg2rad(26.3)
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
+            angular_velocity = 0
+        else:
+            cos = cosinus(found_dists,300)
+            if found_id[1] == 2:
+                angle = -(cos/2)
+            else:
+                angle = cos/2
+            mid_distance = triangle_median(found_dists,300)
+            if mid_distance > 50:
+                Turn(angle)
+                angular_velocity = np.deg2rad(angle)
+                for p in particles:
+                    sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.019*abs(angle)))
+                angular_velocity = 0
+                arlo.go_diff(52,50,1,1)
+                sleep(0.028*(mid_distance)/2)
+                arlo.stop()
+                velocity = 35
+                for p in particles:
+                    sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028*(mid_distance)/2))
+                found_dists.clear()
+                found_id.clear()
+            else:
+                print(" I THINK I AM IN THE MIDDLE")
         # Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
@@ -330,6 +342,9 @@ try:
                     accepted_ids.append(objectIDs[i])
                     accepted_dists.append(dists[i])
                     accepted_angles.append(angles[i])
+                    if objectIDs[i] not in found_id:
+                        found_id.append = objectIDs[i]
+                        found_dists.append = dists[i]
 
             objectIDs = accepted_ids
             dists = accepted_dists
