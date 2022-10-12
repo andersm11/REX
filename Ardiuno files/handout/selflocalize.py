@@ -317,13 +317,14 @@ try:
         print("angle between:",angle_between)
         count += 1
         if count > 50:
+            print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
                 Turn(angle_between)
                 angular_velocity = np.deg2rad(52)
                 for p in particles:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
                 angular_velocity = 0
-            print("turning!!!!!!")
+            print("TURNING ENDED")
             exit()
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
