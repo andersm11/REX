@@ -57,6 +57,7 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
       
         
 def triangle_median(sides, middel_side):
+    print("Sides:",sides,"middel_side:",middel_side)
     median_distance = math.sqrt((2.0*sides[0]**2+2.0*sides[1]**2-middel_side**2)/4)
     return median_distance
 
