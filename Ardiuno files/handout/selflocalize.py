@@ -306,7 +306,7 @@ try:
                 angle = cos/2
             mid_distance = triangle_median(found_dists,300)
             print("angle:",angle, "mid_distance:", mid_distance, "\n")
-            if mid_distance > 20:
+            if mid_distance > 5:
                 print("TURNING\n")
                 Turn(angle)
                 angular_velocity = np.deg2rad(angle)
