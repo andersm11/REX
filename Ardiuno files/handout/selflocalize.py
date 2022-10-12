@@ -62,7 +62,10 @@ def triangle_median(sides, middel_side):
     b = 2.0*sides[1]**2
     c = middel_side**2
     print("a:",a,"b:",b,"c:",c)
-    median_distance = np.sqrt((a+b-c)/4)
+    div = (a+b-c)/4
+    print("div:",div)
+    median_distance = np.sqrt(div)
+    print("median_distance:",median_distance)
     return median_distance
 
 def cosinus(sides,middel_side):
