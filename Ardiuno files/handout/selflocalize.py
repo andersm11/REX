@@ -292,9 +292,8 @@ try:
         else:
             cos = cosinus(found_dists,300.0)
             print(cos)
-            print("in cos:",math.acos(cos))
-            print("in cos with pi:",(math.acos(cos))*(180.0/math.pi))
-            print("degrees:", np.rad2deg(math.acos(cos)))
+            print("in cos:",math.acos(math.radians(cos)))
+            print("degrees:", np.rad2deg(math.acos(math.radians(cos))))
             if found_id[1] == 2:
                 angle = -(cos/2)
             else:
