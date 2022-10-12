@@ -343,8 +343,8 @@ try:
                     accepted_dists.append(dists[i])
                     accepted_angles.append(angles[i])
                     if objectIDs[i] not in found_id:
-                        found_id.append = objectIDs[i]
-                        found_dists.append = dists[i]
+                        found_id.append(objectIDs[i])
+                        found_dists.append(dists[i])
 
             objectIDs = accepted_ids
             dists = accepted_dists
