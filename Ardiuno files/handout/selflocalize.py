@@ -232,7 +232,7 @@ try:
     num_particles = 1000
     particles = initialize_particles(num_particles)
 
-    found_objects = [] #use this to save found objects (if needed)
+    
 
     est_pose = particle.estimate_pose(particles) # The estimate of the robots current pose
 
@@ -280,6 +280,8 @@ try:
         
 
         #VERY  simple test for our robot:
+        print("found id:",found_id,"\n")
+        print("found dists:",found_dists,"\n")
         if len(found_id) < 2:
             arlo.go_diff(30,30,1,0)
             sleep(0.5)
@@ -349,7 +351,6 @@ try:
             objectIDs = accepted_ids
             dists = accepted_dists
             angles = accepted_angles
-            print(objectIDs)
             if len(objectIDs) > 0:
                 # Compute particle weights
                 # XXX: You do this
