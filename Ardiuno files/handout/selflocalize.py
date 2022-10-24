@@ -300,7 +300,7 @@ try:
         sleep(0.5)
         arlo.stop()
         velocity = 0
-        angular_velocity = np.deg2rad(52)
+        angular_velocity = -np.deg2rad(52)
         for p in particles:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
         angular_velocity = 0
