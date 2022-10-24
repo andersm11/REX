@@ -94,9 +94,9 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t):
     x = particle.getX()
     y = particle.getY()
     theta = particle.getTheta()
-    v_hat = v + randn(0,0.4*v**2+0.2*w**2)
-    w_hat = w + randn(0,0.4*v**2+0.2*w**2)
-    epsilon = randn(0,0.4*v**2+0.2*w**2)
+    v_hat = v + randn(0,0.1*v**2+0.1*w**2)
+    w_hat = w + randn(0,0.1*v**2+0.1*w**2)
+    epsilon = randn(0,0.1*v**2+0.1*w**2)
     new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t)
     new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
     new_theta = theta + w_hat*delta_t + epsilon*delta_t
