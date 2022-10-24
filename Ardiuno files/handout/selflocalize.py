@@ -315,8 +315,7 @@ try:
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
         print("angle between:",angle_between)
-        count += 1
-        if count > 20:
+        if len(found_id) == 2:
             print("post angle:", pose_angle)
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
