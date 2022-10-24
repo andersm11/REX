@@ -94,9 +94,9 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t):
     x = particle.getX()
     y = particle.getY()
     theta = particle.getTheta()
-    v_hat = v + randn(0,0.4*v**2+0.2*w**2)
-    w_hat = w + randn(0,0.4*v**2+0.2*w**2)
-    epsilon = randn(0,0.4*v**2+0.2*w**2)
+    v_hat = v + randn(0,0.1*v**2+0.1*w**2)
+    w_hat = w + randn(0,0.1*v**2+0.1*w**2)
+    epsilon = randn(0,0.1*v**2+0.1*w**2)
     new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t)
     new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
     new_theta = theta + w_hat*delta_t + epsilon*delta_t
@@ -149,10 +149,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [1, 2]
+landmarkIDs = [8, 9]
 landmarks = {
-    1: (0.0, 0.0),  # Coordinates for landmark 1
-    2: (300.0, 0.0)  # Coordinates for landmark 2
+    8: (0.0, 0.0),  # Coordinates for landmark 1
+    9: (300.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -223,6 +223,8 @@ def initialize_particles(num_particles):
     return particles
 unit_vector = [1,0]
 count = 0
+test = 0
+rot_count = 0
 found_id = []
 found_dists = []
 # Main program #
@@ -239,7 +241,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 1000
+    num_particles = 10000
     particles = initialize_particles(num_particles)
 
     
@@ -298,25 +300,30 @@ try:
         sleep(0.5)
         arlo.stop()
         velocity = 0
-        angular_velocity = np.deg2rad(52)
+        angular_velocity = -np.deg2rad(52)
         for p in particles:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
         angular_velocity = 0
 
-        x_diff = est_pose.getX() - 150
-        y_diff = est_pose.getY() - 0
+        x_diff = 150 - est_pose.getX()
+        y_diff = 0 - est_pose.getY()
         dest_vector = [x_diff,y_diff]
         print("x:",est_pose.getX(),"y:",est_pose.getY())
         print("x diff", x_diff, "y_diff:", y_diff)
-        print("THETA:",est_pose.getTheta())
         pose_angle = np.rad2deg(est_pose.getTheta())
         new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle)
         print("pose angle:",pose_angle, "new vector:",new_vector)
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
+        sign = np.sign(np.dot(new_vector,norm_dest_vector))
+        angle_between *= sign
+
         print("angle between:",angle_between)
+        
         count += 1
-        if count > 50:
+        if count > 20 or (rot_count == 1 and count > 10):
+            sleep(5)
+            rot_count += 1
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
                 Turn(angle_between)
@@ -324,8 +331,16 @@ try:
                 for p in particles:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
                 angular_velocity = 0
-            print("TURNING ENDED")
-            exit()
+            print("TURN ENDED")
+            arlo.go_diff(52,50,1,1)
+            sleep(0.5)
+            velocity = 35
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
+            velocity = 0
+            count = 0
+            if rot_count == 2:
+                exit()
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
         #    if found_id[1] == 2:
