@@ -223,6 +223,7 @@ def initialize_particles(num_particles):
     return particles
 unit_vector = [1,0]
 count = 0
+test = 0
 found_id = []
 found_dists = []
 # Main program #
@@ -315,14 +316,16 @@ try:
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
         print("angle between:",angle_between)
-        count += 1
-        if len(found_id) == 2:
+        
+        if len(found_id) == 2 and test == 0:
+            test = 1
             arlo.go_diff(52,50,1,1)
             sleep(0.5)
             velocity = 35
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
             velocity = 0
+        count += 1
         if count > 20:
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
