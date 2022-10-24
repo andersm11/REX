@@ -322,6 +322,7 @@ try:
         
         count += 1
         if count > 20 or (rot_count == 1 and count > 10):
+            sleep(5)
             rot_count += 1
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
