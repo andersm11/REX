@@ -315,6 +315,9 @@ try:
         print("pose angle:",pose_angle, "new vector:",new_vector)
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
+        sign = np.sign(np.dot(new_vector,norm_dest_vector))
+        angle_between *= sign
+
         print("angle between:",angle_between)
         
         if len(found_id) == 2 and test == 0:
