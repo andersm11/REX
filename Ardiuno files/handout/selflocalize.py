@@ -304,7 +304,7 @@ try:
         angular_velocity = 0
 
         x_diff = est_pose.getX() - 150
-        y_diff = est_pose.getY() - 0
+        y_diff = est_pose.getY()
         dest_vector = [x_diff,y_diff]
         print("x:",est_pose.getX(),"y:",est_pose.getY())
         print("x diff", x_diff, "y_diff:", y_diff)
@@ -315,8 +315,8 @@ try:
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
         print("angle between:",angle_between)
-        if len(found_id) == 2:
-            print("post angle:", pose_angle)
+        count += 1
+        if count > 20:
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
                 Turn(angle_between)
