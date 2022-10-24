@@ -322,7 +322,7 @@ try:
         print("angle between:",angle_between)
         
         count += 1
-        if count > 20:
+        if count > 20 or (rot_count == 1 and count > 10):
             rot_count += 1
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
