@@ -303,8 +303,8 @@ try:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
         angular_velocity = 0
 
-        x_diff = est_pose.getX() - 150
-        y_diff = est_pose.getY()
+        x_diff = 150 - est_pose.getX()
+        y_diff = 0 - est_pose.getY()
         dest_vector = [x_diff,y_diff]
         print("x:",est_pose.getX(),"y:",est_pose.getY())
         print("x diff", x_diff, "y_diff:", y_diff)
