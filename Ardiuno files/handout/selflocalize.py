@@ -241,7 +241,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 1000
+    num_particles = 10000
     particles = initialize_particles(num_particles)
 
     
