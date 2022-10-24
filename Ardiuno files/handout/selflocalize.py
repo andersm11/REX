@@ -316,7 +316,7 @@ try:
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
         print("angle between:",angle_between)
         count += 1
-        if count > 50:
+        if count > 20:
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
                 Turn(angle_between)
