@@ -317,6 +317,7 @@ try:
         print("angle between:",angle_between)
         count += 1
         if count > 20:
+            print("post angle:", pose_angle)
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
                 Turn(angle_between)
