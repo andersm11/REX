@@ -316,6 +316,13 @@ try:
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
         print("angle between:",angle_between)
         count += 1
+        if len(found_id) == 2:
+            arlo.go_diff(52,50,1,1)
+            sleep(0.5)
+            velocity = 35
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
+            velocity = 0
         if count > 20:
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
