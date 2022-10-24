@@ -321,17 +321,8 @@ try:
 
         print("angle between:",angle_between)
         
-        if len(found_id) == 2 and test == 0:
-            test = 1
-            arlo.go_diff(52,50,1,1)
-            sleep(0.5)
-            velocity = 35
-            for p in particles:
-                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
-            velocity = 0
         count += 1
-        if count > 30:
-            test = 0
+        if count > 20:
             rot_count += 1
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
@@ -341,6 +332,13 @@ try:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
                 angular_velocity = 0
             print("TURN ENDED")
+            arlo.go_diff(52,50,1,1)
+            sleep(0.5)
+            velocity = 35
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
+            velocity = 0
+            count = 0
             if rot_count == 2:
                 exit()
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
