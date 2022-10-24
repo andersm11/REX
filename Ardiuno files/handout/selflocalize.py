@@ -310,7 +310,6 @@ try:
         dest_vector = [x_diff,y_diff]
         print("x:",est_pose.getX(),"y:",est_pose.getY())
         print("x diff", x_diff, "y_diff:", y_diff)
-        print("THETA:",est_pose.getTheta())
         pose_angle = np.rad2deg(est_pose.getTheta())
         new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle)
         print("pose angle:",pose_angle, "new vector:",new_vector)
@@ -322,7 +321,7 @@ try:
         print("angle between:",angle_between)
         
         count += 1
-        if count > 20 or (rot_count == 1 and count > 10):
+        if count > 50 or (rot_count == 1 and count > 10):
             rot_count += 1
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
