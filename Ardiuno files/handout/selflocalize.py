@@ -224,6 +224,7 @@ def initialize_particles(num_particles):
 unit_vector = [1,0]
 count = 0
 test = 0
+rot_count = 0
 found_id = []
 found_dists = []
 # Main program #
@@ -329,7 +330,9 @@ try:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
             velocity = 0
         count += 1
-        if count > 20:
+        if count > 30:
+            test = 0
+            rot_count += 1
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
                 Turn(angle_between)
@@ -337,8 +340,9 @@ try:
                 for p in particles:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
                 angular_velocity = 0
-            print("TURNING ENDED")
-            exit()
+            print("TURN ENDED")
+            if rot_count == 2:
+                exit()
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
         #    if found_id[1] == 2:
