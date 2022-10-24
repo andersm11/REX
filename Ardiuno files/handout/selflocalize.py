@@ -326,6 +326,9 @@ try:
                 angular_velocity = 0
             print("TURNING ENDED")
             exit()
+        else:
+            print("angle too small")
+            exit()
         #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
         #    print("degrees:",cos)
         #    if found_id[1] == 2:
