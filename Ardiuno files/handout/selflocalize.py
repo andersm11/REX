@@ -336,6 +336,9 @@ try:
             arlo.go_diff(52,50,1,1)
             sleep(0.028 * vec_distance)
             velocity = 35
+            est_post = particle.estimate_pose(particles)
+            pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
+            new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle)
             move_x = new_vector[0]*((0.028 * vec_distance)*35)
             move_y = new_vector[1]*((0.028 * vec_distance)*35)
             for p in particles:
