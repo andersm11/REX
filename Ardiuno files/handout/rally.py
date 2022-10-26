@@ -3,6 +3,7 @@ from turtle import right
 import robot
 from time import sleep 
 import Ex3
+from Ex3 import search_and_find
 arlo = robot.Robot()
 
 landmarks = [2,4]
@@ -47,7 +48,7 @@ def changeposition():
     while arlo.read_front_ping_sensor() > 200 and arlo.read_left_ping_sensor() > 100 and arlo.read_right_ping_sensor() > 100:
         arlo.go_diff(40,40,1,1)
         sleep(1)
-        Ex3.search_and_find(landmark)
+        search_and_find()
     obstacleavoid()
 
 #def drivetotarget(landmark):
@@ -64,7 +65,7 @@ def changeposition():
 
 def obstacleavoid():
     if arlo.read_front_ping_sensor() > 200:
-        Ex3.search_and_find(landmark)
+        search_and_find()
     else:
         while arlo.read_front_ping_sensor() < 200:
             if arlo.read_left_ping_sensor() > 200:
@@ -81,7 +82,7 @@ def obstacleavoid():
                 arlo.stop
         obstacleavoid()
 
-Ex3.search_and_find()
+search_and_find()
 
 ############# LANDMARK CLASS ##############
 ## Er det her nødtvendigt? 
