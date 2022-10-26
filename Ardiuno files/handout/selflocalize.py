@@ -82,11 +82,11 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
     x = particle.getX()
     y = particle.getY()
     theta = particle.getTheta()
-    v_hat = v + randn(0,0.2*v**2+0.1*w**2) #Velocity with noise
+    v_hat = v + randn(0,1.2*v**2+0.1*w**2) #Velocity with noise
    # print("v_hat:",v_hat)
-    w_hat = w + randn(0,0.2*v**2+0.1*w**2) # angular velocity with noise
+    w_hat = w + randn(0,1.2*v**2+0.1*w**2) # angular velocity with noise
    #print("w_hat:",w_hat)
-    epsilon = randn(0,0.2*v**2+0.1*w**2) # Random term
+    epsilon = randn(0,1.2*v**2+0.1*w**2) # Random term
     new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t) 
     new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
     new_theta = theta + w_hat*delta_t + epsilon*delta_t
@@ -333,7 +333,7 @@ try:
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
             sleep(0.028 * vec_distance)
-            velocity =70
+            velocity = 35
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
             add_uncertainty(particles,3,0.1)
