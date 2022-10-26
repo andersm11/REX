@@ -98,11 +98,11 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
 def Turn(angle): #Turns the robot depending on given angle
     if angle < 0:
         arlo.go_diff(30,30,0,1)
-        sleep(0.019*abs(angle))
+        sleep(0.0153*abs(angle))
         arlo.stop()
     else:
         arlo.go_diff(30,30,1,0)
-        sleep(0.019*abs(angle))
+        sleep(0.0153*abs(angle))
         arlo.stop()
 
 def isRunningOnArlo():
@@ -286,92 +286,62 @@ try:
 
         
 
-        print("I WILL NOT TURN!!")
-        sleep(10)
-        arlo.go_diff(30,30,1,0)
-        sleep(1)
-        exit(1)
+
         #VERY  simple test for our robot:
-        #arlo.go_diff(30,30,1,0) #spins the robots
-        #sleep(0.5)
-        #arlo.stop()
-        #velocity = 0
-        #angular_velocity = -np.deg2rad(5.2) # Gives the angular velocity in radians
-        #for p in particles:
-        #    sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
-        #add_uncertainty(particles,3,0.1)
-        #angular_velocity = 0
-#
-        #x_diff = 150 - est_pose.getX() #Difference of robot location to center point
-        #y_diff = 0 - est_pose.getY() #Differnce of robot location to center point
-        #dest_vector = [x_diff,y_diff] # The vector from robot to destination
-#
-        #pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
-        #new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle) #Rotate unit vector to fit with robot orientation angle
-        #vec_distance = np.linalg.norm(dest_vector)
-        #
-        #norm_dest_vector = dest_vector/np.linalg.norm(dest_vector) #Normalize destination-vector
-        #angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector))) #Compute angle between robot-orientation-vector and destination-vector
-        #sign = np.sign(np.dot(new_vector,norm_dest_vector)) #Gives the sign of the angle
-        #angle_between *= sign
-#
-        #
-        #
-        #count += 1
-        #if count > 20 or (rot_count == 1 and count > 15):
-        #    
-        #    rot_count += 1
-        #    print("x:",est_pose.getX(),"y:",est_pose.getY())
-        #    print("x diff", x_diff, "y_diff:", y_diff)
-        #    print("pose angle:",pose_angle, "new vector:",new_vector)
-        #    print("TURNING NOW. ANGLE:",angle_between)
-        #    for k in range(5):
-        #        est_pose = particle.estimate_pose(particles)
-        #        draw_world(est_pose,particles,world)
-        #        sleep(1)
-        #    Turn(angle_between)
-        #    angular_velocity = -np.deg2rad(5.2)
-        #    for p in particles:
-        #        sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
-        #    add_uncertainty(particles,5,0.1)
-        #    angular_velocity = 0
-        #    print("TURN ENDED")
-        #    arlo.go_diff(52,50,1,1)
-        #    sleep(0.028 * vec_distance)
-        #    velocity = 35
-        #    for p in particles:
-        #        sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
-        #    add_uncertainty(particles,5,0.1)
-        #    velocity = 0
-        #    count = 0
-        #    if rot_count == 2:
-        #        exit()
-        #    cos = np.rad2deg(math.acos(math.radians(cosinus(found_dists,300.0))))
-        #    print("degrees:",cos)
-        #    if found_id[1] == 2:
-        #        angle = -(cos/2)
-        #    else:
-        #        angle = cos/2
-        #    mid_distance = triangle_median(found_dists,300)
-        #    print("angle:",angle, "mid_distance:", mid_distance, "\n")
-        #    if mid_distance > 5:
-        #        print("TURNING\n")
-        #        Turn(angle)
-        #        angular_velocity = np.deg2rad(angle)
-        #        for p in particles:
-        #            sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.019*abs(angle)))
-        #        angular_velocity = 0
-        #        print("DRIVING\n")
-        #        arlo.go_diff(54,50,1,1)
-        #        sleep(0.028*(mid_distance))
-        #        arlo.stop()
-        #        velocity = 35
-        #        for p in particles:
-        #            sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028*(mid_distance)))
-        #        found_dists.clear()
-        #        found_id.clear()
-        #    else:
-        #        print(" I THINK I AM IN THE MIDDLE")
+        arlo.go_diff(30,30,1,0) #spins the robots
+        sleep(0.5)
+        arlo.stop()
+        velocity = 0
+        angular_velocity = -np.deg2rad(65.8) # Gives the angular velocity in radians
+        for p in particles:
+            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
+        add_uncertainty(particles,3,0.1)
+        angular_velocity = 0
+
+        x_diff = 150 - est_pose.getX() #Difference of robot location to center point
+        y_diff = 0 - est_pose.getY() #Differnce of robot location to center point
+        dest_vector = [x_diff,y_diff] # The vector from robot to destination
+
+        pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
+        new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle) #Rotate unit vector to fit with robot orientation angle
+        vec_distance = np.linalg.norm(dest_vector)
+        
+        norm_dest_vector = dest_vector/np.linalg.norm(dest_vector) #Normalize destination-vector
+        angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector))) #Compute angle between robot-orientation-vector and destination-vector
+        sign = np.sign(np.dot(new_vector,norm_dest_vector)) #Gives the sign of the angle
+        angle_between *= sign
+
+        
+        
+        count += 1
+        if count > 20 or (rot_count == 1 and count > 15):
+            
+            rot_count += 1
+            print("x:",est_pose.getX(),"y:",est_pose.getY())
+            print("x diff", x_diff, "y_diff:", y_diff)
+            print("pose angle:",pose_angle, "new vector:",new_vector)
+            print("TURNING NOW. ANGLE:",angle_between)
+            for k in range(5):
+                est_pose = particle.estimate_pose(particles)
+                draw_world(est_pose,particles,world)
+                sleep(1)
+            Turn(angle_between)
+            angular_velocity = -np.deg2rad(65.9)
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.0153*abs(angle_between))
+            add_uncertainty(particles,5,0.1)
+            angular_velocity = 0
+            print("TURN ENDED")
+            arlo.go_diff(52,50,1,1)
+            sleep(0.028 * vec_distance)
+            velocity = 35
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
+            add_uncertainty(particles,5,0.1)
+            velocity = 0
+            count = 0
+            if rot_count == 2:
+                exit()
         ## Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
