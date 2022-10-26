@@ -386,7 +386,7 @@ try:
                     normalize_weights(particles)
                     resample_gaussian(particles)
                     # Draw detected objects
-                    add_uncertainty(particles,5,0.1)
+                    add_uncertainty(particles,3,0.1)
                 cam.draw_aruco_objects(colour)
         else:
             # No observation - reset weights to uniform distribution
