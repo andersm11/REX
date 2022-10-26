@@ -19,32 +19,32 @@ from time import sleep, time
 showGUI = True  # Whether or not to open GUI windows
 onRobot = True # Whether or not we are running on the Arlo robot
 
-
-def el(lx,ly,x,y):
+#======== Udregninger fra opgave teksten ===========
+def el(lx,ly,x,y): # e_l = (l_x - x, l_y - y)
     d = distance(lx,ly,x,y)
     return np.transpose([lx-x,ly-y])/d
 
-def distance(lx,ly,x,y):
+def distance(lx,ly,x,y): # Distance from particle to landmark
     result = np.sqrt(((lx-x)**2)+((ly-y)**2))
     return result#Distance from particle (x,y) to landmark (lx,ly)
 
-def e_theta(theta):
+def e_theta(theta): 
     return np.transpose((np.cos(theta),np.sin(theta)))
 
 def e_theta_hat(theta):
     return np.transpose((-np.sin(theta),-np.cos(theta)))
 
-def particle_angle(lx,ly,x,y,theta):
+def particle_angle(lx,ly,x,y,theta): # Angle from orientation angle (For particle) 
     return np.sign(np.dot(el(lx,ly,x,y),e_theta_hat(theta))*np.arccos(np.dot(el(lx,ly,x,y),e_theta(theta))))
 
-def gaussian_pdf_distance(d,dm,stdd):
+def gaussian_pdf_distance(d,dm,stdd): # Se opgave tekst
                 return ((1.0/math.sqrt(2.0*math.pi*stdd**2.0)))*(np.exp(-(((dm-d)**2)/(2.0*stdd**2.0))))
 
-def gaussian_pdf_angle(m_angle,lx,ly,x,y,theta,stdd):
+def gaussian_pdf_angle(m_angle,lx,ly,x,y,theta,stdd): # Se opgave tekst
                 return (1.0/math.sqrt(2.0*math.pi*stdd**2.0))*np.exp(-(((m_angle-particle_angle(lx,ly,x,y,theta))**2.0)/(2.0*stdd**2.0)))
 
 
-def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
+def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles): # Computes weights for particles
     for op in old_particles:
         weight = 1
         for i in range(len(landmarkIDs)):
@@ -55,31 +55,15 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles):
             weight = weight * gpdfd  * gpdfa 
         op.setWeight(weight) 
       
-        
-def triangle_median(sides, middel_side):
-    print("Sides:",sides,"middel_side:",middel_side)
-    a = 2.0*sides[0]**2
-    b = 2.0*sides[1]**2
-    c = middel_side**2
-    print("a:",a,"b:",b,"c:",c)
-    div = (a+b-c)/4
-    print("div:",div)
-    median_distance = np.sqrt(div)
-    print("median_distance:",median_distance)
-    return median_distance
 
-def cosinus(sides,middel_side):
-    middel_angle = (sides[0]**2+sides[1]**2-middel_side**2)/(2*sides[0]*sides[1])
-    return middel_angle
-
-def normalize_weights(particles):
+def normalize_weights(particles): # Normalizes the computed weights
     sum = 0
     for p in particles:
         sum += p.getWeight()
     for p2 in particles:
         p2.setWeight(p2.getWeight()/sum)
 
-def resample_gaussian(particles):
+def resample_gaussian(particles): # Resample new particles (NORMAL)
     weights = []
     for p in particles:
         weights.append(p.getWeight())
@@ -90,21 +74,21 @@ def resample_gaussian(particles):
 
 
 
-def sample_motion_model_velocity_withT(particle,v,w,delta_t):
+def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in the book
     x = particle.getX()
     y = particle.getY()
     theta = particle.getTheta()
-    v_hat = v + randn(0,0.1*v**2+0.1*w**2)
-    w_hat = w + randn(0,0.1*v**2+0.1*w**2)
-    epsilon = randn(0,0.1*v**2+0.1*w**2)
-    new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t)
+    v_hat = v + randn(0,0.1*v**2+0.1*w**2) #Velocity with noise
+    w_hat = w + randn(0,0.1*v**2+0.1*w**2) # angular velocity with noise
+    epsilon = randn(0,0.1*v**2+0.1*w**2) # Random term
+    new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t) 
     new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
     new_theta = theta + w_hat*delta_t + epsilon*delta_t
     particle.setX(new_x)
     particle.setY(new_y)
     particle.setTheta(new_theta)
 
-def Turn(angle):
+def Turn(angle): #Turns the robot depending on given angle
     if angle <= 0:
         arlo.go_diff(30,30,0,1)
         sleep(0.019*abs(angle))
@@ -208,25 +192,29 @@ def draw_world(est_pose, particles, world):
     cv2.circle(world, a, 5, CMAGENTA, 2)
     cv2.line(world, a, b, CMAGENTA, 2)
 
-def rotate_vector(x,y,angle):
+def rotate_vector(x,y,angle): #Rotates vector (x,y) by given angle
     new_x = x * np.cos(angle) - y * np.sin(angle)
     new_y = x * np.sin(angle) + y * np.cos(angle)
-
     return (new_x,new_y)
+
+
 def initialize_particles(num_particles):
     particles = []
     for i in range(num_particles):
         # Random starting points. 
         p = particle.Particle(600.0*np.random.ranf() - 100.0, 600.0*np.random.ranf() - 250.0, np.mod(2.0*np.pi*np.random.ranf(), 2.0*np.pi), 1.0/num_particles)
         particles.append(p)
-
     return particles
+
+
 unit_vector = [1,0]
 count = 0
 test = 0
 rot_count = 0
 found_id = []
 found_dists = []
+
+
 # Main program #
 try:
     if showGUI:
@@ -296,26 +284,27 @@ try:
         print("found id:",found_id,"\n")
         print("found dists:",found_dists,"\n")
 
-        arlo.go_diff(30,30,1,0)
+        arlo.go_diff(30,30,1,0) #spins the robots
         sleep(0.5)
         arlo.stop()
         velocity = 0
-        angular_velocity = -np.deg2rad(52)
+        angular_velocity = -np.deg2rad(52) # Gives the angular velocity in radians
         for p in particles:
-            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
+            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
+            add_uncertainty(particles,10,10)
         angular_velocity = 0
 
-        x_diff = 150 - est_pose.getX()
-        y_diff = 0 - est_pose.getY()
-        dest_vector = [x_diff,y_diff]
+        x_diff = 150 - est_pose.getX() #Difference of robot location to center point
+        y_diff = 0 - est_pose.getY() #Differnce of robot location to center point
+        dest_vector = [x_diff,y_diff] # The vector from robot to destination
         print("x:",est_pose.getX(),"y:",est_pose.getY())
         print("x diff", x_diff, "y_diff:", y_diff)
-        pose_angle = np.rad2deg(est_pose.getTheta())
-        new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle)
+        pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
+        new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle) #Rotate unit vector to fit with robot orientation angle
         print("pose angle:",pose_angle, "new vector:",new_vector)
-        norm_dest_vector = dest_vector/np.linalg.norm(dest_vector)
-        angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector)))
-        sign = np.sign(np.dot(new_vector,norm_dest_vector))
+        norm_dest_vector = dest_vector/np.linalg.norm(dest_vector) #Normalize destination-vector
+        angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector))) #Compute angle between robot-orientation-vector and destination-vector
+        sign = np.sign(np.dot(new_vector,norm_dest_vector)) #Gives the sign of the angle
         angle_between *= sign
 
         print("angle between:",angle_between)
@@ -330,6 +319,7 @@ try:
                 angular_velocity = np.deg2rad(52)
                 for p in particles:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
+                    add_uncertainty(particles,10,5)
                 angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
@@ -337,6 +327,7 @@ try:
             velocity = 35
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
+                add_uncertainty(particles,10,5)
             velocity = 0
             count = 0
             if rot_count == 2:
@@ -418,7 +409,6 @@ try:
                 resamples = resample_gaussian(particles)
                 for i in range(len(resamples)):
                     particles[i] = copy.deepcopy(resamples[i])
-                #add_uncertainty(particles,10,1) # <-- tror ikke vi skal bruge denne (Vi gør det nok i sample_motion_model)
                 # Draw detected objects
             cam.draw_aruco_objects(colour)
         else:
