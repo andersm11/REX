@@ -74,7 +74,7 @@ dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 
 z = np.array([0,0,1],dtype=float)
 x = np.array([1,0,0],dtype=float)
-box_id = 8
+box_id = 4
 def CheckID(id):
     if id is not None:
         if id[0] == box_id:
