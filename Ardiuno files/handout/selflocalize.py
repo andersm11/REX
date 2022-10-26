@@ -82,9 +82,9 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
     x = particle.getX()
     y = particle.getY()
     theta = particle.getTheta()
-    v_hat = v + randn(0,0.1*v**2+0.1*w**2) #Velocity with noise
-    w_hat = w + randn(0,0.1*v**2+0.1*w**2) # angular velocity with noise
-    epsilon = randn(0,0.1*v**2+0.1*w**2) # Random term
+    v_hat = v + randn(0,0.2*v**2+0.2*w**2) #Velocity with noise
+    w_hat = w + randn(0,0.2*v**2+0.2*w**2) # angular velocity with noise
+    epsilon = randn(0,0.2*v**2+0.2*w**2) # Random term
     new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t) 
     new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
     new_theta = theta + w_hat*delta_t + epsilon*delta_t
@@ -93,7 +93,7 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
     particle.setTheta(new_theta)
 
 def Turn(angle): #Turns the robot depending on given angle
-    if angle <= 0:
+    if angle >= 0:
         arlo.go_diff(30,30,0,1)
         sleep(0.019*abs(angle))
         arlo.stop()
@@ -137,10 +137,10 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [8, 9]
+landmarkIDs = [2, 1]
 landmarks = {
-    8: (0.0, 0.0),  # Coordinates for landmark 1
-    9: (300.0, 0.0)  # Coordinates for landmark 2
+    2: (0.0, 0.0),  # Coordinates for landmark 1
+    1: (300.0, 0.0)  # Coordinates for landmark 2
 }
 landmark_colors = [CRED, CGREEN] # Colors used when drawing the landmarks
 
@@ -233,7 +233,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 1000
+    num_particles = 10000
     particles = initialize_particles(num_particles)
 
     
@@ -285,9 +285,6 @@ try:
 
 
         #VERY  simple test for our robot:
-        print("found id:",found_id,"\n")
-        print("found dists:",found_dists,"\n")
-
         arlo.go_diff(30,30,1,0) #spins the robots
         sleep(0.5)
         arlo.stop()
@@ -295,43 +292,46 @@ try:
         angular_velocity = -np.deg2rad(52) # Gives the angular velocity in radians
         for p in particles:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
-            add_uncertainty(particles,10,10)
+        add_uncertainty(particles,2,3)
         angular_velocity = 0
 
         x_diff = 150 - est_pose.getX() #Difference of robot location to center point
         y_diff = 0 - est_pose.getY() #Differnce of robot location to center point
         dest_vector = [x_diff,y_diff] # The vector from robot to destination
-        print("x:",est_pose.getX(),"y:",est_pose.getY())
-        print("x diff", x_diff, "y_diff:", y_diff)
+
         pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
         new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle) #Rotate unit vector to fit with robot orientation angle
-        print("pose angle:",pose_angle, "new vector:",new_vector)
+        vec_distance = np.linalg.norm(dest_vector)
+        
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector) #Normalize destination-vector
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector))) #Compute angle between robot-orientation-vector and destination-vector
         sign = np.sign(np.dot(new_vector,norm_dest_vector)) #Gives the sign of the angle
         angle_between *= sign
 
-        print("angle between:",angle_between)
+        
         
         count += 1
         if count > 20 or (rot_count == 1 and count > 10):
-            sleep(5)
+            
             rot_count += 1
+            print("x:",est_pose.getX(),"y:",est_pose.getY())
+            print("x diff", x_diff, "y_diff:", y_diff)
+            print("pose angle:",pose_angle, "new vector:",new_vector)
             print("TURNING NOW. ANGLE:",angle_between)
-            if angle_between > 20:
-                Turn(angle_between)
-                angular_velocity = np.deg2rad(52)
-                for p in particles:
-                    sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
-                    add_uncertainty(particles,10,5)
-                angular_velocity = 0
+            sleep(3)
+            Turn(angle_between)
+            angular_velocity = np.deg2rad(52)
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
+            add_uncertainty(particles,3,2)
+            angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
-            sleep(0.5)
-            velocity = 35
+            sleep(0.028 * vec_distance)
+            velocity =70
             for p in particles:
-                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
-                add_uncertainty(particles,10,5)
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
+            add_uncertainty(particles,3,2)
             velocity = 0
             count = 0
             if rot_count == 2:
@@ -414,6 +414,7 @@ try:
                 for i in range(len(resamples)):
                     particles[i] = copy.deepcopy(resamples[i])
                 # Draw detected objects
+                add_uncertainty(particles,1,1)
             cam.draw_aruco_objects(colour)
         else:
             # No observation - reset weights to uniform distribution
@@ -428,7 +429,7 @@ try:
             draw_world(est_pose, particles, world)
     
             # Show frame
-            cv2.imshow(WIN_RF1, colour)
+            #cv2.imshow(WIN_RF1, colour)
 
             # Show world
             cv2.imshow(WIN_World, world)
