@@ -6,6 +6,7 @@ except ImportError:
     onRobot = False
 
 import cv2
+import Ex3
 
 targets = [1, 2, 3, 4, 1]
 states = [0,1,2,3,4]
@@ -37,9 +38,7 @@ class  Landmark():
 landmark = Landmark(0,1)
 
 def searchtarget(targetbox):
-    #søg efter targetbox
-    if targetbox.find == True:
-        drivetotarget(targetbox) 
+    Ex3.search_and_find
     else:
         changeposition()
 
@@ -75,6 +74,7 @@ def opstacleavoid():
                 #drej 10 grader til venstre
         #kør 10 cm frem
         obstacleavoid()
+
 
     
 
