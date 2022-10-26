@@ -2,6 +2,8 @@ from cmath import sin
 import copy
 from statistics import median
 import math
+
+from Ardiuno files.handout.particle import move_particle
 from random_numbers import randn
 from particle import add_uncertainty
 import cv2
@@ -294,8 +296,8 @@ try:
         velocity = 0
         angular_velocity = -np.deg2rad(65.8) # Gives the angular velocity in radians
         for p in particles:
-            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
-        add_uncertainty(particles,3,0.1)
+            move_particle(p,0,0,angular_velocity)# Adds rotation to particles
+        add_uncertainty(particles,3,0.05)
         angular_velocity = 0
 
         x_diff = 150 - est_pose.getX() #Difference of robot location to center point
@@ -327,15 +329,17 @@ try:
             Turn(angle_between)
             angular_velocity = -np.deg2rad(65.8)
             for p in particles:
-                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.0153*abs(angle_between))
-            add_uncertainty(particles,5,0.05)
+                move_particle(p,0,0,angular_velocity)
+            add_uncertainty(particles,3,0.05)
             angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
             sleep(0.028 * vec_distance)
-            velocity = 140
+            velocity = 35
+            move_x = new_vector[0]*((0.028 * vec_distance)*25)
+            move_y = new_vector[1]*((0.028 * vec_distance)*25)
             for p in particles:
-                sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
+                move_particle(p,move_x,move_y,0)
             add_uncertainty(particles,5,0.05)
             velocity = 0
             count = 0
