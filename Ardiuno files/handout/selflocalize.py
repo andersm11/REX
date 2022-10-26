@@ -328,7 +328,7 @@ try:
             angular_velocity = -np.deg2rad(65.8)
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.0153*abs(angle_between))
-            add_uncertainty(particles,5,0.1)
+            add_uncertainty(particles,5,0.05)
             angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
@@ -336,7 +336,7 @@ try:
             velocity = 140
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
-            add_uncertainty(particles,5,0.1)
+            add_uncertainty(particles,5,0.05)
             velocity = 0
             count = 0
             if rot_count == 2:
