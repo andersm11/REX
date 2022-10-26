@@ -320,7 +320,7 @@ try:
             print("TURNING NOW. ANGLE:",angle_between)
             est_pose = particle.estimate_pose(particles)
             draw_world(est_pose,particles,world)
-            sleep(3)
+            sleep(5)
             Turn(angle_between)
             angular_velocity = np.deg2rad(52)
             for p in particles:
