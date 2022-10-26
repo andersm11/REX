@@ -336,10 +336,10 @@ try:
             arlo.go_diff(52,50,1,1)
             sleep(0.028 * vec_distance)
             velocity = 35
-            #move_x = new_vector[0]*((0.028 * vec_distance)*25)
-            #move_y = new_vector[1]*((0.028 * vec_distance)*25)
+            move_x = new_vector[0]*((0.028 * vec_distance)*25)
+            move_y = new_vector[1]*((0.028 * vec_distance)*25)
             for p in particles:
-                move_particle(p,x_diff,y_diff,0)
+                move_particle(p,move_x,move_y,0)
             add_uncertainty(particles,5,0.05)
             velocity = 0
             count = 0
