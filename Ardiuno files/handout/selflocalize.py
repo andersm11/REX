@@ -292,7 +292,7 @@ try:
         sleep(0.5)
         arlo.stop()
         velocity = 0
-        angular_velocity = -np.deg2rad(52) # Gives the angular velocity in radians
+        angular_velocity = -np.deg2rad(5.2) # Gives the angular velocity in radians
         for p in particles:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
         add_uncertainty(particles,3,0.1)
@@ -326,7 +326,7 @@ try:
                 draw_world(est_pose,particles,world)
                 sleep(1)
             Turn(angle_between)
-            angular_velocity = -np.deg2rad(52)
+            angular_velocity = -np.deg2rad(5.2)
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
             add_uncertainty(particles,5,0.1)
