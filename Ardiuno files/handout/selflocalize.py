@@ -314,14 +314,13 @@ try:
             print("x diff", x_diff, "y_diff:", y_diff)
             print("pose angle:",pose_angle, "new vector:",new_vector)
             print("TURNING NOW. ANGLE:",angle_between)
-            if angle_between > 20 and -20 > angle_between:
-                sleep(3)
-                Turn(angle_between)
-                angular_velocity = np.deg2rad(52)
-                for p in particles:
-                    sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
-                add_uncertainty(particles,3,2)
-                angular_velocity = 0
+            sleep(3)
+            Turn(angle_between)
+            angular_velocity = np.deg2rad(52)
+            for p in particles:
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
+            add_uncertainty(particles,3,2)
+            angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
             sleep(0.028 * vec_distance)
