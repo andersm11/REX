@@ -324,7 +324,7 @@ try:
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
             sleep(1)
-            velocity = 35
+            velocity =70
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,1)
             add_uncertainty(particles,5,2)
