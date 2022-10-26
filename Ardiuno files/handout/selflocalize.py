@@ -381,41 +381,42 @@ try:
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(objectIDs, type(None)):
-            # List detected objects
-            accepted_ids = []
-            accepted_dists = []
-            accepted_angles = []
-            for i in range(len(objectIDs)):
-                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-                #if objectIDs[i] in landmarkIDs:
-                #    if not isinstance(found_objects, type(None)):
-                #        for ob in found_objects:
-                #            if ob[0] == objectIDs[i]:
-                #                ob = (objectIDs[i],dists[i],angles[i])
-                #        else:
-                #            found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
-                #    found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
-                    # XXX: Do something for each detected object - remember, the same ID may appear several times
-                if objectIDs[i] in landmarkIDs and objectIDs[i] not in accepted_ids:
-                    accepted_ids.append(objectIDs[i])
-                    accepted_dists.append(dists[i]+22.0)
-                    accepted_angles.append(angles[i])
-                    if objectIDs[i] not in found_id:
-                        found_id.append(objectIDs[i])
-                        found_dists.append(dists[i]+22.0)
-
-            objectIDs = accepted_ids
-            dists = accepted_dists
-            angles = accepted_angles
-            if len(objectIDs) > 0:
-                # Compute particle weights
-                # XXX: You do this
-                compute_weights(objectIDs,dists,angles,particles)
-                normalize_weights(particles)
-                resample_gaussian(particles)
-                # Draw detected objects
-                add_uncertainty(particles,5,5)
-            cam.draw_aruco_objects(colour)
+            for i in range(3):
+                # List detected objects
+                accepted_ids = []
+                accepted_dists = []
+                accepted_angles = []
+                for i in range(len(objectIDs)):
+                    print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+                    #if objectIDs[i] in landmarkIDs:
+                    #    if not isinstance(found_objects, type(None)):
+                    #        for ob in found_objects:
+                    #            if ob[0] == objectIDs[i]:
+                    #                ob = (objectIDs[i],dists[i],angles[i])
+                    #        else:
+                    #            found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
+                    #    found_objects.append(np.array(objectIDs[i],dists[i],angles[i]),axis=0)
+                        # XXX: Do something for each detected object - remember, the same ID may appear several times
+                    if objectIDs[i] in landmarkIDs and objectIDs[i] not in accepted_ids:
+                        accepted_ids.append(objectIDs[i])
+                        accepted_dists.append(dists[i]+22.0)
+                        accepted_angles.append(angles[i])
+                        if objectIDs[i] not in found_id:
+                            found_id.append(objectIDs[i])
+                            found_dists.append(dists[i]+22.0)
+    
+                objectIDs = accepted_ids
+                dists = accepted_dists
+                angles = accepted_angles
+                if len(objectIDs) > 0:
+                    # Compute particle weights
+                    # XXX: You do this
+                    compute_weights(objectIDs,dists,angles,particles)
+                    normalize_weights(particles)
+                    resample_gaussian(particles)
+                    # Draw detected objects
+                    add_uncertainty(particles,5,5)
+                cam.draw_aruco_objects(colour)
         else:
             # No observation - reset weights to uniform distribution
             for p in particles:
