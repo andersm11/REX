@@ -161,17 +161,18 @@ def search_and_find():
     
 landmarks = [2,4]
 states = [0,1]
+
 class  Landmark():
     def __init__(self, state, landmarks):
         self.state = state
         self.landmarks = landmarks
 
     def nextLandmark(self):
-        landmarks = landmarks[i+1]
-        state = state[i+1]
+        landmarks = landmarks+1
+        state = state+1
 
     def lastLandmark(self):
-        if self.state[i] == 1:
+        if self.state == 1:
             return True
         else: 
             return False
