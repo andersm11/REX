@@ -281,9 +281,6 @@ try:
 
 
         #VERY  simple test for our robot:
-        print("found id:",found_id,"\n")
-        print("found dists:",found_dists,"\n")
-
         arlo.go_diff(30,30,1,0) #spins the robots
         sleep(0.5)
         arlo.stop()
@@ -297,23 +294,25 @@ try:
         x_diff = 150 - est_pose.getX() #Difference of robot location to center point
         y_diff = 0 - est_pose.getY() #Differnce of robot location to center point
         dest_vector = [x_diff,y_diff] # The vector from robot to destination
-        print("x:",est_pose.getX(),"y:",est_pose.getY())
-        print("x diff", x_diff, "y_diff:", y_diff)
+
         pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
         new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle) #Rotate unit vector to fit with robot orientation angle
         vec_distance = np.linalg.norm(dest_vector)
-        print("pose angle:",pose_angle, "new vector:",new_vector)
+        
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector) #Normalize destination-vector
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector))) #Compute angle between robot-orientation-vector and destination-vector
         sign = np.sign(np.dot(new_vector,norm_dest_vector)) #Gives the sign of the angle
         angle_between *= sign
 
-        print("angle between:",angle_between)
+        
         
         count += 1
         if count > 20 or (rot_count == 1 and count > 10):
             sleep(2)
             rot_count += 1
+            print("x:",est_pose.getX(),"y:",est_pose.getY())
+            print("x diff", x_diff, "y_diff:", y_diff)
+            print("pose angle:",pose_angle, "new vector:",new_vector)
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
                 Turn(angle_between)
