@@ -308,13 +308,14 @@ try:
         
         count += 1
         if count > 20 or (rot_count == 1 and count > 10):
-            sleep(2)
+            
             rot_count += 1
             print("x:",est_pose.getX(),"y:",est_pose.getY())
             print("x diff", x_diff, "y_diff:", y_diff)
             print("pose angle:",pose_angle, "new vector:",new_vector)
             print("TURNING NOW. ANGLE:",angle_between)
-            if angle_between > 20:
+            if angle_between > 20 and -20 > angle_between:
+                sleep(3)
                 Turn(angle_between)
                 angular_velocity = np.deg2rad(52)
                 for p in particles:
