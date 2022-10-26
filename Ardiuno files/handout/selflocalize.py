@@ -285,12 +285,12 @@ try:
         print("found dists:",found_dists,"\n")
 
         arlo.go_diff(30,30,1,0) #spins the robots
-        sleep(1)
+        sleep(0.5)
         arlo.stop()
         velocity = 0
         angular_velocity = -np.deg2rad(52) # Gives the angular velocity in radians
         for p in particles:
-            sample_motion_model_velocity_withT(p,velocity,angular_velocity,1) # Adds rotation to particles
+            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
         add_uncertainty(particles,3,10)
         angular_velocity = 0
 
