@@ -79,7 +79,7 @@ x = np.array([1,0,0],dtype=float)
 box_id = 4
 def CheckID(id):
     if id is not None:
-        if id[0] == rally.landmark.landmarks:
+        if id[0] == landmark.landmarks:
             return True
         else:
             return False
@@ -138,10 +138,10 @@ def search_and_find():
             else:
                 length = np.linalg.norm(tvec)
                 if length < 40:
-                    if rally.landmark.landmarks == rally.landmark.lastLandmark:
+                    if landmark.landmarks == landmark.lastLandmark:
                         exit(1)
                     else:
-                        rally.landmark.nextLandmark
+                        landmark.nextLandmark
                         search_and_find()
                 arlo.go_diff(52,50,1,1)
                 print(length)
@@ -154,7 +154,7 @@ def search_and_find():
             arlo.stop()
             count = count+1
     
-    rally.changeposition()
+    changeposition()
     search_and_find()
 
     
