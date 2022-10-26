@@ -78,9 +78,9 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
     x = particle.getX()
     y = particle.getY()
     theta = particle.getTheta()
-    v_hat = v + randn(0,0.1*v**2+0.1*w**2) #Velocity with noise
-    w_hat = w + randn(0,0.1*v**2+0.1*w**2) # angular velocity with noise
-    epsilon = randn(0,0.1*v**2+0.1*w**2) # Random term
+    v_hat = v + randn(0,0.2*v**2+0.2*w**2) #Velocity with noise
+    w_hat = w + randn(0,0.2*v**2+0.2*w**2) # angular velocity with noise
+    epsilon = randn(0,0.2*v**2+0.2*w**2) # Random term
     new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t) 
     new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
     new_theta = theta + w_hat*delta_t + epsilon*delta_t
@@ -285,13 +285,13 @@ try:
         print("found dists:",found_dists,"\n")
 
         arlo.go_diff(30,30,1,0) #spins the robots
-        sleep(0.5)
+        sleep(1)
         arlo.stop()
         velocity = 0
         angular_velocity = -np.deg2rad(52) # Gives the angular velocity in radians
         for p in particles:
-            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
-        add_uncertainty(particles,5,10)
+            sample_motion_model_velocity_withT(p,velocity,angular_velocity,1) # Adds rotation to particles
+        add_uncertainty(particles,3,10)
         angular_velocity = 0
 
         x_diff = 150 - est_pose.getX() #Difference of robot location to center point
@@ -311,7 +311,7 @@ try:
         
         count += 1
         if count > 20 or (rot_count == 1 and count > 10):
-            sleep(5)
+            sleep(2)
             rot_count += 1
             print("TURNING NOW. ANGLE:",angle_between)
             if angle_between > 20:
@@ -319,15 +319,15 @@ try:
                 angular_velocity = np.deg2rad(52)
                 for p in particles:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
-                add_uncertainty(particles,5,5)
+                add_uncertainty(particles,5,2)
                 angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
-            sleep(0.5)
+            sleep(1)
             velocity = 35
             for p in particles:
-                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
-            add_uncertainty(particles,5,5)
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,1)
+            add_uncertainty(particles,5,2)
             velocity = 0
             count = 0
             if rot_count == 2:
