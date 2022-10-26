@@ -288,11 +288,11 @@ try:
         # XXX: Make the robot drive
         # XXX: You do this
         #VERY  simple test for our robot:
-        arlo.go_diff(50,50,1,0) #spins the robots
-        sleep(0.2)
+        arlo.go_diff(30,30,1,0) #spins the robots
+        sleep(0.5)
         arlo.stop()
         velocity = 0
-        angular_velocity = -np.deg2rad(120) # Gives the angular velocity in radians
+        angular_velocity = -np.deg2rad(65.8) # Gives the angular velocity in radians
         for p in particles:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
         add_uncertainty(particles,3,0.1)
@@ -325,9 +325,9 @@ try:
                 draw_world(est_pose,particles,world)
                 sleep(1)
             Turn(angle_between)
-            angular_velocity = -np.deg2rad(120)
+            angular_velocity = -np.deg2rad(65.8)
             for p in particles:
-                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.0083*abs(angle_between))
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.0153*abs(angle_between))
             add_uncertainty(particles,5,0.1)
             angular_velocity = 0
             print("TURN ENDED")
