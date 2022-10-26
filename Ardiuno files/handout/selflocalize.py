@@ -330,7 +330,7 @@ try:
             angular_velocity = -np.deg2rad(32)
             for p in particles:
                 move_particle(p,0,0,angular_velocity)
-            add_uncertainty(particles,3,1)
+            add_uncertainty(particles,3,0.1)
             angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
