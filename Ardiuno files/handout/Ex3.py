@@ -14,6 +14,7 @@ import os
 import sys
 import tempfile
 import numpy as np
+from rally import landmark 
 #import rally
 
 
