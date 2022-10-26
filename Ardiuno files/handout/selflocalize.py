@@ -287,29 +287,9 @@ try:
         
 
 
-        #VERY  simple test for our robot:
-        arlo.go_diff(30,30,1,0) #spins the robots
-        sleep(0.5)
-        arlo.stop()
-        velocity = 0
-        angular_velocity = -np.deg2rad(65.8) # Gives the angular velocity in radians
-        for p in particles:
-            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
-        add_uncertainty(particles,3,0.1)
-        angular_velocity = 0
-
-        x_diff = 150 - est_pose.getX() #Difference of robot location to center point
-        y_diff = 0 - est_pose.getY() #Differnce of robot location to center point
-        dest_vector = [x_diff,y_diff] # The vector from robot to destination
-
-        pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
-        new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle) #Rotate unit vector to fit with robot orientation angle
-        vec_distance = np.linalg.norm(dest_vector)
         
-        norm_dest_vector = dest_vector/np.linalg.norm(dest_vector) #Normalize destination-vector
-        angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector))) #Compute angle between robot-orientation-vector and destination-vector
-        sign = np.sign(np.dot(new_vector,norm_dest_vector)) #Gives the sign of the angle
-        angle_between *= sign
+
+        
 
         
         
@@ -345,13 +325,29 @@ try:
         ## Use motor controls to update particles
         # XXX: Make the robot drive
         # XXX: You do this
+        #VERY  simple test for our robot:
+        arlo.go_diff(30,30,1,0) #spins the robots
+        sleep(0.5)
+        arlo.stop()
+        velocity = 0
+        angular_velocity = -np.deg2rad(65.8) # Gives the angular velocity in radians
+        for p in particles:
+            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
+        add_uncertainty(particles,3,0.1)
+        angular_velocity = 0
 
+        x_diff = 150 - est_pose.getX() #Difference of robot location to center point
+        y_diff = 0 - est_pose.getY() #Differnce of robot location to center point
+        dest_vector = [x_diff,y_diff] # The vector from robot to destination
+
+        pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
+        new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle) #Rotate unit vector to fit with robot orientation angle
+        vec_distance = np.linalg.norm(dest_vector)
         
-#
-
-
-
-
+        norm_dest_vector = dest_vector/np.linalg.norm(dest_vector) #Normalize destination-vector
+        angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector))) #Compute angle between robot-orientation-vector and destination-vector
+        sign = np.sign(np.dot(new_vector,norm_dest_vector)) #Gives the sign of the angle
+        angle_between *= sign
 
         # Fetch next frame
         colour = cam.get_next_frame()
