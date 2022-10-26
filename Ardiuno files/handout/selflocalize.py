@@ -13,6 +13,7 @@ import time
 from timeit import default_timer as timer
 import sys
 from time import sleep, time  
+import random
 
 
 # Flags
@@ -68,7 +69,10 @@ def resample_gaussian(particles): # Resample new particles (NORMAL)
     for p in particles:
         weights.append(p.getWeight())
     print("sum:",sum(weights))
-    resamples = np.random.choice(particles,1000,p=weights,replace=True)
+    resamples = np.random.choice(particles,10000,p=weights,replace=True)
+    temp = random.choices(particles, weights, k = len(particles))
+    for i in range(len(temp)):
+        particles[i] = copy.copy(temp[i])
     return resamples
 
 
