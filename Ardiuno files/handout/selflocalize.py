@@ -294,8 +294,8 @@ try:
         add_uncertainty(particles,3,10)
         angular_velocity = 0
 
-        x_diff = est_pose.getX() - 150 #Difference of robot location to center point
-        y_diff = est_pose.getY() - 0 #Differnce of robot location to center point
+        x_diff = 150 - est_pose.getX() #Difference of robot location to center point
+        y_diff = 0 - est_pose.getY() #Differnce of robot location to center point
         dest_vector = [x_diff,y_diff] # The vector from robot to destination
         print("x:",est_pose.getX(),"y:",est_pose.getY())
         print("x diff", x_diff, "y_diff:", y_diff)
