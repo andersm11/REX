@@ -69,11 +69,11 @@ def resample_gaussian(particles): # Resample new particles (NORMAL)
     for p in particles:
         weights.append(p.getWeight())
     print("sum:",sum(weights))
-    resamples = np.random.choice(particles,10000,p=weights,replace=True)
+    #resamples = np.random.choice(particles,10000,p=weights,replace=True)
     temp = random.choices(particles, weights, k = len(particles))
     for i in range(len(temp)):
         particles[i] = copy.copy(temp[i])
-    return resamples
+
 
 
 
@@ -410,9 +410,7 @@ try:
                 # XXX: You do this
                 compute_weights(objectIDs,dists,angles,particles)
                 normalize_weights(particles)
-                resamples = resample_gaussian(particles)
-                for i in range(len(resamples)):
-                    particles[i] = copy.deepcopy(resamples[i])
+                resample_gaussian(particles)
                 # Draw detected objects
                 add_uncertainty(particles,1,1)
             cam.draw_aruco_objects(colour)
