@@ -52,7 +52,7 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles): # Comput
             d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
             dm = landmark_d[i]
             gpdfd = gaussian_pdf_distance(d,dm,10) 
-            gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),5)
+            gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),2)
             weight = weight * gpdfd  * gpdfa 
         op.setWeight(weight) 
       
@@ -82,9 +82,9 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
     x = particle.getX()
     y = particle.getY()
     theta = particle.getTheta()
-    v_hat = v + randn(0,0.2*v**2+0.2*w**2) #Velocity with noise
-    w_hat = w + randn(0,0.2*v**2+0.2*w**2) # angular velocity with noise
-    epsilon = randn(0,0.2*v**2+0.2*w**2) # Random term
+    v_hat = v + randn(0,0.2*v**2+0.1*w**2) #Velocity with noise
+    w_hat = w + randn(0,0.2*v**2+0.1*w**2) # angular velocity with noise
+    epsilon = randn(0,0.2*v**2+0.1*w**2) # Random term
     new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t) 
     new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
     new_theta = theta + w_hat*delta_t + epsilon*delta_t
@@ -318,6 +318,8 @@ try:
             print("x diff", x_diff, "y_diff:", y_diff)
             print("pose angle:",pose_angle, "new vector:",new_vector)
             print("TURNING NOW. ANGLE:",angle_between)
+            est_pose = particle.estimate_pose(particles)
+            draw_world(est_pose,particles,world)
             sleep(3)
             Turn(angle_between)
             angular_velocity = np.deg2rad(52)
