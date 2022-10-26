@@ -145,7 +145,7 @@ def search_and_find():
                         search_and_find()
                 arlo.go_diff(52,50,1,1)
                 print(length)
-                sleep(0.028*(length-30))
+                sleep(0.028*(length-40))
                 search_and_find()
 
         else:
@@ -164,7 +164,7 @@ class  Landmark():
     def __init__(self, state, landmarks):
         self.state = state
         self.landmarks = landmarks
-        
+
     def nextLandmark(self):
         landmarks = landmarks[i+1]
         state = state[i+1]
