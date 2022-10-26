@@ -410,6 +410,7 @@ try:
                 for i in range(len(resamples)):
                     particles[i] = copy.deepcopy(resamples[i])
                 # Draw detected objects
+                add_uncertainty(particles,5,2)
             cam.draw_aruco_objects(colour)
         else:
             # No observation - reset weights to uniform distribution
