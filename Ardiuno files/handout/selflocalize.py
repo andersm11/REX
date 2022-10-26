@@ -318,9 +318,10 @@ try:
             print("x diff", x_diff, "y_diff:", y_diff)
             print("pose angle:",pose_angle, "new vector:",new_vector)
             print("TURNING NOW. ANGLE:",angle_between)
-            est_pose = particle.estimate_pose(particles)
-            draw_world(est_pose,particles,world)
-            sleep(5)
+            for k in range(5):
+                est_pose = particle.estimate_pose(particles)
+                draw_world(est_pose,particles,world)
+                sleep(1)
             Turn(angle_between)
             angular_velocity = np.deg2rad(52)
             for p in particles:
