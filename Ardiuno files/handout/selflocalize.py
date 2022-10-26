@@ -82,11 +82,11 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
     x = particle.getX()
     y = particle.getY()
     theta = particle.getTheta()
-    v_hat = v + randn(0,1.2*v**2+0.1*w**2) #Velocity with noise
+    v_hat = v + randn(0,1.2*(v**2)+0.1*(w**2)) #Velocity with noise
    # print("v_hat:",v_hat)
-    w_hat = w + randn(0,1.2*v**2+0.1*w**2) # angular velocity with noise
+    w_hat = w + randn(0,1.2*(v**2)+0.1*(w**2)) # angular velocity with noise
    #print("w_hat:",w_hat)
-    epsilon = randn(0,1.2*v**2+0.1*w**2) # Random term
+    epsilon = randn(0,1.2*(v**2)+0.1*(w**2)) # Random term
     new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t) 
     new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
     new_theta = theta + w_hat*delta_t + epsilon*delta_t
@@ -94,21 +94,6 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
     particle.setY(new_y)
     particle.setTheta(new_theta)
 
-def sample_motion_model_velocity(particle,v,w): # See page 124 in the book
-    x = particle.getX()
-    y = particle.getY()
-    theta = particle.getTheta()
-    v_hat = v + randn(0,1.2*v**2+0.1*w**2) #Velocity with noise
-   # print("v_hat:",v_hat)
-    w_hat = w + randn(0,1.2*v**2+0.1*w**2) # angular velocity with noise
-   #print("w_hat:",w_hat)
-    epsilon = randn(0,1.2*v**2+0.1*w**2) # Random term
-    new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat) 
-    new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat)
-    new_theta = theta + w_hat + epsilon
-    particle.setX(new_x)
-    particle.setY(new_y)
-    particle.setTheta(new_theta)
 
 def Turn(angle): #Turns the robot depending on given angle
     if angle < 0:
@@ -309,7 +294,7 @@ try:
         velocity = 0
         angular_velocity = -np.deg2rad(52) # Gives the angular velocity in radians
         for p in particles:
-            sample_motion_model_velocity(p,velocity,angular_velocity) # Adds rotation to particles
+            sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
         add_uncertainty(particles,3,0.1)
         angular_velocity = 0
 
@@ -343,7 +328,7 @@ try:
             Turn(angle_between)
             angular_velocity = np.deg2rad(52)
             for p in particles:
-                sample_motion_model_velocity(p,velocity,angular_velocity)
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
             add_uncertainty(particles,3,0.3)
             angular_velocity = 0
             print("TURN ENDED")
@@ -351,7 +336,7 @@ try:
             sleep(0.028 * vec_distance)
             velocity = 35
             for p in particles:
-                sample_motion_model_velocity(p,velocity,angular_velocity)
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
             add_uncertainty(particles,3,0.1)
             velocity = 0
             count = 0
