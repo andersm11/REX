@@ -52,7 +52,7 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles): # Comput
             d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
             dm = landmark_d[i]
             gpdfd = gaussian_pdf_distance(d,dm,5) 
-            gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),1)
+            gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.1)
             weight = weight * gpdfd  * gpdfa 
         op.setWeight(weight) 
       
