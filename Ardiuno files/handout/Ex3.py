@@ -1,6 +1,6 @@
 # This script shows how to open a camera in OpenCV and grab frames and show these.
 # Kim S. Pedersen, 2022
-from Ardiuno files.handout.rally import Landmark
+from rally import Landmark
 import robot 
 from pickle import FALSE, TRUE
 from time import sleep, time  
