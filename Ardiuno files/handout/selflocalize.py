@@ -233,7 +233,7 @@ try:
 
 
     # Initialize particles
-    num_particles = 10000
+    num_particles = 1000
     particles = initialize_particles(num_particles)
 
     
@@ -412,7 +412,7 @@ try:
                 normalize_weights(particles)
                 resample_gaussian(particles)
                 # Draw detected objects
-                add_uncertainty(particles,1,1)
+                add_uncertainty(particles,5,5)
             cam.draw_aruco_objects(colour)
         else:
             # No observation - reset weights to uniform distribution
