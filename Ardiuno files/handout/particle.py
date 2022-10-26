@@ -65,8 +65,7 @@ def estimate_pose(particles_list):
 
 def move_particle(particle, delta_x, delta_y, delta_theta):
     """Move the particle by (delta_x, delta_y, delta_theta)"""
-    new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + (w_hat*delta_t)) 
-    new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + (w_hat*delta_t))
+    
     particle.x += delta_x
     particle.y += delta_y
     particle.theta += delta_theta
