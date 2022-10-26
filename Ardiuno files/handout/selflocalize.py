@@ -83,9 +83,9 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
     y = particle.getY()
     theta = particle.getTheta()
     v_hat = v + randn(0,0.2*v**2+0.1*w**2) #Velocity with noise
-    print("v_hat:",v_hat)
+   # print("v_hat:",v_hat)
     w_hat = w + randn(0,0.2*v**2+0.1*w**2) # angular velocity with noise
-    print("w_hat:",w_hat)
+   #print("w_hat:",w_hat)
     epsilon = randn(0,0.2*v**2+0.1*w**2) # Random term
     new_x = x - (v_hat/w_hat)*np.sin(theta) + (v_hat/w_hat)*np.sin(theta + w_hat*delta_t) 
     new_y = y + (v_hat/w_hat)*np.cos(theta) - (v_hat/w_hat)*np.cos(theta + w_hat*delta_t)
