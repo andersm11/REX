@@ -52,7 +52,7 @@ def compute_weights(landmarkIDs,landmark_d, landmark_a ,old_particles): # Comput
             d = distance(landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY()) #hypo distance
             dm = landmark_d[i]
             gpdfd = gaussian_pdf_distance(d,dm,10) 
-            gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.1)
+            gpdfa = gaussian_pdf_angle(landmark_a[i],landmarks[landmarkIDs[i]][0],landmarks[landmarkIDs[i]][1],op.getX(),op.getY(),op.getTheta(),0.05)
             weight = weight * gpdfd  * gpdfa 
         op.setWeight(weight) 
       
@@ -404,7 +404,7 @@ try:
                         if objectIDs[i] not in found_id:
                             found_id.append(objectIDs[i])
                             found_dists.append(dists[i]+22.0)
-    
+
                 objectIDs = accepted_ids
                 dists = accepted_dists
                 angles = accepted_angles
