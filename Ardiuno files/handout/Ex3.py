@@ -133,7 +133,7 @@ def search_and_find():
             print("beta", angle, "sign:", sign)
 
         if CheckID(ids) is True:
-            if 4 < beta:
+            if 5 < beta:
                 Turn(angle)
             else:
                 length = np.linalg.norm(tvec)
