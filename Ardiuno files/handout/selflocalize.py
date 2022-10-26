@@ -311,7 +311,7 @@ try:
         
         
         count += 1
-        if count > 20 or (rot_count == 1 and count > 10):
+        if count > 20 or (rot_count == 1 and count > 15):
             
             rot_count += 1
             print("x:",est_pose.getX(),"y:",est_pose.getY())
