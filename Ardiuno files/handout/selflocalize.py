@@ -335,14 +335,8 @@ try:
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
             sleep(0.028 * vec_distance)
-            velocity = 35
-            est_post = particle.estimate_pose(particles)
-            pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
-            new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle)
-            move_x = new_vector[0]*((0.028 * vec_distance)*35)
-            move_y = new_vector[1]*((0.028 * vec_distance)*35)
             for p in particles:
-                move_particle(p,move_x,move_y,0)
+                move_particle(p,x_diff,y_diff,0)
             add_uncertainty(particles,10,0.05)
             velocity = 0
             count = 0
