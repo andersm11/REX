@@ -2,9 +2,6 @@ from re import I, search
 from turtle import right
 import robot
 from time import sleep 
-import selflocalize
-import particle
-import cv2
 import Ex3
 arlo = robot.Robot()
 
