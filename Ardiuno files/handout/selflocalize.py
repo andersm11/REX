@@ -326,10 +326,10 @@ try:
                 draw_world(est_pose,particles,world)
                 sleep(1)
             Turn(angle_between)
-            angular_velocity = np.deg2rad(52)
+            angular_velocity = -np.deg2rad(52)
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
-            add_uncertainty(particles,3,0.1)
+            add_uncertainty(particles,5,0.1)
             angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
@@ -337,7 +337,7 @@ try:
             velocity = 35
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
-            add_uncertainty(particles,3,0.1)
+            add_uncertainty(particles,5,0.1)
             velocity = 0
             count = 0
             if rot_count == 2:
@@ -419,7 +419,7 @@ try:
                     normalize_weights(particles)
                     resample_gaussian(particles)
                     # Draw detected objects
-                    add_uncertainty(particles,2,0.1)
+                    add_uncertainty(particles,5,0.1)
                 cam.draw_aruco_objects(colour)
         else:
             # No observation - reset weights to uniform distribution
