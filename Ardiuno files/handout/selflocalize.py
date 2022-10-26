@@ -291,6 +291,7 @@ try:
         print("I WILL NOW TURN")
         sleep(10)
         arlo.go_diff(50,50,1,0)
+        sleep(1)
         exit()
         #arlo.go_diff(50,50,1,0) #spins the robots
         #sleep(0.5)
