@@ -93,7 +93,7 @@ def sample_motion_model_velocity_withT(particle,v,w,delta_t): # See page 124 in 
     particle.setTheta(new_theta)
 
 def Turn(angle): #Turns the robot depending on given angle
-    if angle >= 0:
+    if angle < 0:
         arlo.go_diff(30,30,0,1)
         sleep(0.019*abs(angle))
         arlo.stop()
