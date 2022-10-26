@@ -292,7 +292,7 @@ try:
         angular_velocity = -np.deg2rad(52) # Gives the angular velocity in radians
         for p in particles:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
-        add_uncertainty(particles,2,3)
+        add_uncertainty(particles,3,0.1)
         angular_velocity = 0
 
         x_diff = 150 - est_pose.getX() #Difference of robot location to center point
@@ -325,7 +325,7 @@ try:
             angular_velocity = np.deg2rad(52)
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
-            add_uncertainty(particles,3,2)
+            add_uncertainty(particles,3,0.3)
             angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
@@ -333,7 +333,7 @@ try:
             velocity =70
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
-            add_uncertainty(particles,3,2)
+            add_uncertainty(particles,3,0.1)
             velocity = 0
             count = 0
             if rot_count == 2:
