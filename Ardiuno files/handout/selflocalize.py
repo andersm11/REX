@@ -133,7 +133,7 @@ CBLACK = (0, 0, 0)
 
 # Landmarks.
 # The robot knows the position of 2 landmarks. Their coordinates are in the unit centimeters [cm].
-landmarkIDs = [8, 9]
+landmarkIDs = [1, 2]
 landmarks = {
     8: (0.0, 0.0),  # Coordinates for landmark 1
     9: (300.0, 0.0)  # Coordinates for landmark 2
@@ -291,7 +291,7 @@ try:
         angular_velocity = -np.deg2rad(52) # Gives the angular velocity in radians
         for p in particles:
             sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5) # Adds rotation to particles
-            add_uncertainty(particles,10,10)
+        add_uncertainty(particles,5,10)
         angular_velocity = 0
 
         x_diff = 150 - est_pose.getX() #Difference of robot location to center point
@@ -319,7 +319,7 @@ try:
                 angular_velocity = np.deg2rad(52)
                 for p in particles:
                     sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.019*abs(angle_between))
-                    add_uncertainty(particles,10,5)
+                add_uncertainty(particles,5,5)
                 angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
@@ -327,7 +327,7 @@ try:
             velocity = 35
             for p in particles:
                 sample_motion_model_velocity_withT(p,velocity,angular_velocity,0.5)
-                add_uncertainty(particles,10,5)
+            add_uncertainty(particles,5,5)
             velocity = 0
             count = 0
             if rot_count == 2:
