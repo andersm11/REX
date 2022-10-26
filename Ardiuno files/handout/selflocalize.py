@@ -301,6 +301,7 @@ try:
         print("x diff", x_diff, "y_diff:", y_diff)
         pose_angle = np.rad2deg(est_pose.getTheta()) # Gives orientation angle in degrees
         new_vector = rotate_vector(unit_vector[0],unit_vector[1],pose_angle) #Rotate unit vector to fit with robot orientation angle
+        vec_distance = np.linalg.norm(dest_vector)
         print("pose angle:",pose_angle, "new vector:",new_vector)
         norm_dest_vector = dest_vector/np.linalg.norm(dest_vector) #Normalize destination-vector
         angle_between = np.rad2deg(np.arccos(np.dot(new_vector,norm_dest_vector))) #Compute angle between robot-orientation-vector and destination-vector
@@ -323,10 +324,10 @@ try:
                 angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
-            sleep(1)
+            sleep(0.028 * vec_distance)
             velocity =70
             for p in particles:
-                sample_motion_model_velocity_withT(p,velocity,angular_velocity,1)
+                sample_motion_model_velocity_withT(p,velocity,angular_velocity,(0.028 * vec_distance))
             add_uncertainty(particles,5,2)
             velocity = 0
             count = 0
