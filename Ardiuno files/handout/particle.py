@@ -69,7 +69,6 @@ def move_particle(particle, delta_x, delta_y, delta_theta):
     particle.x += delta_x
     particle.y += delta_y
     particle.theta += delta_theta
-    print("particle.py: move_particle not implemented. You should do this.") 
     #print("move_particle my not be implemented correctly (By Anders)")
 
 
