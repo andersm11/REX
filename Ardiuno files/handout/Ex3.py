@@ -110,8 +110,9 @@ def Take_pic():
 arlo.stop()
 
 def search_and_find():
+    print("landmark: ", landmark.landmarks)
     count = 0
-    while count <= 12:
+    while count <= 18:
         retval, frameReference = Take_pic()
         if not retval: # Error
             print(" < < <  Game over!  > > > ")
@@ -145,7 +146,7 @@ def search_and_find():
                         search_and_find()
                 arlo.go_diff(52,50,1,1)
                 print(length)
-                sleep(0.028*(length-30))
+                sleep(0.028*(length-50))
                 search_and_find()
 
         else:
@@ -165,7 +166,7 @@ class  Landmark():
     def __init__(self, state, landmarks):
         self.state = state
         self.landmarks = landmarks
-        
+
     def nextLandmark(self):
         landmarks = landmarks+1
         state = state+1

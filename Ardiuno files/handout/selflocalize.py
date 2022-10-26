@@ -294,10 +294,10 @@ try:
         sleep(0.5)
         arlo.stop()
         velocity = 0
-        angular_velocity = -np.deg2rad(30) # Gives the angular velocity in radians
+        angular_velocity = -np.deg2rad(32) # Gives the angular velocity in radians
         for p in particles:
             move_particle(p,0,0,angular_velocity)# Adds rotation to particles
-        add_uncertainty(particles,3,0.05)
+        add_uncertainty(particles,1,0.1)
         angular_velocity = 0
 
         x_diff = 150 - est_pose.getX() #Difference of robot location to center point
@@ -327,19 +327,19 @@ try:
                 draw_world(est_pose,particles,world)
                 sleep(1)
             Turn(angle_between)
-            angular_velocity = -np.deg2rad(30)
+            angular_velocity = -np.deg2rad(32)
             for p in particles:
                 move_particle(p,0,0,angular_velocity)
-            add_uncertainty(particles,3,0.05)
+            add_uncertainty(particles,1,0.1)
             angular_velocity = 0
             print("TURN ENDED")
             arlo.go_diff(52,50,1,1)
             sleep(0.028 * vec_distance)
             velocity = 35
-            #move_x = new_vector[0]*((0.028 * vec_distance)*25)
-            #move_y = new_vector[1]*((0.028 * vec_distance)*25)
+            move_x = new_vector[0]*((0.028 * vec_distance)*25)
+            move_y = new_vector[1]*((0.028 * vec_distance)*25)
             for p in particles:
-                move_particle(p,x_diff,y_diff,0)
+                move_particle(p,move_x,move_y,0)
             add_uncertainty(particles,5,0.05)
             velocity = 0
             count = 0
@@ -386,7 +386,7 @@ try:
                     normalize_weights(particles)
                     resample_gaussian(particles)
                     # Draw detected objects
-                    add_uncertainty(particles,5,0.1)
+                    add_uncertainty(particles,3,0.1)
                 cam.draw_aruco_objects(colour)
         else:
             # No observation - reset weights to uniform distribution
