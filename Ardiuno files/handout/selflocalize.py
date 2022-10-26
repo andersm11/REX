@@ -287,6 +287,7 @@ try:
         
 
         print("I WILL NOT TURN!!")
+        sleep(10)
         arlo.go_diff(30,30,1,0)
         sleep(1)
         exit(1)
