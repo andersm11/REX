@@ -231,8 +231,7 @@ try:
 
         if target_object is not None and state == 1:
             print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
-
-            if target_object.getAngle() > 5:
+            if abs(target_object.getAngle()) > 5:
                 print("TURNING")
                 sleep(3)
                 found_target = True
