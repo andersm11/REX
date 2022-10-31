@@ -2,12 +2,13 @@ from pickle import TRUE
 from re import I, search
 from turtle import right
 import robot
+import sys
 import numpy as np
 from time import sleep 
 import camera
 
 arlo = robot.Robot()
-
+sys.path.append("../robot.py ")
 version = "v0.0.2"
 landmarks = [4,7,11]
 landmark_numbers = {
