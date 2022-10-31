@@ -199,6 +199,7 @@ try:
         print("State:",state)
         if state == 0:
             arlo.go_diff(30,30,1,0)
+            print("FEEEST")
             sleep(0.25)
             arlo.stop()
         colour = cam.get_next_frame()
