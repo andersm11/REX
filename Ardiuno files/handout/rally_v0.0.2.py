@@ -233,10 +233,13 @@ try:
             print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
 
             if target_object.getAngle() > 5:
+                print("TURNING")
                 found_target = True
                 turn(target_object.getAngle())
+                sleep(3)
             else:
                 state = 2
+                print("DRIVING")
                 robot_drive(1)
         avoidance()
 
