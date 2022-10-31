@@ -208,12 +208,7 @@ try:
     state = 0
 
     while True: #Main loop
-        #print("State:",state)
-        if state == 0:
-            arlo.go_diff(30,30,1,0)
-            sleep(0.50)
-            arlo.stop()
-            
+        #print("State:",state)           
 
         frame = cam.get_next_frame()
         sleep(0.2)
@@ -228,7 +223,11 @@ try:
                         target_object = found_obj
                         state = 1
 
-
+        if state == 0:
+            arlo.go_diff(30,30,1,0)
+            sleep(0.50)
+            arlo.stop()
+            
         if target_object is not None and state == 1:
             print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
             if abs(target_object.getAngle()) > 5:
