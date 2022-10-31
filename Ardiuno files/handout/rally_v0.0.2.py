@@ -9,11 +9,11 @@ from Ex3 import search_and_find
 import camera
 
 
-version = "v.0.0.1"
+version = "v0.0.2"
 landmarks = [4,7,11]
 landmark_numbers = {
-    4 : 0,
-    7 : 1,
+    7 : 0,
+    4 : 1,
     11 : 2
 }
 states = [0,1]
@@ -46,7 +46,7 @@ class object:
     def __init__(self, id, dist, angle):
         self.id = id
         self.dist = dist
-        self.angle = angle
+        self.angle = angle #IS DEGREES
 
     def getID(self):
         return self.id
@@ -55,7 +55,7 @@ class object:
         return self.dist
 
     def getAngle(self):
-        return self.angle
+        return self.angle #IS DEGREES
     
 
 #def searchtarget(landmark):
@@ -129,9 +129,60 @@ search_and_find()
 
 
 ###########  ROBOT FUNCTIONS  ############
-def robot_drive(distance, direction=1):
+def robot_drive(direction = 1):
     arlo.go_diff(30,30,direction,direction)
-    sleep(distance*0.028)
+
+
+def turn(angle):
+    if angle <= 0:
+        arlo.go_diff(30,30,0,1)
+        sleep(0.0153*abs(angle))
+        arlo.stop()
+    else:
+        arlo.go_diff(30,30,1,0)
+        sleep(0.0153*abs(angle))
+        arlo.stop()    
+
+def avoidance():
+    right = arlo.read_right_ping_sensor()
+    mid = arlo.read_front_ping_sensor()
+    left = arlo.read_right_ping_sensor()
+    if right < 200:
+        arlo.stop()
+        arlo.go_diff(30,30,0,1)
+        sleep(0.0153*45)
+        robot_drive(1)
+        sleep(0.5)
+        arlo.stop()
+        arlo.go_diff(30,30,1,0)
+        sleep(0.0153*45)
+        arlo.stop()
+    if left < 200:
+        arlo.stop()
+        arlo.go_diff(30,30,1,0)
+        sleep(0.0153*45)
+        robot_drive(1)
+        sleep(0.5)
+        arlo.stop()
+        arlo.go_diff(30,30,0,1)
+        sleep(0.0153*45)
+        arlo.stop()
+    if mid < 200 and right < 300:
+        arlo.stop()
+        turn(-90)
+        robot_drive(1)
+        sleep(0.5)
+        arlo.stop()
+        turn(90)
+    if mid < 200:
+        arlo.stop()
+        turn(90)
+        robot_drive(1)
+        sleep(0.5)
+        arlo.stop()
+        turn(-90)
+
+
 
 ###########  ROBOT FUNCTIONS  ############
 #################  END  ##################
@@ -145,7 +196,7 @@ try:
     current_target = 0
     target_object = None
 
-    while True:
+    while True: #Main loop
 
         colour = cam.get_next_frame()
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
@@ -153,11 +204,17 @@ try:
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
-                    found_obj = object(objectIDs[i],dists[i],angles[i])
+                    found_obj = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
                     if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
                         target_object = found_obj
-                        print("TARGET:",target_object)
-                        break
+
+        if target_object is not None and target_object.getAngle() > 5:
+            turn(target_object.getAngle)
+        elif target_object.getAngle() <= 5:
+            robot_drive(1)
+        avoidance()
+
+
         
 finally: 
     cam.terminateCaptureThread()
