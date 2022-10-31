@@ -1,4 +1,5 @@
 from ctypes.wintypes import tagRECT
+from pickle import TRUE
 from re import I, search
 from turtle import right
 import robot
@@ -201,6 +202,7 @@ try:
     cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     current_target = 0
     target_object = None
+    found_target = False
     state = 0
 
     while True: #Main loop
@@ -208,7 +210,7 @@ try:
 
         if state == 0:
             arlo.go_diff(30,30,1,0)
-            sleep(0.25)
+            sleep(0.5)
             arlo.stop()
 
         colour = cam.get_next_frame()
@@ -221,11 +223,13 @@ try:
                     if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
                         target_object = found_obj
                         state = 1
-        if target_object is not None:
+        if target_object is not None and state == 1:
             print("TARGET:",target_object)
             if target_object.getAngle() > 5:
+                found_target = True
                 turn(target_object.getAngle())
             else:
+                state = 2
                 robot_drive(1)
         avoidance()
 
