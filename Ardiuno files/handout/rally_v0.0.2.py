@@ -206,10 +206,11 @@ try:
                     if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
                         target_object = found_obj
 
-        if target_object is not None and target_object.getAngle() > 5:
-            turn(target_object.getAngle)
-        elif target_object.getAngle() <= 5:
-            robot_drive(1)
+        if target_object is not None:
+            if target_object.getAngle() > 5:
+                turn(target_object.getAngle)
+            else:
+                robot_drive(1)
         avoidance()
 
 
