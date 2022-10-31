@@ -193,6 +193,7 @@ try:
     cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     current_target = 0
     target_object = None
+    state = 0
 
     while True: #Main loop
 
@@ -205,16 +206,17 @@ try:
                     found_obj = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
                     if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
                         target_object = found_obj
-
+                        state = 1
         if target_object is not None:
             if target_object.getAngle() > 5:
                 turn(target_object.getAngle)
             else:
                 robot_drive(1)
         avoidance()
-
-
-        
+        if state == 0:
+            arlo.go_diff(30,30,1,0)
+            sleep(0.25)
+            arlo.stop()
 finally: 
     cam.terminateCaptureThread()
 
