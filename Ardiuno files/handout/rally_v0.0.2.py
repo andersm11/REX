@@ -4,8 +4,6 @@ from turtle import right
 import robot
 import numpy as np
 from time import sleep 
-import Ex3
-from Ex3 import search_and_find
 import camera
 
 
