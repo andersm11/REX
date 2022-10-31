@@ -208,9 +208,12 @@ try:
     state = 0
 
     while True: #Main loop
-        print("State:",state)
-
-        
+        #print("State:",state)
+        if state == 0:
+        arlo.go_diff(30,30,1,0)
+        sleep(0.50)
+        arlo.stop()
+        sleep(0.1)
 
         frame = cam.get_next_frame()
         objectIDs, dists, angles = cam.detect_aruco_objects(frame)
@@ -222,11 +225,7 @@ try:
                     if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
                         target_object = found_obj
                         state = 1
-        if state == 0:
-            arlo.go_diff(30,30,1,0)
-            sleep(0.25)
-            arlo.stop()
-            sleep(0.1)
+
 
         if target_object is not None and state == 1:
             print("TARGET:",target_object)
