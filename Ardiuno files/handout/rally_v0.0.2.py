@@ -7,7 +7,7 @@ import numpy as np
 from time import sleep 
 import camera
 
-arlo = robot.Robot()
+
 sys.path.append("../robot.py ")
 version = "v0.0.2"
 landmarks = [4,7,11]
@@ -227,7 +227,7 @@ try:
             arlo.go_diff(30,30,1,0)
             sleep(0.50)
             arlo.stop()
-            
+
         if target_object is not None and state == 1:
             print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
             if abs(target_object.getAngle()) > 5:
