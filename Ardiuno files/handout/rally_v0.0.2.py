@@ -1,4 +1,3 @@
-from ctypes.wintypes import tagRECT
 from pickle import TRUE
 from re import I, search
 from turtle import right
@@ -7,6 +6,7 @@ import numpy as np
 from time import sleep 
 import camera
 
+arlo = robot.Robot()
 
 version = "v0.0.2"
 landmarks = [4,7,11]
@@ -34,13 +34,13 @@ cam_intrinsic_matrix.shape = (3, 3)
 cam_distortion_coeffs = np.asarray([0., 0., 2.0546093607192093e-02, -3.5538453075048249e-03, 0.], dtype = np.float64)
 
 
-try:
-    import robot
-    onRobot = True
-except ImportError:
-    print("rally_%s.py: robot module not present - forcing not running on Arlo!",version)
-    onRobot = False
-
+#try:
+#    import robot
+#    onRobot = True
+#except ImportError:
+#    print("rally_%s.py: robot module not present - forcing not running on Arlo!",version)
+#    onRobot = False
+#
 class object:
     def __init__(self, id, dist, angle):
         self.id = id
