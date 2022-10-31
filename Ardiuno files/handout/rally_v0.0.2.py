@@ -128,7 +128,7 @@ class object:
 
 ###########  ROBOT FUNCTIONS  ############
 def robot_drive(direction = 1):
-    arlo.go_diff(30,30,direction,direction)
+    arlo.go_diff(50,50,direction,direction)
 
 
 def turn(angle):
@@ -146,6 +146,7 @@ def avoidance():
     mid = arlo.read_front_ping_sensor()
     left = arlo.read_right_ping_sensor()
     if right < 200:
+        print("right")
         arlo.stop()
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*45)
@@ -156,6 +157,7 @@ def avoidance():
         sleep(0.0153*45)
         arlo.stop()
     if left < 200:
+        print("left")
         arlo.stop()
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*45)
@@ -166,6 +168,7 @@ def avoidance():
         sleep(0.0153*45)
         arlo.stop()
     if mid < 200 and right < 300:
+        print("mid-right")
         arlo.stop()
         turn(-90)
         robot_drive(1)
@@ -173,6 +176,7 @@ def avoidance():
         arlo.stop()
         turn(90)
     if mid < 200:
+        print("mid")
         arlo.stop()
         turn(90)
         robot_drive(1)
