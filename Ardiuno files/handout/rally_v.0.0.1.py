@@ -1,0 +1,171 @@
+from ctypes.wintypes import tagRECT
+from re import I, search
+from turtle import right
+import robot
+import numpy as np
+from time import sleep 
+import Ex3
+from Ex3 import search_and_find
+import camera
+
+
+version = "v.0.0.1"
+landmarks = [4,7,11]
+landmark_numbers = {
+    4 : 0,
+    7 : 1,
+    11 : 2
+}
+states = [0,1]
+
+########### Setup ############
+
+
+#Camera info:
+cam_imageSize = (1280, 720)
+#self.intrinsic_matrix = np.asarray([ 7.1305391967046853e+02, 0., 3.1172820723774367e+02, 0.,
+#       7.0564929862291285e+02, 2.5634470978315028e+02, 0., 0., 1. ], dtype = np.float64)
+#self.intrinsic_matrix = np.asarray([ 6.0727040957659040e+02, 0., 3.0757300398967601e+02, 0.,
+#       6.0768864690145904e+02, 2.8935674612358201e+02, 0., 0., 1. ], dtype = np.float64)
+cam_intrinsic_matrix = np.asarray([500, 0., cam_imageSize[0] / 2.0, 0.,
+       500, cam_imageSize[1] / 2.0, 0., 0., 1.], dtype = np.float64)
+cam_intrinsic_matrix.shape = (3, 3)
+#self.distortion_coeffs = np.asarray([ 1.1911006165076067e-01, -1.0003366233413549e+00,
+#       1.9287903277399834e-02, -2.3728201444308114e-03, -2.8137265581326476e-01 ], dtype = np.float64)
+cam_distortion_coeffs = np.asarray([0., 0., 2.0546093607192093e-02, -3.5538453075048249e-03, 0.], dtype = np.float64)
+
+
+try:
+    import robot
+    onRobot = True
+except ImportError:
+    print("rally_%s.py: robot module not present - forcing not running on Arlo!",version)
+    onRobot = False
+
+class object:
+    def __init__(self, id, dist, angle):
+        self.id = id
+        self.dist = dist
+        self.angle = angle
+
+    def getID(self):
+        return self.id
+
+    def getDist(self):
+        return self.dist
+
+    def getAngle(self):
+        return self.angle
+    
+
+#def searchtarget(landmark):
+#    while arlo.read_front_ping_sensor(self) > 200 and arlo.read_left_ping_sensor(self) > 100 and arlo.read_right_ping_sensor(self) > 100:
+#        if Ex3.CheckID(landmark.landmarks) == True:
+#            Ex3.search_and_find
+#        else:
+#            changeposition()
+#            searchtarget(landmark)
+#    obstacleavoid()
+
+def changeposition():
+    while arlo.read_front_ping_sensor() > 200 and arlo.read_left_ping_sensor() > 100 and arlo.read_right_ping_sensor() > 100:
+        arlo.go_diff(40,40,1,1)
+        sleep(1)
+        search_and_find()
+    obstacleavoid()
+
+#def drivetotarget(landmark):
+#    while arlo.read_front_ping_sensor(self) > 200 and arlo.read_left_ping_sensor(self) > 100 and arlo.read_right_ping_sensor(self) > 100:
+#        #vend mod targetbox
+#        #kør mod targetbox
+#        if landmark.lastLandmark == True:
+#            arlo.stop
+#        elif dist(landmark) <= 400:
+#            landmark.nextLandmark
+#            searchtarget(landmark)
+#    obstacleavoid
+#    searchtarget(targetbox)
+
+def obstacleavoid():
+    if arlo.read_front_ping_sensor() > 200:
+        search_and_find()
+    else:
+        while arlo.read_front_ping_sensor() < 200:
+            if arlo.read_left_ping_sensor() > 200:
+                arlo.go_diff(30,30,0,1)
+                sleep(0.3)
+            elif arlo.read_right_ping_sensor() > 200:
+                arlo.go_diff(30,30,1,0)
+                sleep(0.3)
+            else:
+                arlo.go_diff(30,30,0,0)
+                sleep(0.5)
+                arlo.go_diff(30,30,0,1)
+                sleep(0.3)
+                arlo.stop
+        obstacleavoid()
+
+search_and_find()
+
+############# LANDMARK CLASS ##############
+
+############# LANDMARK CLASS ##############
+##################  END  ##################
+#
+#
+
+############ Particle filter #############
+
+############ Particle filter #############
+#################  END  ##################
+
+
+
+############  Localization  ##############
+
+
+############  Localization  ##############
+#################  END  ##################
+
+
+###########  ROBOT FUNCTIONS  ############
+def robot_drive(distance, direction=1):
+    arlo.go_diff(30,30,direction,direction)
+    sleep(distance*0.028)
+
+###########  ROBOT FUNCTIONS  ############
+#################  END  ##################
+
+
+############   RALLY CODE   ##############
+try:
+    arlo = robot.Robot()
+    print("Opening and initializing camera")
+    cam = camera.Camera(0, 'arlo', useCaptureThread = True)
+    current_target = 0
+    target_object = None
+
+    while True:
+
+        colour = cam.get_next_frame()
+        objectIDs, dists, angles = cam.detect_aruco_objects(colour)
+        if not isinstance(objectIDs, type(None)):
+            for i in range(len(objectIDs)):
+                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+                if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
+                    found_obj = object(objectIDs[i],dists[i],angles[i])
+                    if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
+                        target_object = found_obj
+                        print("TARGET:",target_object)
+                        break
+        
+finally: 
+    cam.terminateCaptureThread()
+
+
+############   RALLY CODE   ##############   
+#################  END  ##################
+
+    
+
+

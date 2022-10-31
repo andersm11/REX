@@ -12,7 +12,7 @@ class  Landmark():
     def __init__(self, state, landmarks):
         self.state = state
         self.landmarks = landmarks
-
+    
     
     def find(self, landmark):
         #kode til at checke om kamera kan se aruco kode
