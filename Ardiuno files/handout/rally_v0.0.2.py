@@ -234,6 +234,7 @@ try:
 
             if target_object.getAngle() > 5:
                 print("TURNING")
+                sleep(3)
                 found_target = True
                 turn(target_object.getAngle())
                 sleep(3)
