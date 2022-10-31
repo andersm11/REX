@@ -210,10 +210,10 @@ try:
     while True: #Main loop
         #print("State:",state)
         if state == 0:
-        arlo.go_diff(30,30,1,0)
-        sleep(0.50)
-        arlo.stop()
-        sleep(0.1)
+            arlo.go_diff(30,30,1,0)
+            sleep(0.50)
+            arlo.stop()
+            sleep(0.1)
 
         frame = cam.get_next_frame()
         objectIDs, dists, angles = cam.detect_aruco_objects(frame)
