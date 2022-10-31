@@ -196,7 +196,7 @@ try:
     state = 0
 
     while True: #Main loop
-
+        print("State:",state)
         colour = cam.get_next_frame()
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(objectIDs, type(None)):
@@ -208,6 +208,7 @@ try:
                         target_object = found_obj
                         state = 1
         if target_object is not None:
+            print("TARGET:",target_object)
             if target_object.getAngle() > 5:
                 turn(target_object.getAngle)
             else:
