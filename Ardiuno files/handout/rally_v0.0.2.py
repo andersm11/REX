@@ -202,7 +202,7 @@ try:
             arlo.go_diff(30,30,1,0)
             sleep(0.25)
             arlo.stop()
-            
+
         colour = cam.get_next_frame()
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
         if not isinstance(objectIDs, type(None)):
@@ -216,7 +216,7 @@ try:
         if target_object is not None:
             print("TARGET:",target_object)
             if target_object.getAngle() > 5:
-                turn(target_object.getAngle)
+                turn(target_object.getAngle())
             else:
                 robot_drive(1)
         avoidance()
