@@ -236,6 +236,7 @@ def main():
 
     while True: #Main loop
         retval, frameReference = Take_pic()
+        print("pic taken")
         if not retval: # Error
             print(" < < <  Game over!  > > > ")
             exit(-1)
