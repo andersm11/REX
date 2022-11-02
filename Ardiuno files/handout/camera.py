@@ -40,7 +40,7 @@ def gstreamer_pipeline(capture_width=1280, capture_height=720, framerate=30):
         "video/x-raw, width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
         "videoconvert ! "
         "appsink"
-        % ( 0
+        % ( 0,
             capture_width,
             capture_height,
             framerate,
