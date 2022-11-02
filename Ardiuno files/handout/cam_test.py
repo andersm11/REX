@@ -248,3 +248,6 @@ try:
                 for i in range(len(objectIDs)):
                     print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
             exit(0)
+
+finally:
+    cam.terminateCaptureThread()
