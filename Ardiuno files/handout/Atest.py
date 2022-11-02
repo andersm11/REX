@@ -7,7 +7,7 @@ import numpy as np
 import cv2
 from time import sleep 
 import camera
-from Ex3 import Take_pic
+from aux_file import Take_pic
 
 
 sys.path.append("../robot.py ")
