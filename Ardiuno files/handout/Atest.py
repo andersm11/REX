@@ -259,10 +259,10 @@ def avoidance():
         arlo.stop()
         turn(45)
         robot_drive(1)
-        sleep(0.1)
+        sleep(0.2)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.30+(right/100))
+        sleep(0.45)
         arlo.stop()
 
         #sleep(2)
