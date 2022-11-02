@@ -29,8 +29,8 @@ cam_imageSize = (1280, 720)
 ##       7.0564929862291285e+02, 2.5634470978315028e+02, 0., 0., 1. ], dtype = np.float64)
 ##self.intrinsic_matrix = np.asarray([ 6.0727040957659040e+02, 0., 3.0757300398967601e+02, 0.,
 ##       6.0768864690145904e+02, 2.8935674612358201e+02, 0., 0., 1. ], dtype = np.float64)
-cam_intrinsic_matrix = np.asarray([500, 0., cam_imageSize[0] / 2.0, 0.,
-       500, cam_imageSize[1] / 2.0, 0., 0., 1.], dtype = np.float64)
+cam_intrinsic_matrix = np.asarray([1672, 0., cam_imageSize[0] / 2.0, 0.,
+       1672, cam_imageSize[1] / 2.0, 0., 0., 1.], dtype = np.float64)
 cam_intrinsic_matrix.shape = (3, 3)
 ##self.distortion_coeffs = np.asarray([ 1.1911006165076067e-01, -1.0003366233413549e+00,
 ##       1.9287903277399834e-02, -2.3728201444308114e-03, -2.8137265581326476e-01 ], dtype = np.float64)
@@ -225,7 +225,7 @@ try:
             parameters=arucoParams)
         #cv2.aruco.drawDetectedMarkers(frameReference,corners)
         print(ids)
-        rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
+        rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,0.15,cam_intrinsic_matrix,cam_distortion_coeffs)
         if tvec is not None:
             #tvec2 = np.reshape(tvec[0,:],(3,))
             tvec = tvec[0].reshape((3,))
