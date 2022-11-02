@@ -217,7 +217,7 @@ try:
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
-                    found_obj = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
+                    target_object = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
                     state = 1
 #                    target_object = found_obj
 #                    state = 1
@@ -232,8 +232,7 @@ try:
             sleep(0.5)
             arlo.stop()
 
-        if state == 1:
-            print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
+        if target_object is not None:
             if abs(target_object.getAngle()) > 5:
                 print("TURNING")
                 sleep(3)
