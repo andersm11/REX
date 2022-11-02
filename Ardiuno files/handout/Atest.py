@@ -272,11 +272,11 @@ def main():
             if time_diff >= time_to_drive:
                 arlo.stop()
                 exit(0)
-
-        arlo.go_diff(30,30,1,0)
-        sleep(0.3)
-        arlo.stop()
-
+        if state == 0:
+            arlo.go_diff(30,30,1,0)
+            sleep(0.3)
+            arlo.stop()
+    
 
 
         #if CheckID(ids) is True:
