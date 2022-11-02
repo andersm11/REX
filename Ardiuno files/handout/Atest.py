@@ -303,7 +303,7 @@ def main():
                     #    target_object = found_obj
                     #    state = 1
         #search_and_find()
-        avoidance()
+        #avoidance()
 
 main()
 
