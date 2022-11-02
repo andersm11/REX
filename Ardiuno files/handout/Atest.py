@@ -256,8 +256,7 @@ def main():
         if tvec is not None and state == 0:
             angle, distance = compute_angle_and_distance(tvec)
             print("angle",angle)
-            
-            #turn(angle)
+            turn(angle)
             sleep(1)
             start_time = time.time()
             time_to_drive = 0.028*(abs(distance-10))
