@@ -224,7 +224,7 @@ def avoidance():
 
 
 ############   RALLY CODE   ##############
-try:
+def main():
 
     arlo = robot.Robot()
     #print("Opening and initializing camera")
@@ -294,8 +294,6 @@ try:
         #search_and_find()
         avoidance()
 
-finally: 
-    exit(0)
 
 
 ############   RALLY CODE   ##############   
