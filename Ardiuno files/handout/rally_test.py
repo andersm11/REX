@@ -220,7 +220,7 @@ try:
                     found_obj = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
                     if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
                         target_object = found_obj
-                        state = 1
+                        state = 0
 
         if state == 0:
             arlo.go_diff(30,30,1,0)
