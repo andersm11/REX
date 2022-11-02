@@ -345,6 +345,8 @@ try:
 
         # Fetch next frame
         colour = cam.get_next_frame()
+        colour = cam.get_next_frame()
+        colour = cam.get_next_frame()
         
         # Detect objects
         objectIDs, dists, angles = cam.detect_aruco_objects(colour)
