@@ -232,6 +232,8 @@ try:
                         arlo.go_diff(30,30,0,1)
                         sleep(0.0153*target_object.angle)
                         arlo.stop()
+        else:
+            target_object = None
 #                    target_object = found_obj
 #                    state = 1
 #                    print(" got em")
