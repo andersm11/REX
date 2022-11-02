@@ -222,7 +222,16 @@ try:
                 if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
                     target_object = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
                     state = 1
+                    sleep(1)
                     print(target_object.angle)
+                    if target_object.angle > 11:
+                        arlo.go_diff(30,30,1,0)
+                        sleep(0.0153*target_object.angle)
+                        arlo.stop()
+                    elif target_object.angle < -11:
+                        arlo.go_diff(30,30,0,1)
+                        sleep(0.0153*target_object.angle)
+                        arlo.stop()
 #                    target_object = found_obj
 #                    state = 1
 #                    print(" got em")
