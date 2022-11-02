@@ -151,7 +151,24 @@ def turn(angle):
         sleep(0.0153*abs(angle))
         arlo.stop()    
 
+def check_id(corners, ids, current_target):
+    for i in range(len(ids)):
+        if ids[i] == current_target:
+            return (corners[i],ids[i])
 
+
+def compute_angle_and_distance(vector):
+    #tvec2 = np.reshape(tvec[0,:],(3,))
+        vector = vector[0].reshape((3,))
+        vector_norm = vector/np.linalg.norm(vector)
+        print(vector.shape)
+        beta = np.rad2deg(np.arccos(np.dot(vector_norm,z)))
+        print("dot:",np.dot(vector_norm, z) )
+        sign = np.sign(np.dot(np.transpose(x),vector))
+        angle = beta*sign
+        print("beta", angle, "sign:", sign)
+        dist = np.linalg.norm(vector)
+        return angle, dist
 
 def avoidance():
     right = arlo.read_right_ping_sensor()
@@ -208,35 +225,28 @@ def avoidance():
 
 ############   RALLY CODE   ##############
 try:
-    
+
     arlo = robot.Robot()
     #print("Opening and initializing camera")
-    cam = camera.Camera(0, 'arlo', useCaptureThread = True)
+    #cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     current_target = 0
     target_object = None
     found_target = False
     state = 0
 
     while True: #Main loop
-    #    retval, frameReference = Take_pic()
-    #    if not retval: # Error
-    #        print(" < < <  Game over!  > > > ")
-    #        exit(-1)
-    #    (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,
-    #        parameters=arucoParams)
-    #    #cv2.aruco.drawDetectedMarkers(frameReference,corners)
-    #    print(ids)
-    #    rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,0.15,cam_intrinsic_matrix,cam_distortion_coeffs)
-    #    if tvec is not None:
-    #        #tvec2 = np.reshape(tvec[0,:],(3,))
-    #        tvec = tvec[0].reshape((3,))
-    #        tvec_norm = tvec/np.linalg.norm(tvec)
-    #        print(tvec.shape)
-    #        beta = np.rad2deg(np.arccos(np.dot(tvec_norm,z)))
-    #        print("dot:",np.dot(tvec_norm, z) )
-    #        sign = np.sign(np.dot(np.transpose(x),tvec))
-    #        angle = beta*sign
-    #        print("beta", angle, "sign:", sign)
+        retval, frameReference = Take_pic()
+        if not retval: # Error
+            print(" < < <  Game over!  > > > ")
+            exit(-1)
+        (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
+        (t_corners, t_id) = check_id(corners,ids,current_target)
+
+        print(t_id)
+        rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,0.15,cam_intrinsic_matrix,cam_distortion_coeffs)
+        if tvec is not None:
+            angle, distance = compute_angle_and_distance(tvec)
+
 
         #if CheckID(ids) is True:
         #    if 3 < beta:
@@ -253,25 +263,25 @@ try:
 
         #print("State:",state)           
 
-        frame = cam.get_next_frame()
-        objectIDs, dists, angles = cam.detect_aruco_objects(frame)
-        sleep(0.2)
-        if not isinstance(objectIDs, type(None)):
-            for i in range(len(objectIDs)):
-                print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-                if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
-                    target_object = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
-                    state = 1
-                    sleep(1)
-                    print(target_object.angle)
-                    if target_object.angle > 11:
-                        arlo.go_diff(30,30,0,1)
-                        sleep(0.0153*abs(target_object.angle-10))
-                        arlo.stop()
-                    elif target_object.angle < -11:
-                        arlo.go_diff(30,30,1,0)
-                        sleep(0.0153*abs(target_object.angle+10))
-                        arlo.stop()
+        #frame = cam.get_next_frame()
+        #objectIDs, dists, angles = cam.detect_aruco_objects(frame)
+        #sleep(0.2)
+        #if not isinstance(objectIDs, type(None)):
+        #    for i in range(len(objectIDs)):
+        #        print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
+        #        if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
+        #            target_object = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
+        #            state = 1
+        #            sleep(1)
+        #            print(target_object.angle)
+        #            if target_object.angle > 11:
+        #                arlo.go_diff(30,30,0,1)
+        #                sleep(0.0153*abs(target_object.angle-10))
+        #                arlo.stop()
+        #            elif target_object.angle < -11:
+        #                arlo.go_diff(30,30,1,0)
+        #                sleep(0.0153*abs(target_object.angle+10))
+        #                arlo.stop()
         #else:
         #    target_object = None
 #       #             target_object = found_obj
