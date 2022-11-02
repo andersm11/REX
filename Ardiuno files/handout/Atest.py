@@ -295,7 +295,7 @@ try:
         avoidance()
 
 finally: 
-    cam.terminateCaptureThread()
+    exit(0)
 
 
 ############   RALLY CODE   ##############   
