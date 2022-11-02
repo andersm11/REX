@@ -279,7 +279,7 @@ def main():
                 end_time = time.time()
                 time_diff = end_time - start_time
                 check = avoidance()
-                if check != "non":
+                if check != "free":
                     state = 0
                 elif time_diff >= time_to_drive:
                     arlo.stop()
