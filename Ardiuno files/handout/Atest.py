@@ -295,7 +295,7 @@ def main():
         #search_and_find()
         avoidance()
 
-
+main()
 
 ############   RALLY CODE   ##############   
 #################  END  ##################
