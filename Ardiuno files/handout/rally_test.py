@@ -39,7 +39,8 @@ cam_distortion_coeffs = np.asarray([0., 0., 2.0546093607192093e-02, -3.553845307
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
 arucoParams = cv2.aruco.DetectorParameters_create()
 dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
-
+z = np.array([0,0,1],dtype=float)
+x = np.array([1,0,0],dtype=float)
 
 #try:
 #    import robot
