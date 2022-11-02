@@ -180,6 +180,7 @@ def avoidance():
     if right < 200:
         print("right")
         arlo.stop()
+        sleep(2)
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*45)
         robot_drive(1)
@@ -192,6 +193,7 @@ def avoidance():
     if left < 200:
         print("left")
         arlo.stop()
+        sleep(2)
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*45)
         robot_drive(1)
@@ -204,6 +206,7 @@ def avoidance():
     if mid < 200 and right < 300:
         print("mid-right")
         arlo.stop()
+        sleep(2)
         turn(-90)
         robot_drive(1)
         sleep(0.5)
@@ -213,6 +216,7 @@ def avoidance():
     if mid < 200:
         print("mid")
         arlo.stop()
+        sleep(2)
         turn(90)
         robot_drive(1)
         sleep(0.5)
