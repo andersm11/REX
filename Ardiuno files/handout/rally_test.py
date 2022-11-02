@@ -221,10 +221,9 @@ try:
                     if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
                         target_object = found_obj
                         state = 1
-        else:
-            state = 0
-            target_object = None
-            
+                else:
+                    target_object = None
+                    state = 0
         sleep(0.2)
         if state == 0:
             arlo.go_diff(30,30,1,0)
