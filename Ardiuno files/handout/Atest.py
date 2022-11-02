@@ -299,7 +299,7 @@ def avoidance():
         sleep(0.3)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.35)
+        sleep(0.55)
         arlo.stop()
         turn(45)
         if avoidance() != "free":
