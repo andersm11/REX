@@ -1,6 +1,7 @@
 from pickle import TRUE
 from re import I, search
 from turtle import right
+import time
 #import robot
 import sys
 import numpy as np
@@ -226,6 +227,7 @@ def avoidance():
 
 
 ############   RALLY CODE   ##############
+
 def main():
 
     
@@ -255,11 +257,16 @@ def main():
             angle, distance = compute_angle_and_distance(tvec)
             print("angle",angle)
             turn(angle)
-            arlo.go_diff(52,50,1,1)
-            print("distance",distance)
-            sleep(0.028*abs(distance-10))
-            arlo.stop()
-            exit(1)
+            start_time = time.time()
+            time_to_drive = 0.028*(abs(distance-5))
+            state = 1
+            robot_drive(1)
+        if state == 1:
+            end_time = time.time()
+            time_diff = end_time - start_time
+            if time_diff >= time_to_drive:
+                arlo.stop()
+                exit(0)
 
         arlo.go_diff(30,30,1,0)
         sleep(0.3)
