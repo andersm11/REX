@@ -205,6 +205,7 @@ try:
     current_target = 0
     target_object = None
     found_target = False
+    found_landmarks = []
     state = 0
 
     while True: #Main loop
@@ -235,8 +236,8 @@ try:
             if abs(target_object.getAngle()) > 5:
                 print("TURNING")
                 sleep(3)
-                found_target = True
                 turn(target_object.getAngle())
+                target_object = None
                 sleep(3)
             else:
                 state = 2
