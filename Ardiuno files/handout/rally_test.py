@@ -222,10 +222,10 @@ try:
                         target_object = found_obj
                         state = 1
 
-        #if state == 0:
-        #    arlo.go_diff(30,30,1,0)
-        #    sleep(0.50)
-        #    arlo.stop()
+        if state == 0:
+            arlo.go_diff(30,30,1,0)
+            sleep(0.5)
+            arlo.stop()
 
         #if target_object is not None and state == 1:
         #    print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
