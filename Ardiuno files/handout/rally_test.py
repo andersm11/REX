@@ -10,7 +10,7 @@ import camera
 
 sys.path.append("../robot.py ")
 version = "v0.0.2"
-landmarks = [4,7,11]
+landmarks = [4,2,11]
 landmark_numbers = {
     2 : 0,
     4 : 1,
