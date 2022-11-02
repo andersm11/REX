@@ -21,7 +21,7 @@ landmark_numbers = {
 states = [0,1]
 
 ########### Setup ############
-
+arlo = robot.Robot()
 
 #Camera info:
 cam_imageSize = (1280, 720)
@@ -226,7 +226,7 @@ def avoidance():
 ############   RALLY CODE   ##############
 def main():
 
-    arlo = robot.Robot()
+    
     #print("Opening and initializing camera")
     #cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     current_target = 0
