@@ -1,7 +1,7 @@
 from pickle import TRUE
 from re import I, search
 from turtle import right
-import robot
+#import robot
 import sys
 import numpy as np
 import cv2
@@ -21,7 +21,7 @@ landmark_numbers = {
 states = [0,1]
 
 ########### Setup ############
-arlo = robot.Robot()
+
 
 #Camera info:
 cam_imageSize = (1280, 720)
@@ -43,13 +43,13 @@ dict = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_6X6_250)
 z = np.array([0,0,1],dtype=float)
 x = np.array([1,0,0],dtype=float)
 
-#try:
-#    import robot
-#    onRobot = True
-#except ImportError:
-#    print("rally_%s.py: robot module not present - forcing not running on Arlo!",version)
-#    onRobot = False
-#
+try:
+    import robot
+    onRobot = True
+except ImportError:
+    print("rally_%s.py: robot module not present - forcing not running on Arlo!",version)
+    onRobot = False
+arlo = robot.Robot()
 class object:
     def __init__(self, id, dist, angle):
         self.id = id
