@@ -246,15 +246,15 @@ def main():
         (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
         
         if ids is not None:
-            print(ids)
             t_corners, t_id = check_id(corners,ids,current_target)
             rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,0.15,cam_intrinsic_matrix,cam_distortion_coeffs)
-            print(t_id)
+            print("t_id",t_id)
         else:
             tvec = None
 
         if tvec is not None:
             angle, distance = compute_angle_and_distance(tvec)
+            print("angle",angle)
             turn(angle)
             arlo.go_diff(52,50,1,1)
             print("distance",distance)
