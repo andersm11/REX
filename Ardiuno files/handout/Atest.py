@@ -152,6 +152,7 @@ def turn(angle):
         arlo.stop()    
 
 def check_id(corners, ids, current_target):
+    print(ids)
     for i in range(len(ids)):
         if ids[i] == current_target:
             return (corners[i],ids[i])
