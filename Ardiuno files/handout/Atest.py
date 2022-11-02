@@ -242,7 +242,7 @@ def main():
             exit(-1)
         (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
         if ids is not None:
-            (t_corners, t_id) = check_id(corners,ids,current_target)
+            t_corners, t_id = check_id(corners,ids,current_target)
             rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,0.15,cam_intrinsic_matrix,cam_distortion_coeffs)
             print(t_id)
         else:
