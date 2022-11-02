@@ -176,7 +176,7 @@ def compute_angle_and_distance(vector):
 def avoidance():
     right = arlo.read_right_ping_sensor()
     mid = arlo.read_front_ping_sensor()
-    left = arlo.read_right_ping_sensor()
+    left = arlo.read_left_ping_sensor()
     if right < 300:
         print("right")
         arlo.stop()
