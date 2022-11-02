@@ -191,6 +191,8 @@ def avoidance():
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*70)
         arlo.stop()
+        if avoidance() != "free":
+            return "s_right"
         robot_drive(1)
         sleep(0.65)
         arlo.stop()
