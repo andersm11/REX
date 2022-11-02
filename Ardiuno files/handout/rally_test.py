@@ -212,7 +212,6 @@ try:
 
         frame = cam.get_next_frame()
         objectIDs, dists, angles = cam.detect_aruco_objects(frame)
-        sleep(0.2)
         if not isinstance(objectIDs, type(None)):
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
@@ -226,7 +225,7 @@ try:
                     #    print("found")
                     #    target_object = found_obj
                     #    state = 1
-        sleep(0.2)
+        sleep(0.3)
         if state == 0:
             arlo.go_diff(30,30,1,0)
             sleep(0.5)
