@@ -238,6 +238,7 @@ def main():
     state = 0
 
     while True: #Main loop
+        print("WHILE")
         retval, frameReference = Take_pic()
 
         if not retval: # Error
