@@ -212,6 +212,7 @@ try:
 
         frame = cam.get_next_frame()
         objectIDs, dists, angles = cam.detect_aruco_objects(frame)
+        sleep(0.2)
         if not isinstance(objectIDs, type(None)):
             for i in range(len(objectIDs)):
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
