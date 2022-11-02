@@ -162,16 +162,16 @@ def check_id(corners, ids, current_target):
 
 def compute_angle_and_distance(vector):
     #tvec2 = np.reshape(tvec[0,:],(3,))
-        vector = vector[0].reshape((3,))
-        vector_norm = vector/np.linalg.norm(vector)
-        print(vector.shape)
-        beta = np.rad2deg(np.arccos(np.dot(vector_norm,z)))
-        print("dot:",np.dot(vector_norm, z) )
-        sign = np.sign(np.dot(np.transpose(x),vector))
-        angle = beta*sign
-        print("beta", angle, "sign:", sign)
-        dist = np.linalg.norm(vector)
-        return angle, dist
+    vector = vector[0].reshape((3,))
+    vector_norm = vector/np.linalg.norm(vector)
+    print(vector.shape)
+    beta = np.rad2deg(np.arccos(np.dot(vector_norm,z)))
+    print("dot:",np.dot(vector_norm, z) )
+    sign = np.sign(np.dot(np.transpose(x),vector))
+    angle = beta*sign
+    print("beta", angle, "sign:", sign)
+    dist = np.linalg.norm(vector)
+    return angle, dist
 
 def avoidance():
     right = arlo.read_right_ping_sensor()
@@ -260,8 +260,7 @@ def main():
             print("distance",distance)
             sleep(0.028*(distance))
             arlo.stop()
-            exit(1)
-            print(angle,distance)
+
 
 
         #if CheckID(ids) is True:
