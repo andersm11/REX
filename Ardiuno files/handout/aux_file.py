@@ -17,7 +17,7 @@ def gstreamer_pipeline(capture_width=1280, capture_height=720, framerate=30):
     """Utility function for setting parameters for the gstreamer camera pipeline"""
     return (
         "libcamerasrc !"
-        "videobox autocrop=true !"
+        "videobox autocrop=true"
         "video/x-raw, width=(int)%d, height=(int)%d, framerate=(fraction)%d/1 ! "
         "videoconvert ! "
         "appsink"
