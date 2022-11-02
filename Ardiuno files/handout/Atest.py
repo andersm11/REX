@@ -155,6 +155,8 @@ def check_id(corners, ids, current_target):
     for i in range(len(ids)):
         if ids[i] == current_target:
             return (corners[i],ids[i])
+    else:
+        return None, None
 
 
 def compute_angle_and_distance(vector):
