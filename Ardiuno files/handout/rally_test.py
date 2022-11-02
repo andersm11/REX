@@ -222,7 +222,7 @@ try:
                 if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
                     target_object = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
                     state = 1
-                    exit(1)
+                    print(target_object.angle)
 #                    target_object = found_obj
 #                    state = 1
 #                    print(" got em")
