@@ -224,6 +224,7 @@ try:
     arlo = robot.Robot()
 
     cam = camera.Camera(0, 'arlo', useCaptureThread = False)
+    cam.terminateCaptureThread()
     while True:
 
         
