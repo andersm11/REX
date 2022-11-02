@@ -177,52 +177,58 @@ def avoidance():
     right = arlo.read_right_ping_sensor()
     mid = arlo.read_front_ping_sensor()
     left = arlo.read_left_ping_sensor()
-    if right < 300:
+    if right < 200:
         print("right")
         arlo.stop()
-        sleep(2)
+        sleep(1)
         arlo.go_diff(30,30,0,1)
-        sleep(0.0153*60)
+        sleep(0.0153*80)
         robot_drive(1)
-        sleep(0.5)
+        sleep(0.75)
         arlo.stop()
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*70)
         arlo.stop()
-        sleep(5)
-    if left < 300:
+        sleep(2)
+        return "s_left"
+    if left < 200:
         print("left")
         arlo.stop()
-        sleep(2)
+        sleep(1)
         arlo.go_diff(30,30,1,0)
-        sleep(0.0153*60)
+        sleep(0.0153*80)
         robot_drive(1)
-        sleep(0.5)
+        sleep(0.75)
         arlo.stop()
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*70)
         arlo.stop()
-        sleep(5)
-    if mid < 200 and right < 300:
+        sleep(2)
+        return "s_right"
+    if mid < 100 and right < 200:
         print("mid-right")
         arlo.stop()
-        sleep(2)
+        sleep(1)
         turn(-100)
         robot_drive(1)
-        sleep(0.5)
+        sleep(1)
         arlo.stop()
-        turn(100)
-        sleep(5)
-    if mid < 200:
+        turn(90)
+        sleep(2)
+        return "s_right"
+    if mid < 100:
         print("mid")
         arlo.stop()
-        sleep(2)
+        sleep(1)
         turn(100)
         robot_drive(1)
-        sleep(0.5)
+        sleep(1)
         arlo.stop()
-        turn(-100)
-        sleep(5)
+        turn(-90)
+        sleep(2)
+        return "s_left"
+    else:
+        return "free"
 
 
 
@@ -240,6 +246,7 @@ def main():
     current_target = 0
     target_object = None
     found_target = False
+    search_side = "s_right"
     state = 0
 
     while True: #Main loop
@@ -271,15 +278,19 @@ def main():
             while state == 1:
                 end_time = time.time()
                 time_diff = end_time - start_time
-                avoidance()
-                if time_diff >= time_to_drive:
+                check = avoidance()
+                if check != "non":
+                    state = 0
+                elif time_diff >= time_to_drive:
                     arlo.stop()
-                    turn(200)
-                    start_time = time.time()
-                    robot_drive(1)
+                    exit(0)
 
                 
-        if state == 0:
+        if state == 0 and search_side == "s_right":
+            arlo.go_diff(30,30,1,0)
+            sleep(0.3)
+            arlo.stop()
+        elif state == 0 and search_side =="s_left":
             arlo.go_diff(30,30,1,0)
             sleep(0.3)
             arlo.stop()
