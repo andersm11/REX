@@ -6,6 +6,7 @@ import sys
 import numpy as np
 from time import sleep 
 import camera
+#from Ex3 import search_and_find
 
 
 sys.path.append("../robot.py ")
@@ -143,6 +144,8 @@ def turn(angle):
         sleep(0.0153*abs(angle))
         arlo.stop()    
 
+
+
 def avoidance():
     right = arlo.read_right_ping_sensor()
     mid = arlo.read_front_ping_sensor()
@@ -219,6 +222,7 @@ try:
                 if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
                     target_object = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
                     state = 1
+                    exit(1)
 #                    target_object = found_obj
 #                    state = 1
 #                    print(" got em")
@@ -226,27 +230,7 @@ try:
                     #    print("found")
                     #    target_object = found_obj
                     #    state = 1
-        sleep(0.3)
-        if state == 0:
-            arlo.go_diff(30,30,1,0)
-            sleep(0.5)
-            arlo.stop()
-
-        if target_object is not None:
-            if abs(target_object.getAngle()) > 5:
-                print("angle:",target_object.getAngle())
-                print("TURNING")
-                sleep(3)
-                turn(target_object.getAngle())
-                target_object = None
-                sleep(3)
-            else:
-                state = 2
-                print("DRIVING")
-                arlo.go_diff(0.028*target_object.dist)
-                #robot_drive(1)
-        else:
-            state = 0
+        #search_and_find()
         avoidance()
 
 finally: 
