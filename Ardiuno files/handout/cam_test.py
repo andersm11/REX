@@ -223,12 +223,7 @@ try:
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
 
-    print("Opening and initializing camera")
-    if camera.isRunningOnArlo():
-        cam = camera.Camera(0, 'arlo', useCaptureThread = False)
-    else:
-        cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
-
+    cam = camera.Camera(0, 'arlo', useCaptureThread = False)
     while True:
 
         
