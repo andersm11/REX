@@ -234,6 +234,7 @@ try:
 
         if target_object is not None:
             if abs(target_object.getAngle()) > 5:
+                print("angle:",target_object.getAngle())
                 print("TURNING")
                 sleep(3)
                 turn(target_object.getAngle())
