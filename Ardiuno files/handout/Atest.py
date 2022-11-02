@@ -211,7 +211,7 @@ try:
     
     arlo = robot.Robot()
     #print("Opening and initializing camera")
-    #cam = camera.Camera(0, 'arlo', useCaptureThread = True)
+    cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     current_target = 0
     target_object = None
     found_target = False
