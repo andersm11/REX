@@ -153,8 +153,8 @@ def turn(angle):
 
 def check_id(corners, ids, current_target):
     for i in range(len(ids)):
-        print(ids[i])
-        if landmark_numbers[ids[i,:]] == current_target:
+        print(ids[i][0])
+        if landmark_numbers[ids[i][0]] == current_target:
             return (corners[i],ids[i])
     else:
         return None, None
