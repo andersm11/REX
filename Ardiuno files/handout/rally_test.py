@@ -211,7 +211,6 @@ try:
         #print("State:",state)           
 
         frame = cam.get_next_frame()
-        sleep(0.2)
         objectIDs, dists, angles = cam.detect_aruco_objects(frame)
         sleep(0.2)
         if not isinstance(objectIDs, type(None)):
@@ -223,24 +222,24 @@ try:
                         target_object = found_obj
                         state = 1
 
-        if state == 0:
-            arlo.go_diff(30,30,1,0)
-            sleep(0.50)
-            arlo.stop()
+        #if state == 0:
+        #    arlo.go_diff(30,30,1,0)
+        #    sleep(0.50)
+        #    arlo.stop()
 
-        if target_object is not None and state == 1:
-            print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
-            if abs(target_object.getAngle()) > 5:
-                print("TURNING")
-                sleep(3)
-                found_target = True
-                turn(target_object.getAngle())
-                sleep(3)
-            else:
-                state = 2
-                print("DRIVING")
-                robot_drive(1)
-        avoidance()
+        #if target_object is not None and state == 1:
+        #    print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
+        #    if abs(target_object.getAngle()) > 5:
+        #        print("TURNING")
+        #        sleep(3)
+        #        found_target = True
+        #        turn(target_object.getAngle())
+        #        sleep(3)
+        #    else:
+        #        state = 2
+        #        print("DRIVING")
+        #        robot_drive(1)
+        #avoidance()
 
 finally: 
     cam.terminateCaptureThread()
