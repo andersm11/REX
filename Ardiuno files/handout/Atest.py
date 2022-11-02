@@ -256,7 +256,7 @@ def main():
         if tvec is not None and state == 0:
             angle, distance = compute_angle_and_distance(tvec)
             print("angle",angle)
-            robot_drive(1)
+            
             #turn(angle)
             sleep(1)
             start_time = time.time()
@@ -267,6 +267,8 @@ def main():
             print("state 1 ")
             end_time = time.time()
             time_diff = end_time - start_time
+            print("diff",time_diff)
+            print("t2d",time_to_drive)
             if time_diff >= time_to_drive:
                 arlo.stop()
                 exit(0)
