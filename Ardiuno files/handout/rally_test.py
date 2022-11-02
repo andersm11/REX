@@ -223,9 +223,6 @@ try:
                         print("found")
                         target_object = found_obj
                         state = 1
-                else:
-                    target_object = None
-                    state = 0
         sleep(0.2)
         if state == 0:
             arlo.go_diff(30,30,1,0)
