@@ -257,7 +257,7 @@ def main():
             angle, distance = compute_angle_and_distance(tvec)
             turn(angle)
             arlo.go_diff(52,50,1,1)
-            print(distance)
+            print("distance",distance)
             sleep(0.028*(distance))
             arlo.stop()
             exit(1)
