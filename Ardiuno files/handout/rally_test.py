@@ -245,6 +245,8 @@ try:
                 print("DRIVING")
                 arlo.go_diff(0.028*target_object.dist)
                 #robot_drive(1)
+        else:
+            state = 0
         avoidance()
 
 finally: 
