@@ -225,7 +225,7 @@ try:
             parameters=arucoParams)
         #cv2.aruco.drawDetectedMarkers(frameReference,corners)
         print(ids)
-        rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,0.15,cam_intrinsic_matrix,cam_distortion_coeffs)
+        rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
         if tvec is not None:
             #tvec2 = np.reshape(tvec[0,:],(3,))
             tvec = tvec[0].reshape((3,))
