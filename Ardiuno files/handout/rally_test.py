@@ -225,11 +225,11 @@ try:
                     sleep(1)
                     print(target_object.angle)
                     if target_object.angle > 11:
-                        arlo.go_diff(30,30,1,0)
+                        arlo.go_diff(30,30,0,1)
                         sleep(0.0153*target_object.angle)
                         arlo.stop()
                     elif target_object.angle < -11:
-                        arlo.go_diff(30,30,0,1)
+                        arlo.go_diff(30,30,1,0)
                         sleep(0.0153*target_object.angle)
                         arlo.stop()
         else:
