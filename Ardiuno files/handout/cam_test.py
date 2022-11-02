@@ -230,9 +230,8 @@ try:
         cam = camera.Camera(0, 'macbookpro', useCaptureThread = True)
 
     while True:
-        arlo.go_diff(30,30,1,0) #spins the robots
-        sleep(0.5)
-        arlo.stop()
+
+        
 
 
         colour = cam.get_next_frame()
@@ -248,6 +247,10 @@ try:
                 for i in range(len(objectIDs)):
                     print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
             exit(0)
+
+        arlo.go_diff(30,30,1,0) #spins the robots
+        sleep(0.5)
+        arlo.stop()
 
 finally:
     cam.terminateCaptureThread()
