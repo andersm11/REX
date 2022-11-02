@@ -233,7 +233,7 @@ def main():
     target_object = None
     found_target = False
     state = 0
-
+    print("while")
     while True: #Main loop
         retval, frameReference = Take_pic()
         print("pic taken")
