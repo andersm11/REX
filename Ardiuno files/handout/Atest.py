@@ -274,6 +274,7 @@ def main():
         if tvec is not None and state == 0:
             angle, distance = compute_angle_and_distance(tvec)
             print("angle",angle)
+            print("dist:", distance)
             turn(angle)
             sleep(1)
             start_time = time.time()
