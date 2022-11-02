@@ -223,8 +223,8 @@ try:
     # Initialize the robot (XXX: You do this)
     arlo = robot.Robot()
 
-    cam = camera.Camera(0, 'arlo', useCaptureThread = False)
-    cam.terminateCaptureThread()
+    cam = camera.Camera(0, 'arlo', useCaptureThread = True)
+
     while True:
 
         
