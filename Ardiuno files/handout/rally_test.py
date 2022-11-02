@@ -12,7 +12,7 @@ sys.path.append("../robot.py ")
 version = "v0.0.2"
 landmarks = [4,7,11]
 landmark_numbers = {
-    7 : 0,
+    2 : 0,
     4 : 1,
     11 : 2
 }
@@ -220,26 +220,27 @@ try:
                     found_obj = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
                     if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
                         target_object = found_obj
-                        state = 0
+                        state = 1
 
         if state == 0:
             arlo.go_diff(30,30,1,0)
             sleep(0.5)
             arlo.stop()
 
-        #if target_object is not None and state == 1:
-        #    print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
-        #    if abs(target_object.getAngle()) > 5:
-        #        print("TURNING")
-        #        sleep(3)
-        #        found_target = True
-        #        turn(target_object.getAngle())
-        #        sleep(3)
-        #    else:
-        #        state = 2
-        #        print("DRIVING")
-        #        robot_drive(1)
-        #avoidance()
+        if state == 1:
+            print("TARGET:",target_object.getID(),"ANGLE:", target_object.getAngle())
+            if abs(target_object.getAngle()) > 5:
+                print("TURNING")
+                sleep(3)
+                found_target = True
+                turn(target_object.getAngle())
+                sleep(3)
+            else:
+                state = 2
+                print("DRIVING")
+                arlo.go_diff(0.028*target_object.dist)
+                #robot_drive(1)
+        avoidance()
 
 finally: 
     cam.terminateCaptureThread()
