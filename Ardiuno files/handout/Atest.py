@@ -233,18 +233,19 @@ def main():
     target_object = None
     found_target = False
     state = 0
-    print("while")
+
     while True: #Main loop
         retval, frameReference = Take_pic()
-        print("pic taken")
+
         if not retval: # Error
             print(" < < <  Game over!  > > > ")
             exit(-1)
         (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
-        (t_corners, t_id) = check_id(corners,ids,current_target)
-
-        print(t_id)
-        rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,0.15,cam_intrinsic_matrix,cam_distortion_coeffs)
+        if ids is not None:
+            (t_corners, t_id) = check_id(corners,ids,current_target)
+            rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,0.15,cam_intrinsic_matrix,cam_distortion_coeffs)
+            print(t_id)
+            
         if tvec is not None:
             angle, distance = compute_angle_and_distance(tvec)
 
