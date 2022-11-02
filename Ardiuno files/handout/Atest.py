@@ -258,7 +258,7 @@ def main():
             turn(angle)
             arlo.go_diff(52,50,1,1)
             print("distance",distance)
-            sleep(0.028*(distance))
+            sleep(0.028*abs(distance-10))
             arlo.stop()
 
 
