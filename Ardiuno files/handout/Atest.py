@@ -256,6 +256,11 @@ def main():
         if tvec is not None:
             angle, distance = compute_angle_and_distance(tvec)
             turn(angle)
+            arlo.go_diff(52,50,1,1)
+            print(distance)
+            sleep(0.028*(distance))
+            arlo.stop()
+            exit(1)
             print(angle,distance)
 
 
@@ -266,11 +271,7 @@ def main():
         #        length = np.linalg.norm(tvec)
         #        if length < 30:
         #            exit(1)
-        #        arlo.go_diff(52,50,1,1)
-        #        print(length)
-        #        sleep(0.028*(length))
-        #        arlo.stop()
-        #        exit(1)
+        #        
 
         #print("State:",state)           
 
