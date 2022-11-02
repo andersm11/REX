@@ -218,9 +218,10 @@ try:
                 print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
                 if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
                     found_obj = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
-                    target_object = found_obj
                     state = 1
-                    print(" got em")
+#                    target_object = found_obj
+#                    state = 1
+#                    print(" got em")
                     #if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
                     #    print("found")
                     #    target_object = found_obj
