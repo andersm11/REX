@@ -156,8 +156,7 @@ def check_id(corners, ids, current_target):
         print(ids[i][0])
         if landmark_numbers[ids[i][0]] == current_target:
             return (corners[i],ids[i][0])
-    else:
-        return None, None
+    return None, None
 
 
 def compute_angle_and_distance(vector):
