@@ -260,7 +260,7 @@ def main():
             #turn(angle)
             sleep(1)
             start_time = time.time()
-            time_to_drive = 0.028*(abs(distance-5))
+            time_to_drive = 0.028*(abs(distance-10))
             state = 1
             robot_drive(1)
         if state == 1:
@@ -276,7 +276,7 @@ def main():
             arlo.go_diff(30,30,1,0)
             sleep(0.3)
             arlo.stop()
-    
+
 
 
         #if CheckID(ids) is True:
