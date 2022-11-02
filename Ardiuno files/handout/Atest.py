@@ -184,26 +184,28 @@ def avoidance():
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*80)
         robot_drive(1)
+        sleep(0.2)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.65)
+        sleep(0.45)
         arlo.stop()
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*70)
         arlo.stop()
+        robot_drive(1)
+        sleep(0.2)
         if avoidance() != "free":
             return "s_right"
-        robot_drive(1)
-        sleep(0.65)
+        sleep(0.45)
         arlo.stop()
         arlo.go_diff(30,30,1,0)
-        sleep(0.0153*45)
+        sleep(0.0153*50)
         arlo.stop()
         robot_drive(1)
-        sleep(0.1)
+        sleep(0.2)
         if avoidance() != "free":
             return "s_left"
-        sleep(0.30+(right/100))
+        sleep(0.45)
         arlo.stop()
 
         #sleep(2)
@@ -222,19 +224,20 @@ def avoidance():
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*70)
         arlo.stop()
+        robot_drive(1)
+        sleep(0.2)
         if avoidance() != "free":
             return "s_right"
-        robot_drive(1)
-        sleep(0.70)
+        sleep(0.45)
         arlo.stop()
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*50)
         arlo.stop()
         robot_drive(1)
-        sleep(0.1)
+        sleep(0.2)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.30+(left/100))
+        sleep(0.45)
         #sleep(2)
         return "s_right"
     if mid < 100 and right < 200:
@@ -248,10 +251,11 @@ def avoidance():
         sleep(1)
         arlo.stop()
         turn(90)
+        robot_drive(1)
+        sleep(0.2)
         if avoidance() != "free":
             return "s_right"
-        robot_drive(1)
-        sleep(0.65)
+        sleep(0.70)
         arlo.stop()
         turn(45)
         robot_drive(1)
