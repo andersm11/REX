@@ -265,18 +265,19 @@ def main():
             start_time = time.time()
             time_to_drive = 0.028*(abs(distance-10))
             state = 1
-            robot_drive(1)
+            
         if state == 1:
-            end_time = time.time()
-            time_diff = end_time - start_time
-            avoidance()
-            print("diff",time_diff)
-            print("t2d",time_to_drive)
-            if time_diff >= time_to_drive:
-                arlo.stop()
-                turn(200)
-                start_time = time.time()
-                robot_drive(1)
+            robot_drive(1)
+            while state == 1:
+                end_time = time.time()
+                time_diff = end_time - start_time
+                avoidance()
+                if time_diff >= time_to_drive:
+                    arlo.stop()
+                    turn(200)
+                    start_time = time.time()
+                    robot_drive(1)
+
                 
         if state == 0:
             arlo.go_diff(30,30,1,0)
