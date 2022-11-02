@@ -253,7 +253,7 @@ def main():
         else:
             tvec = None
 
-        if tvec is not None:
+        if tvec is not None and state == 0:
             angle, distance = compute_angle_and_distance(tvec)
             print("angle",angle)
             turn(angle)
