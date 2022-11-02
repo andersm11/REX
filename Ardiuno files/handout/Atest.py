@@ -190,7 +190,7 @@ def avoidance():
         sleep(0.0153*70)
         arlo.stop()
         sleep(2)
-        return "s_left"
+        return "s_right"
     if left < 200:
         print("left")
         arlo.stop()
@@ -204,7 +204,7 @@ def avoidance():
         sleep(0.0153*70)
         arlo.stop()
         sleep(2)
-        return "s_right"
+        return "s_left"
     if mid < 100 and right < 200:
         print("mid-right")
         arlo.stop()
