@@ -291,7 +291,7 @@ def main():
             sleep(0.3)
             arlo.stop()
         elif state == 0 and search_side =="s_left":
-            arlo.go_diff(30,30,1,0)
+            arlo.go_diff(30,30,0,1)
             sleep(0.3)
             arlo.stop()
 
