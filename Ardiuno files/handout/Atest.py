@@ -260,6 +260,11 @@ def main():
             print("distance",distance)
             sleep(0.028*abs(distance-10))
             arlo.stop()
+            exit(1)
+
+        arlo.go_diff(30,30,1,0)
+        sleep(0.3)
+        arlo.stop()
 
 
 
