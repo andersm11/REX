@@ -202,7 +202,7 @@ def avoidance():
         robot_drive(1)
         if avoidance() != "free":
             return "s_left"
-        sleep(0.70*(right/100))
+        sleep(0.30*(right/100))
         arlo.stop()
 
         #sleep(2)
@@ -232,7 +232,7 @@ def avoidance():
         robot_drive(1)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.7*(left/100))
+        sleep(0.30*(left/100))
         #sleep(2)
         return "s_right"
     if mid < 100 and right < 200:
@@ -255,7 +255,7 @@ def avoidance():
         robot_drive(1)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.70*(right/100))
+        sleep(0.30+(right/100))
         arlo.stop()
 
         #sleep(2)
