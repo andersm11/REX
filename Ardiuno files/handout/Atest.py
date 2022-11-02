@@ -270,7 +270,10 @@ def main():
             print("t2d",time_to_drive)
             if time_diff >= time_to_drive:
                 arlo.stop()
-                exit(0)
+                turn(200)
+                start_time = time.time()
+                robot_drive(1)
+                
         if state == 0:
             arlo.go_diff(30,30,1,0)
             sleep(0.3)
