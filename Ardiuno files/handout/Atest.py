@@ -152,7 +152,6 @@ def turn(angle):
         arlo.stop()    
 
 def check_id(corners, ids, current_target):
-    print(ids)
     for i in range(len(ids)):
         if ids[i] == current_target:
             return (corners[i],ids[i])
@@ -238,7 +237,6 @@ def main():
     state = 0
 
     while True: #Main loop
-        print("WHILE")
         retval, frameReference = Take_pic()
 
         if not retval: # Error
@@ -255,6 +253,8 @@ def main():
 
         if tvec is not None:
             angle, distance = compute_angle_and_distance(tvec)
+            turn(angle)
+            print(angle,distance)
 
 
         #if CheckID(ids) is True:
