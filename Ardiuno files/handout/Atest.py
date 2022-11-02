@@ -184,8 +184,11 @@ def avoidance():
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*80)
         robot_drive(1)
-        avoidance()
-        sleep(0.65)
+        start_time = time.time()
+        while (start_time - time.time() < 0.65):
+            check = avoidance()
+            if check != "free":
+                break
         arlo.stop()
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*70)
@@ -200,8 +203,11 @@ def avoidance():
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*80)
         robot_drive(1)
-        avoidance()
-        sleep(0.65)
+        start_time = time.time()
+        while (start_time - time.time() < 0.65):
+            check = avoidance()
+            if check != "free":
+                break
         arlo.stop()
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*70)
@@ -215,8 +221,11 @@ def avoidance():
         #sleep(1)
         turn(-100)
         robot_drive(1)
-        avoidance()
-        sleep(1)
+        start_time = time.time()
+        while (start_time - time.time() < 0.65):
+            check = avoidance()
+            if check != "free":
+                break
         arlo.stop()
         turn(90)
         avoidance()
@@ -228,8 +237,11 @@ def avoidance():
         #sleep(1)
         turn(100)
         robot_drive(1)
-        avoidance()
-        sleep(1)
+        start_time = time.time()
+        while (start_time - time.time() < 0.65):
+            check = avoidance()
+            if check != "free":
+                break
         arlo.stop()
         turn(-90)
         avoidance()
