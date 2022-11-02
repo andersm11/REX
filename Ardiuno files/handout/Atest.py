@@ -257,6 +257,7 @@ def main():
             angle, distance = compute_angle_and_distance(tvec)
             print("angle",angle)
             turn(angle)
+            sleep(1)
             start_time = time.time()
             time_to_drive = 0.028*(abs(distance-5))
             state = 1
