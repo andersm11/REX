@@ -263,9 +263,9 @@ def main():
             state = 1
             robot_drive(1)
         if state == 1:
-            print("state 1 ")
             end_time = time.time()
             time_diff = end_time - start_time
+            avoidance()
             print("diff",time_diff)
             print("t2d",time_to_drive)
             if time_diff >= time_to_drive:
