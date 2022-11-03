@@ -160,6 +160,21 @@ def check_id(corners, ids, current_target):
             return (corners[i],ids[i][0])
     return None, None
 
+def take_picture(current_target):
+        retval, frameReference = Take_pic()
+
+        if not retval: # Error
+            print(" < < <  Game over!  > > > ")
+            exit(-1)
+        (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
+        
+        if ids is not None:
+            t_corners, t_id = check_id(corners,ids,current_target)
+            rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
+            return tvec
+            print("t_id",t_id)
+        else:
+            return None
 
 def compute_angle_and_distance(vector):
     #tvec2 = np.reshape(tvec[0,:],(3,))
@@ -334,21 +349,10 @@ def main():
     found_target = False
     search_side = "s_right"
     state = 0
-
+    tvec = None
     while True: #Main loop
-        retval, frameReference = Take_pic()
-
-        if not retval: # Error
-            print(" < < <  Game over!  > > > ")
-            exit(-1)
-        (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
         
-        if ids is not None:
-            t_corners, t_id = check_id(corners,ids,current_target)
-            rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
-            print("t_id",t_id)
-        else:
-            tvec = None
+
 
         if tvec is not None and state == 0:
             arlo.stop()
@@ -369,9 +373,11 @@ def main():
                 check = avoidance()
                 if check != "free":
                     search_side = check
+                    tvec = None
                     state = 0
                 elif time_diff >= time_to_drive:
                     arlo.stop()
+                    tvec = None
                     current_target += 1
                     state = 0
 
@@ -390,11 +396,15 @@ def main():
         if state == 0 and search_side == "s_right":
             #print(search_side)
             arlo.go_diff(30,30,1,0)
+            while tvec is None:
+                tvec = take_picture(current_target)
             #sleep(0.5)
             #arlo.stop()
         elif state == 0 and search_side =="s_left":
             #print(search_side)
             arlo.go_diff(30,30,0,1)
+            while tvec is None:
+                tvec = take_picture(current_target)
             #sleep(0.5)
            # arlo.stop()
 
