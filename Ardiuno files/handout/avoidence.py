@@ -396,7 +396,14 @@ def main():
             counter = 0
             print("Going forward")
             robot_drive(1)
-            while 
+            start_time = time.time()
+            check = "free"
+            while check == "free":
+                end_time = time.time()
+                check = avoidance()
+                if (start_time-end_time) > 1.5:
+                    break
+            arlo.stop()
 
 
     
