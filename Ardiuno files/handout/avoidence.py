@@ -186,7 +186,7 @@ def avoidance():
     right = arlo.read_right_ping_sensor()
     mid = arlo.read_front_ping_sensor()
     left = arlo.read_left_ping_sensor()
-    if right < 250:
+    if right < 350:
         print("right")
         arlo.stop()
         #sleep(1)
@@ -223,7 +223,7 @@ def avoidance():
 
         #sleep(2)
         return "s_left"
-    if left < 250:
+    if left < 350:
         print("left")
         arlo.stop()
         #sleep(1)
@@ -259,7 +259,7 @@ def avoidance():
         arlo.stop()
         #sleep(2)
         return "s_right"
-    if mid < 150 and right < 300:
+    if mid < 150 and right < 350:
         print("mid-right")
         arlo.stop()
         #sleep(1)
@@ -383,10 +383,6 @@ def main():
             counter = 0
             robot_drive(1)
             while state == 1: 
-                arlo.go_diff(34,50,1,1)
-                sleep(0.1)
-                arlo.go_diff(54,30,1,1)
-                sleep(0.1)
                 end_time = time.time()
                 time_diff = end_time - start_time
                 check = avoidance()
@@ -400,8 +396,6 @@ def main():
                     current_target += 1
                     last_orientation_box = 0
                     state = 0
-
-                
         if state == 0 and search_side == "s_right" and counter < 13:
             counter = counter+1
             print(counter)
@@ -431,7 +425,7 @@ def main():
                     print("dist:", distance)
                     turn(angle)
                     sleep(0.5)
-                    if distance > 300:
+                    if distance > 200:
                         time_to_drive = 0.028*(abs(distance-10)/2)
                     else:
                         time_to_drive = 0.028*(abs(distance-10))
