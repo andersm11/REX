@@ -156,6 +156,8 @@ def turn(angle):
 def check_id(corners, ids, current_target):
     for i in range(len(ids)):
         print(ids[i][0])
+        if ids[i][0] == 1 and current_target == 4:
+            return (corners[i],ids[i][0])
         if ids[i][0] in landmark_numbers and landmark_numbers[ids[i][0]] == current_target:
             return (corners[i],ids[i][0])
     return None, None
@@ -348,12 +350,19 @@ def main():
             exit(-1)
         (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
         
-        if ids is not None:
+
+        if ids is not None and current_target == 4:
+            t_corners, t_id = check_id(corners,ids,current_target)
+            rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
+            print("t_id",t_id)
+        elif ids is not None:
             t_corners, t_id = check_id(corners,ids,current_target)
             rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
             print("t_id",t_id)
         else:
             tvec = None
+
+
 
         if tvec is not None and state == 0:
             angle, distance = compute_angle_and_distance(tvec)
@@ -377,6 +386,8 @@ def main():
                     state = 0
                 elif time_diff >= time_to_drive:
                     arlo.stop()
+                    if current_target == 4:
+                        exit(0)
                     current_target += 1
                     state = 0
 
