@@ -383,7 +383,8 @@ def main():
         if state == 1:
             counter = 0
             robot_drive(1)
-            if time_to_drive < 1.28:
+            if time_to_drive < 1.5:
+                print("I am too close")
                 robot_drive(1)
                 sleep(time_to_drive)
                 arlo.stop()
