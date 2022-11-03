@@ -371,18 +371,19 @@ def main():
                     state = 0
                 elif time_diff >= time_to_drive:
                     arlo.stop()
-                    exit(0)
+                    current_target += 1
+                    state = 0
 
                 
         if state == 0 and search_side == "s_right":
             print(search_side)
             arlo.go_diff(30,30,1,0)
-            sleep(0.3)
+            sleep(0.5)
             arlo.stop()
         elif state == 0 and search_side =="s_left":
             print(search_side)
             arlo.go_diff(30,30,0,1)
-            sleep(0.3)
+            sleep(0.5)
             arlo.stop()
 
 
