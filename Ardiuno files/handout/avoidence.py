@@ -357,7 +357,7 @@ def main():
             turn(angle)
             sleep(1)
             start_time = time.time()
-            time_to_drive = 0.028*(abs(distance-10))
+            time_to_drive = 0.028*(abs(distance-8))
             state = 1
             
         if state == 1:
