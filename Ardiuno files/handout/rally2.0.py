@@ -222,7 +222,7 @@ def avoidance():
         arlo.stop()
 
         #sleep(2)
-        return "s_right"
+        return "s_left"
     if left < 200:
         print("left")
         arlo.stop()
@@ -377,26 +377,30 @@ def main():
             turn(angle)
             sleep(0.5)
             start_time = time.time()
-            time_to_drive = 0.028*(abs(distance-20))
+            time_to_drive = 0.028*(abs(distance-15))
             state = 1
             
         if state == 1:
             counter = 0
             robot_drive(1)
-            while state == 1: 
-                end_time = time.time()
-                time_diff = end_time - start_time
-                check = avoidance()
-                if check != "free":
-                    search_side = check
-                    state = 0
-                elif time_diff >= time_to_drive:
-                    arlo.stop()
-                    if current_target == 4:
-                        exit(0)
-                    current_target += 1
-                    last_orientation_box = 0
-                    state = 0
+            if time_to_drive < 1:
+                robot_drive(1)
+                sleep(1)
+            else:
+                while state == 1: 
+                    end_time = time.time()
+                    time_diff = end_time - start_time
+                    check = avoidance()
+                    if check != "free":
+                        search_side = check
+                        state = 0
+                    elif time_diff >= time_to_drive:
+                        arlo.stop()
+                        if current_target == 4:
+                            exit(0)
+                        current_target += 1
+                        last_orientation_box = 0
+                        state = 0
         if state == 0 and search_side == "s_right" and counter < 14:
             counter = counter+1
             print(counter)
