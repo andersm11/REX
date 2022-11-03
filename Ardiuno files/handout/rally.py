@@ -383,13 +383,9 @@ def main():
         if state == 1:
             counter = 0
             robot_drive(1)
-            if time_to_drive < 1.6:
+            if time_to_drive < 1.28:
                 robot_drive(1)
-                start_time = time.time()
-                end_time = time.time()
-                while (end_time - start_time) < time_to_drive:
-                    avoidance()
-                    end_time = time.time()
+                sleep(time_to_drive)
                 arlo.stop()
                 current_target += 1
                 state = 0
