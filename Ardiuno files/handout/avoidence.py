@@ -248,6 +248,7 @@ def avoidance():
         if avoidance() != "free":
             return "s_right"
         sleep(0.35)
+        arlo.stop()
         #sleep(2)
         return "s_right"
     if mid < 150 and right < 300:
@@ -335,6 +336,8 @@ def main():
     search_side = "s_right"
     state = 0
 
+
+
     while True: #Main loop
         retval, frameReference = Take_pic()
 
@@ -386,6 +389,9 @@ def main():
             sleep(0.5)
             arlo.stop()
 
+
+    
+    
 
 
         #if CheckID(ids) is True:
