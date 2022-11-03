@@ -140,7 +140,7 @@ class object:
 
 ###########  ROBOT FUNCTIONS  ############
 def robot_drive(direction = 1):
-    arlo.go_diff(50,50,direction,direction)
+    arlo.go_diff(52,50,direction,direction)
 
 
 def turn(angle):
