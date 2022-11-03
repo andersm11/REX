@@ -394,6 +394,7 @@ def main():
                     if current_target == 4:
                         exit(0)
                     current_target += 1
+                    last_orientation_box = 0
                     state = 0
 
                 
