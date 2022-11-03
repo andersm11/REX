@@ -351,13 +351,14 @@ def main():
             tvec = None
 
         if tvec is not None and state == 0:
+            arlo.stop()
             angle, distance = compute_angle_and_distance(tvec)
             print("angle",angle)
             print("dist:", distance)
             turn(angle)
             sleep(1)
             start_time = time.time()
-            time_to_drive = 0.028*(abs(distance-10))
+            time_to_drive = 0.028*(abs(distance-5))
             state = 1
             
         if state == 1:
@@ -375,16 +376,27 @@ def main():
                     state = 0
 
                 
+        #if state == 0 and search_side == "s_right":
+        #    print(search_side)
+        #    arlo.go_diff(30,30,1,0)
+        #    sleep(0.5)
+        #    arlo.stop()
+        #elif state == 0 and search_side =="s_left":
+        #    print(search_side)
+        #    arlo.go_diff(30,30,0,1)
+        #    sleep(0.5)
+        #    arlo.stop()
+
         if state == 0 and search_side == "s_right":
-            print(search_side)
+            #print(search_side)
             arlo.go_diff(30,30,1,0)
-            sleep(0.5)
-            arlo.stop()
+            #sleep(0.5)
+            #arlo.stop()
         elif state == 0 and search_side =="s_left":
-            print(search_side)
+            #print(search_side)
             arlo.go_diff(30,30,0,1)
-            sleep(0.5)
-            arlo.stop()
+            #sleep(0.5)
+           # arlo.stop()
 
 
 
