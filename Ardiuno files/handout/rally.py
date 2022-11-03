@@ -383,20 +383,33 @@ def main():
         if state == 1:
             counter = 0
             robot_drive(1)
-            while state == 1: 
+            if time_to_drive < 1.6:
+                robot_drive(1)
+                start_time = time.time()
                 end_time = time.time()
-                time_diff = end_time - start_time
-                check = avoidance()
-                if check != "free":
-                    search_side = check
-                    state = 0
-                elif time_diff >= time_to_drive:
-                    arlo.stop()
-                    if current_target == 4:
-                        exit(0)
-                    current_target += 1
-                    last_orientation_box = 0
-                    state = 0
+                while (end_time - start_time) < time_to_drive:
+                    avoidance()
+                    end_time = time.time()
+                arlo.stop()
+                current_target += 1
+                state = 0
+                if current_target == 4:
+                    exit(0)
+            else:
+                while state == 1: 
+                    end_time = time.time()
+                    time_diff = end_time - start_time
+                    check = avoidance()
+                    if check != "free":
+                        search_side = check
+                        state = 0
+                    elif time_diff >= time_to_drive:
+                        arlo.stop()
+                        if current_target == 4:
+                            exit(0)
+                        current_target += 1
+                        last_orientation_box = 0
+                        state = 0
         if state == 0 and search_side == "s_right" and counter < 14:
             counter = counter+1
             print(counter)
