@@ -186,17 +186,17 @@ def avoidance():
     right = arlo.read_right_ping_sensor()
     mid = arlo.read_front_ping_sensor()
     left = arlo.read_left_ping_sensor()
-    if right < 350:
+    if right < 250:
         print("right")
         arlo.stop()
         #sleep(1)
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*80)
         robot_drive(1)
-        sleep(0.3)
+        sleep(0.4)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.35)
+        sleep(0.25)
         arlo.stop()
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*70)
@@ -204,10 +204,10 @@ def avoidance():
         if avoidance() != "free":
             return "s_right"
         robot_drive(1)
-        sleep(0.3)
+        sleep(0.4)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.35)
+        sleep(0.25)
         arlo.stop()
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*50)
@@ -215,25 +215,25 @@ def avoidance():
         if avoidance() != "free":
             return "s_right"
         robot_drive(1)
-        sleep(0.3)
+        sleep(0.4)
         if avoidance() != "free":
             return "s_left"
-        sleep(0.35)
+        sleep(0.25)
         arlo.stop()
 
         #sleep(2)
         return "s_left"
-    if left < 350:
+    if left < 250:
         print("left")
         arlo.stop()
         #sleep(1)
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*70)
         robot_drive(1)
-        sleep(0.3)
+        sleep(0.4)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.35)
+        sleep(0.25)
         arlo.stop()
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*70)
@@ -241,10 +241,10 @@ def avoidance():
         if avoidance() != "free":
             return "s_right"
         robot_drive(1)
-        sleep(0.3)
+        sleep(0.4)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.35)
+        sleep(0.25)
         arlo.stop()
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*50)
@@ -252,14 +252,14 @@ def avoidance():
         if avoidance() != "free":
             return "s_right"
         robot_drive(1)
-        sleep(0.3)
+        sleep(0.4)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.35)
+        sleep(0.25)
         arlo.stop()
         #sleep(2)
         return "s_right"
-    if mid < 150 and right < 350:
+    if mid < 200 and right < 300:
         print("mid-right")
         arlo.stop()
         #sleep(1)
@@ -273,24 +273,24 @@ def avoidance():
         if avoidance() != "free":
             return "s_right"
         robot_drive(1)
-        sleep(0.3)
+        sleep(0.4)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.40)
+        sleep(0.30)
         arlo.stop()
         turn(45)
         if avoidance() != "free":
             return "s_right"
         robot_drive(1)
-        sleep(0.3)
+        sleep(0.4)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.35)
+        sleep(0.25)
         arlo.stop()
 
         #sleep(2)
         return "s_right"
-    if mid < 150:
+    if mid < 200:
         print("mid")
         arlo.stop()
         #sleep(1)
@@ -306,18 +306,19 @@ def avoidance():
         if avoidance() != "free":
             return "s_left"
         robot_drive(1)
-        sleep(0.3)
+        sleep(0.5)
         if avoidance() != "free":
             return "s_right"
-        sleep(0.55)
+        sleep(0.35)
         arlo.stop()
         turn(45)
         if avoidance() != "free":
             return "s_right"
         robot_drive(1)
+        sleep(0.40)
         if avoidance() != "free":
             return "s_left"
-        sleep(0.70)
+        sleep(0.30)
         arlo.stop()
 
         #sleep(2)
@@ -411,8 +412,12 @@ def main():
             sleep(0.5)
             arlo.stop()
         elif state == 0 and counter >= 13:
-            arlo.go_diff(30,30,0,1)
-            sleep(0.5)
+            if search_side == "s_left":
+                arlo.go_diff(30,30,0,1)
+                sleep(0.5)
+            else:
+                arlo.go_diff(30,30,1,0)
+                sleep(0.5)
             arlo.stop()
             retval, frameReference = Take_pic()
             (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
