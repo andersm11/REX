@@ -290,7 +290,7 @@ def avoidance():
 
         #sleep(2)
         return "s_right"
-    if mid < 150:
+    if mid < 200:
         print("mid")
         arlo.stop()
         #sleep(1)
@@ -387,8 +387,9 @@ def main():
                 robot_drive(1)
                 start_time = time.time()
                 end_time = time.time()
-                while end_time - start_time < time_to_drive:
+                while (end_time - start_time) < time_to_drive:
                     avoidance()
+                    end_time = time.time()
                 arlo.stop()
                 current_target += 1
                 state = 0
@@ -409,6 +410,7 @@ def main():
                         current_target += 1
                         last_orientation_box = 0
                         state = 0
+
         if state == 0 and search_side == "s_right" and counter < 14:
             counter = counter+1
             print(counter)
