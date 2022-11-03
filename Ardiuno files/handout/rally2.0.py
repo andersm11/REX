@@ -384,7 +384,7 @@ def main():
         if state == 1:
             counter = 0
             robot_drive(1)
-            if time_to_drive < 1.5:
+            if time_to_drive < 1.6:
                 robot_drive(1)
                 start_time = time.time()
                 end_time = time.time()
