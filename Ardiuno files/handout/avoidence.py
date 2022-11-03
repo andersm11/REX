@@ -334,6 +334,7 @@ def main():
     found_target = False
     search_side = "s_right"
     state = 0
+    counter = 0
 
     while True: #Main loop
         retval, frameReference = Take_pic()
@@ -361,6 +362,7 @@ def main():
             state = 1
             
         if state == 1:
+            counter = 0
             robot_drive(1)
             while state == 1:
                 end_time = time.time()
@@ -375,16 +377,23 @@ def main():
                     state = 0
 
                 
-        if state == 0 and search_side == "s_right":
+        if state == 0 and search_side == "s_right" and counter < 12:
+            counter = counter+1
             print(search_side)
             arlo.go_diff(30,30,1,0)
             sleep(0.5)
             arlo.stop()
-        elif state == 0 and search_side =="s_left":
+        if state == 0 and search_side =="s_left" and counter < 12:
+            counter = counter+1
             print(search_side)
             arlo.go_diff(30,30,0,1)
             sleep(0.5)
             arlo.stop()
+        elif state == 0 and counter >= 12:
+            counter = 0
+            print("Going forward")
+            robot_drive(1)
+            while 
 
 
 
