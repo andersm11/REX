@@ -418,31 +418,32 @@ def main():
             arlo.stop()
             retval, frameReference = Take_pic()
             (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
-            t_corners, t_id = check_id_mod(corners,ids,last_orientation_box)
-            rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
-            if tvec is not None:
-                angle, distance = compute_angle_and_distance(tvec)
-                print("angle",angle)
-                print("dist:", distance)
-                turn(angle)
-                sleep(0.5)
-                if distance > 300:
-                    time_to_drive = 0.028*(abs(distance-10)/2)
-                else:
-                    time_to_drive = 0.028*(abs(distance-10))
-                print("Going forward")
-                last_orientation_box = t_id
-                robot_drive(1)
-                start_time = time.time()
-                end_time = start_time
-                check = "free"
-                while check == "free":
-                    print("i am moving")
-                    end_time = time.time()
-                    check = avoidance()
-                    if end_time-start_time >= time_to_drive:
-                        break
-                arlo.stop()
+            if ids is not None:
+                t_corners, t_id = check_id_mod(corners,ids,last_orientation_box)
+                rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
+                if tvec is not None:
+                    angle, distance = compute_angle_and_distance(tvec)
+                    print("angle",angle)
+                    print("dist:", distance)
+                    turn(angle)
+                    sleep(0.5)
+                    if distance > 300:
+                        time_to_drive = 0.028*(abs(distance-10)/2)
+                    else:
+                        time_to_drive = 0.028*(abs(distance-10))
+                    print("Going forward")
+                    last_orientation_box = t_id
+                    robot_drive(1)
+                    start_time = time.time()
+                    end_time = start_time
+                    check = "free"
+                    while check == "free":
+                        print("i am moving")
+                        end_time = time.time()
+                        check = avoidance()
+                        if end_time-start_time >= time_to_drive:
+                            break
+                    arlo.stop()
 
 
     
