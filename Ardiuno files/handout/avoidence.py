@@ -15,7 +15,7 @@ sys.path.append("../robot.py ")
 version = "v0.0.2"
 landmarks = [1,2,3,4]
 landmark_numbers = {
-    1 : [0,4],
+    1 : 0,
     2 : 1,
     3 : 2,
     4 : 3,
