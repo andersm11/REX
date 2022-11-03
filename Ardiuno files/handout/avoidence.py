@@ -402,9 +402,12 @@ def main():
             start_time = time.time()
             end_time = start_time
             check = "free"
-            while check == "free" and (end_time-start_time) > 1.5:
+            while check == "free":
+                print("i am moving")
                 end_time = time.time()
                 check = avoidance()
+                if end_time-start_time > 1.5:
+                    break
             arlo.stop()
 
 
