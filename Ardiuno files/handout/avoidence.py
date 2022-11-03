@@ -443,6 +443,7 @@ def main():
                         check = avoidance()
                         if end_time-start_time >= time_to_drive:
                             break
+                    counter = 0
                     arlo.stop()
 
 
