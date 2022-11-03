@@ -382,7 +382,11 @@ def main():
         if state == 1:
             counter = 0
             robot_drive(1)
-            while state == 1:
+            while state == 1: 
+                arlo.go_diff(34,50,1,1)
+                sleep(0.1)
+                arlo.go_diff(54,30,1,1)
+                sleep(0.1)
                 end_time = time.time()
                 time_diff = end_time - start_time
                 check = avoidance()
