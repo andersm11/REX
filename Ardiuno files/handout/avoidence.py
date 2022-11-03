@@ -162,6 +162,12 @@ def check_id(corners, ids, current_target):
             return (corners[i],ids[i][0])
     return None, None
 
+def check_id_mod(corners, ids, last_box):
+    for i in range(len(ids)):
+        if ids[i][0] not in landmark_numbers and ids[i][0] != last_box:
+            return (corners[i],ids[i][0])
+    return None,None
+
 
 def compute_angle_and_distance(vector):
     #tvec2 = np.reshape(tvec[0,:],(3,))
@@ -333,8 +339,7 @@ def main():
     #print("Opening and initializing camera")
     #cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     current_target = 0
-    target_object = None
-    found_target = False
+    last_orientation_box = 0
     search_side = "s_right"
     state = 0
     counter = 0
@@ -369,7 +374,7 @@ def main():
             print("angle",angle)
             print("dist:", distance)
             turn(angle)
-            sleep(1)
+            sleep(0.5)
             start_time = time.time()
             time_to_drive = 0.028*(abs(distance-20))
             state = 1
@@ -406,9 +411,20 @@ def main():
             arlo.go_diff(30,30,0,1)
             sleep(0.5)
             arlo.stop()
-        elif state == 0 and counter >= 13:
-            counter = 0
+        elif state == 0 and counter >= 13 and ids is not None:
+            t_corners, t_id = check_id_mod(corners,ids,last_orientation_box)
+            rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
+            angle, distance = compute_angle_and_distance(tvec)
+            print("angle",angle)
+            print("dist:", distance)
+            turn(angle)
+            sleep(0.5)
+            if distance > 300:
+                time_to_drive = 0.028*(abs(distance-10)/2)
+            else:
+                time_to_drive = 0.028*(abs(distance-10))
             print("Going forward")
+            last_orientation_box = t_id
             robot_drive(1)
             start_time = time.time()
             end_time = start_time
@@ -417,7 +433,7 @@ def main():
                 print("i am moving")
                 end_time = time.time()
                 check = avoidance()
-                if end_time-start_time > 1.5:
+                if end_time-start_time >= time_to_drive:
                     break
             arlo.stop()
 
