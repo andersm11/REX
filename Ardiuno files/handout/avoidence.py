@@ -18,7 +18,8 @@ landmark_numbers = {
     1 : 0,
     2 : 1,
     3 : 2,
-    4 : 3
+    4 : 3,
+    1 : 5
 }
 states = [0,1]
 
@@ -362,7 +363,7 @@ def main():
             turn(angle)
             sleep(1)
             start_time = time.time()
-            time_to_drive = 0.028*(abs(distance-25))
+            time_to_drive = 0.028*(abs(distance-20))
             state = 1
             
         if state == 1:
