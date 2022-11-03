@@ -412,7 +412,7 @@ def main():
             arlo.go_diff(30,30,0,1)
             sleep(0.5)
             arlo.stop()
-        elif state == 0 and counter >= 13 and ids is not None:
+        elif state == 0 and counter >= 13:
             arlo.go_diff(30,30,0,1)
             sleep(0.5)
             arlo.stop()
