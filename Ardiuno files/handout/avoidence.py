@@ -397,12 +397,11 @@ def main():
             print("Going forward")
             robot_drive(1)
             start_time = time.time()
+            end_time = start_time
             check = "free"
-            while check == "free":
+            while check == "free" and (end_time-start_time) > 1.5:
                 end_time = time.time()
                 check = avoidance()
-                if (start_time-end_time) > 1.5:
-                    break
             arlo.stop()
 
 
