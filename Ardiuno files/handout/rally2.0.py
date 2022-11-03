@@ -385,7 +385,8 @@ def main():
             robot_drive(1)
             if time_to_drive < 1:
                 robot_drive(1)
-                sleep(1)
+                sleep(time_to_drive)
+                arlo.stop()
             else:
                 while state == 1: 
                     end_time = time.time()
