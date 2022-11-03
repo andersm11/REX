@@ -281,7 +281,7 @@ def avoidance():
 
         #sleep(2)
         return "s_right"
-    if mid < 150:
+    if mid < 200:
         print("mid")
         arlo.stop()
         #sleep(1)
