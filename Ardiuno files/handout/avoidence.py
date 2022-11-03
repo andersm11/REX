@@ -415,6 +415,9 @@ def main():
         elif state == 0 and counter >= 13 and ids is not None:
             arlo.go_diff(30,30,0,1)
             sleep(0.5)
+            arlo.stop()
+            retval, frameReference = Take_pic()
+            (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
             t_corners, t_id = check_id_mod(corners,ids,last_orientation_box)
             rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
             if tvec is not None:
