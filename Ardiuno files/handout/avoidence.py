@@ -397,21 +397,21 @@ def main():
                     current_target += 1
                     last_orientation_box = 0
                     state = 0
-        if state == 0 and search_side == "s_right" and counter < 13:
+        if state == 0 and search_side == "s_right" and counter < 14:
             counter = counter+1
             print(counter)
             print(search_side)
             arlo.go_diff(30,30,1,0)
             sleep(0.5)
             arlo.stop()
-        if state == 0 and search_side =="s_left" and counter < 13:
+        if state == 0 and search_side =="s_left" and counter < 14:
             counter = counter+1
             print(counter)
             print(search_side)
             arlo.go_diff(30,30,0,1)
             sleep(0.5)
             arlo.stop()
-        elif state == 0 and counter >= 13:
+        elif state == 0 and counter >= 14:
             if search_side == "s_left":
                 arlo.go_diff(30,30,0,1)
                 sleep(0.5)
