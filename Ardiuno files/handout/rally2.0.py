@@ -463,8 +463,13 @@ def main():
                             check = avoidance()
                             if end_time-start_time >= time_to_drive:
                                 break
-                        counter = 0
+                        end_time = time.time()
                         arlo.stop()
+                        if end_time-start_time < 1:
+                            last_orientation_box = 0
+                            counter = 15
+                        else:
+                            counter = 0
 
 
     
