@@ -461,7 +461,7 @@ def main():
                             if end_time-start_time >= time_to_drive:
                                 break
                         arlo.stop()
-                        if end_time-start_time >= time_to_drive:
+                        if end_time-start_time >= time_to_drive and (distance < 200):
                             arlo.go_diff(45,30,1,0)
                             turn(100)
                             robot_drive(1)
