@@ -429,6 +429,7 @@ def main():
             sleep(0.5)
             arlo.stop()
         elif (state == 0 or state == 3) and counter >= 14:
+            state = 3
             if search_side == "s_left":
                 arlo.go_diff(30,30,0,1)
                 sleep(0.5)
@@ -457,7 +458,7 @@ def main():
                         last_orientation_box = t_id
                         robot_drive(1)    
                         start_time = time.time()
-                        sleep(0.2)
+                        sleep(0.4)
                         check = "free"
                         while check == "free":
                             print("i am moving")
@@ -466,7 +467,7 @@ def main():
                             if end_time-start_time >= time_to_drive:
                                 break
                         counter = 0
-                        state = 3
+                        state = 0
                         arlo.stop()
 
 

@@ -443,7 +443,7 @@ def main():
                         print("angle",angle)
                         print("dist:", distance)
                         turn(angle)
-                        sleep(0.5)
+                        sleep(0.2)
                         if distance > 200:
                             time_to_drive = 0.028*(abs(distance)/2)
                         else:
@@ -452,7 +452,7 @@ def main():
                         last_orientation_box = t_id
                         robot_drive(1)
                         start_time = time.time()
-                        sleep(0.2)
+                        sleep(0.4)
                         check = "free"
                         while check == "free":
                             print("i am moving")
