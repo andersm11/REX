@@ -442,9 +442,9 @@ def main():
                     turn(angle)
                     sleep(0.5)
                     if distance > 200:
-                        time_to_drive = 0.028*(abs(distance-10)/2)
+                        time_to_drive = 0.028*(abs(distance)/2)
                     else:
-                        time_to_drive = 0.028*(abs(distance-10))
+                        time_to_drive = 0.028*(abs(distance-15))
                     print("Going forward")
                     last_orientation_box = t_id
                     robot_drive(1)

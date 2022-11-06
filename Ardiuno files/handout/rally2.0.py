@@ -392,10 +392,11 @@ def main():
                     avoidance()
                     end_time = time.time()
                 arlo.stop()
-                current_target += 1
+                
                 state = 0
                 if current_target == 4:
                     exit(0)
+                current_target += 1
             else:
                 while state == 1: 
                     end_time = time.time()
