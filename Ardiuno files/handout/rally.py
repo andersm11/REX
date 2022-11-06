@@ -348,26 +348,27 @@ def main():
 
 
     while True: #Main loop
-        retval, frameReference = Take_pic()
-        print("state:",state)
-        print("TARGET:",current_target)
-
-        if not retval: # Error
-            print(" < < <  Game over!  > > > ")
-            exit(-1)
-        (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
-        
-
-        if ids is not None and current_target == 4:
-            t_corners, t_id = check_id(corners,ids,current_target)
-            rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
-            print("t_id",t_id)
-        elif ids is not None:
-            t_corners, t_id = check_id(corners,ids,current_target)
-            rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
-            print("t_id",t_id)
-        else:
-            tvec = None
+        if state != 3:
+            retval, frameReference = Take_pic()
+            print("state:",state)
+            print("TARGET:",current_target)
+    
+            if not retval: # Error
+                print(" < < <  Game over!  > > > ")
+                exit(-1)
+            (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
+            
+    
+            if ids is not None and current_target == 4:
+                t_corners, t_id = check_id(corners,ids,current_target)
+                rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
+                print("t_id",t_id)
+            elif ids is not None:
+                t_corners, t_id = check_id(corners,ids,current_target)
+                rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
+                print("t_id",t_id)
+            else:
+                tvec = None
 
 
 
@@ -422,7 +423,8 @@ def main():
             arlo.go_diff(30,30,0,1)
             sleep(0.5)
             arlo.stop()
-        elif state == 0 and counter >= 14:
+        elif (state == 0 or state == 3) and counter >= 14:
+            state = 3
             if search_side == "s_left":
                 arlo.go_diff(30,30,0,1)
                 sleep(0.5)
@@ -459,13 +461,9 @@ def main():
                             if end_time-start_time >= time_to_drive:
                                 break
                         end_time = time.time()
+                        counter = 0
+                        state = 0
                         arlo.stop()
-                        if end_time-start_time < 1:
-                            last_orientation_box = 0
-                            counter = 15
-                        else:
-                            counter = 0
-
 
 
     
