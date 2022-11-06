@@ -464,11 +464,8 @@ def main():
                         if end_time-start_time >= time_to_drive:
                             arlo.go_diff(45,30,1,0)
                             sleep(0.5)
-                            avoidance()
                             robot_drive(1)
-                            sleep(0.25)
-                            avoidance()
-                            sleep(0.15)
+                            sleep(0.35)
                             arlo.stop()
                             search_side = "s_left"
                         counter = 0
