@@ -466,11 +466,11 @@ def main():
                             sleep(0.5)
                             avoidance()
                             robot_drive(1)
-                            sleep(0.3)
+                            sleep(0.25)
                             avoidance()
-                            sleep(0.2)
+                            sleep(0.15)
                             arlo.stop()
-                            search_side("s_left")
+                            search_side = "s_left"
                         counter = 0
                         state = 0
                         
