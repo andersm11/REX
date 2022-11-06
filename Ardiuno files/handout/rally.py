@@ -413,24 +413,24 @@ def main():
             counter = counter+1
             print(counter)
             print(search_side)
-            arlo.go_diff(30,30,1,0)
-            sleep(0.5)
+            arlo.go_diff(50,50,1,0)
+            sleep(0.2)
             arlo.stop()
         if state == 0 and search_side =="s_left" and counter < 14:
             counter = counter+1
             print(counter)
             print(search_side)
-            arlo.go_diff(30,30,0,1)
-            sleep(0.5)
+            arlo.go_diff(50,50,0,1)
+            sleep(0.2)
             arlo.stop()
         elif (state == 0 or state == 3) and counter >= 14:
             state = 3
             if search_side == "s_left":
-                arlo.go_diff(30,30,0,1)
-                sleep(0.5)
+                arlo.go_diff(50,50,0,1)
+                sleep(0.2)
             else:
-                arlo.go_diff(30,30,1,0)
-                sleep(0.5)
+                arlo.go_diff(50,50,1,0)
+                sleep(0.2)
             arlo.stop()
             retval, frameReference = Take_pic()
             (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
