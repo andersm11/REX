@@ -186,7 +186,7 @@ def avoidance():
     right = arlo.read_right_ping_sensor()
     mid = arlo.read_front_ping_sensor()
     left = arlo.read_left_ping_sensor()
-    if right < 300:
+    if right < 250:
         print("right")
         arlo.stop()
         #sleep(1)
@@ -223,7 +223,7 @@ def avoidance():
 
         #sleep(2)
         return "s_right"
-    if left < 300:
+    if left < 250:
         print("left")
         arlo.stop()
         #sleep(1)
@@ -259,7 +259,7 @@ def avoidance():
         #arlo.stop()
         #sleep(2)
         return "s_left"
-    if mid < 200 and right < 250:
+    if mid < 150 and right < 250:
         print("mid-right")
         arlo.stop()
         #sleep(1)
@@ -290,7 +290,7 @@ def avoidance():
 
         #sleep(2)
         return "s_right"
-    if mid < 200:
+    if mid < 150:
         print("mid")
         arlo.stop()
         #sleep(1)
