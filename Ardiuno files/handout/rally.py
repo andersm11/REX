@@ -155,7 +155,7 @@ def turn(angle):
 
 def check_id(corners, ids, current_target):
     for i in range(len(ids)):
-        print(ids[i][0])
+        #print(ids[i][0])
         if ids[i][0] == 1 and current_target == 4:
             return (corners[i],ids[i][0])
         if ids[i][0] in landmark_numbers and landmark_numbers[ids[i][0]] == current_target:
@@ -173,9 +173,9 @@ def compute_angle_and_distance(vector):
     #tvec2 = np.reshape(tvec[0,:],(3,))
     vector = vector[0].reshape((3,))
     vector_norm = vector/np.linalg.norm(vector)
-    print(vector.shape)
+    #print(vector.shape)
     beta = np.rad2deg(np.arccos(np.dot(vector_norm,z)))
-    print("dot:",np.dot(vector_norm, z) )
+    #print("dot:",np.dot(vector_norm, z) )
     sign = np.sign(np.dot(np.transpose(x),vector))
     angle = beta*sign
     print("beta", angle, "sign:", sign)
@@ -362,11 +362,11 @@ def main():
             if ids is not None and current_target == 4:
                 t_corners, t_id = check_id(corners,ids,current_target)
                 rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
-                print("t_id",t_id)
+                #print("t_id",t_id)
             elif ids is not None:
                 t_corners, t_id = check_id(corners,ids,current_target)
                 rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
-                print("t_id",t_id)
+                #print("t_id",t_id)
             else:
                 tvec = None
 
@@ -455,7 +455,7 @@ def main():
                         sleep(0.4)
                         check = "free"
                         while check == "free":
-                            print("i am moving")
+                           # print("i am moving")
                             end_time = time.time()
                             check = avoidance()
                             if end_time-start_time >= time_to_drive:
@@ -471,53 +471,6 @@ def main():
                         counter = 0
                         state = 0
                         
-
-
-    
-    
-
-
-        #if CheckID(ids) is True:
-        #    if 3 < beta:
-        #        Turn(angle)
-        #    else:
-        #        length = np.linalg.norm(tvec)
-        #        if length < 30:
-        #            exit(1)
-        #        
-
-        #print("State:",state)           
-
-        #frame = cam.get_next_frame()
-        #objectIDs, dists, angles = cam.detect_aruco_objects(frame)
-        #sleep(0.2)
-        #if not isinstance(objectIDs, type(None)):
-        #    for i in range(len(objectIDs)):
-        #        print("Object ID = ", objectIDs[i], ", Distance = ", dists[i], ", angle = ", angles[i])
-        #        if objectIDs[i] in landmarks and landmark_numbers[objectIDs[i]] == current_target: #Check if object is our current target
-        #            target_object = object(objectIDs[i],dists[i],np.rad2deg(angles[i]))
-        #            state = 1
-        #            sleep(1)
-        #            print(target_object.angle)
-        #            if target_object.angle > 11:
-        #                arlo.go_diff(30,30,0,1)
-        #                sleep(0.0153*abs(target_object.angle-10))
-        #                arlo.stop()
-        #            elif target_object.angle < -11:
-        #                arlo.go_diff(30,30,1,0)
-        #                sleep(0.0153*abs(target_object.angle+10))
-        #                arlo.stop()
-        #else:
-        #    target_object = None
-#       #             target_object = found_obj
-#       #             state = 1
-#                    print(" got em")
-                    #if (target_object is None) or target_object.getDist() > found_obj.getDist(): #Set our target to the object found if it is closer
-                    #    print("found")
-                    #    target_object = found_obj
-                    #    state = 1
-        #search_and_find()
-        #avoidance()
 
 main()
 
