@@ -460,10 +460,19 @@ def main():
                             check = avoidance()
                             if end_time-start_time >= time_to_drive:
                                 break
-                        end_time = time.time()
+                        arlo.stop()
+                        arlo.go_diff(45,30,1,0)
+                        sleep(0.5)
+                        avoidance()
+                        robot_drive(1)
+                        sleep(0.3)
+                        avoidance()
+                        sleep(0.2)
+                        arlo.stop()
+                        search_side("s_left")
                         counter = 0
                         state = 0
-                        arlo.stop()
+                        
 
 
     
