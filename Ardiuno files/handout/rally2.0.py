@@ -447,7 +447,7 @@ def main():
                         print("dist:", distance)
                         turn(angle)
                         sleep(0.5)
-                        if distance > 250:
+                        if distance > 200:
                             time_to_drive = 0.028*(abs(distance-10)/2)
                         else:
                             time_to_drive = 0.028*(abs(distance-10))
@@ -466,7 +466,7 @@ def main():
                         end_time = time.time()
                         print(end_time-start_time)
                         arlo.stop()
-                        if end_time-start_time < 1:
+                        if end_time-start_time < 3:
                             last_orientation_box = 0
                             counter = 15
                         else:
