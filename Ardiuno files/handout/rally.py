@@ -465,7 +465,7 @@ def main():
                             arlo.go_diff(45,30,1,0)
                             sleep(0.5)
                             robot_drive(1)
-                            sleep(0.35)
+                            sleep(0.5)
                             arlo.stop()
                             search_side = "s_left"
                         counter = 0
