@@ -463,7 +463,7 @@ def main():
                         arlo.stop()
                         if end_time-start_time >= time_to_drive:
                             arlo.go_diff(45,30,1,0)
-                            sleep(0.5)
+                            turn(90)
                             robot_drive(1)
                             sleep(0.5)
                             arlo.stop()
