@@ -222,7 +222,7 @@ def avoidance():
         arlo.stop()
 
         #sleep(2)
-        return "s_right"
+        return "s_left"
     if left < 250:
         print("left")
         arlo.stop()
@@ -289,7 +289,7 @@ def avoidance():
         arlo.stop()
 
         #sleep(2)
-        return "s_right"
+        return "s_left"
     if mid < 200:
         print("mid")
         arlo.stop()
@@ -322,7 +322,7 @@ def avoidance():
         arlo.stop()
 
         #sleep(2)
-        return "s_left"
+        return "s_right"
     else:
         return "free"
 
