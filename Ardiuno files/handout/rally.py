@@ -452,7 +452,7 @@ def main():
                         last_orientation_box = t_id
                         robot_drive(1)
                         start_time = time.time()
-                        end_time = start_time
+                        sleep(0.2)
                         check = "free"
                         while check == "free":
                             print("i am moving")

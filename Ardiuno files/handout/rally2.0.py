@@ -448,16 +448,16 @@ def main():
                         print("angle",angle)
                         print("dist:", distance)
                         turn(angle)
-                        sleep(0.5)
+                        sleep(0.2)
                         if distance > 250:
                             time_to_drive = 0.028*(abs(distance-10)/2)
                         else:
                             time_to_drive = 0.028*(abs(distance-10))
                         print("Going forward")
                         last_orientation_box = t_id
-                        robot_drive(1)
+                        robot_drive(1)    
                         start_time = time.time()
-                        end_time = start_time
+                        sleep(0.2)
                         check = "free"
                         while check == "free":
                             print("i am moving")
@@ -466,6 +466,7 @@ def main():
                             if end_time-start_time >= time_to_drive:
                                 break
                         counter = 0
+                        state = 3
                         arlo.stop()
 
 
