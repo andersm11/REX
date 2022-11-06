@@ -464,6 +464,7 @@ def main():
                             if end_time-start_time >= time_to_drive:
                                 break
                         end_time = time.time()
+                        print(end_time-start_time)
                         arlo.stop()
                         if end_time-start_time < 1:
                             last_orientation_box = 0
