@@ -437,28 +437,29 @@ def main():
                 rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
                 if tvec is not None:
                     angle, distance = compute_angle_and_distance(tvec)
-                    print("angle",angle)
-                    print("dist:", distance)
-                    turn(angle)
-                    sleep(0.5)
-                    if distance > 200:
-                        time_to_drive = 0.028*(abs(distance)/2)
-                    else:
-                        time_to_drive = 0.028*(abs(distance-15))
-                    print("Going forward")
-                    last_orientation_box = t_id
-                    robot_drive(1)
-                    start_time = time.time()
-                    end_time = start_time
-                    check = "free"
-                    while check == "free":
-                        print("i am moving")
-                        end_time = time.time()
-                        check = avoidance()
-                        if end_time-start_time >= time_to_drive:
-                            break
-                    counter = 0
-                    arlo.stop()
+                    if distance >= 100:
+                        print("angle",angle)
+                        print("dist:", distance)
+                        turn(angle)
+                        sleep(0.5)
+                        if distance > 200:
+                            time_to_drive = 0.028*(abs(distance)/2)
+                        else:
+                            time_to_drive = 0.028*(abs(distance-15))
+                        print("Going forward")
+                        last_orientation_box = t_id
+                        robot_drive(1)
+                        start_time = time.time()
+                        end_time = start_time
+                        check = "free"
+                        while check == "free":
+                            print("i am moving")
+                            end_time = time.time()
+                            check = avoidance()
+                            if end_time-start_time >= time_to_drive:
+                                break
+                        counter = 0
+                        arlo.stop()
 
 
     
