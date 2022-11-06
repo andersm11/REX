@@ -379,7 +379,7 @@ def main():
             turn(angle)
             sleep(0.5)
             start_time = time.time()
-            time_to_drive = 0.028*(abs(distance-20))
+            time_to_drive = 0.028*(abs(distance-15))
             state = 1
             
         if state == 1:
@@ -463,9 +463,9 @@ def main():
                         arlo.stop()
                         if end_time-start_time >= time_to_drive:
                             arlo.go_diff(45,30,1,0)
-                            turn(90)
+                            turn(100)
                             robot_drive(1)
-                            sleep(0.5)
+                            sleep(0.50)
                             arlo.stop()
                             search_side = "s_left"
                         counter = 0
