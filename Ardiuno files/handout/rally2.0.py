@@ -466,7 +466,7 @@ def main():
                         end_time = time.time()
                         print(end_time-start_time)
                         arlo.stop()
-                        if end_time-start_time < 3:
+                        if end_time-start_time < 4:
                             last_orientation_box = 0
                             counter = 15
                         else:
