@@ -439,13 +439,13 @@ def main():
                 rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
                 if tvec is not None:
                     angle, distance = compute_angle_and_distance(tvec)
-                    if distance >= 100:
+                    if distance >= 70:
                         print("angle",angle)
                         print("dist:", distance)
                         turn(angle)
                         sleep(0.2)
-                        if distance > 200:
-                            time_to_drive = 0.028*(abs(distance)/2)
+                        if distance > 250:
+                            time_to_drive = 0.028*(abs(distance)*0.7)
                         else:
                             time_to_drive = 0.028*(abs(distance-15))
                         print("Going forward")
