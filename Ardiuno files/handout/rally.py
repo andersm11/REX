@@ -68,54 +68,7 @@ class object:
         return self.angle #IS DEGREES
     
 
-#def searchtarget(landmark):
-#    while arlo.read_front_ping_sensor(self) > 200 and arlo.read_left_ping_sensor(self) > 100 and arlo.read_right_ping_sensor(self) > 100:
-#        if Ex3.CheckID(landmark.landmarks) == True:
-#            Ex3.search_and_find
-#        else:
-#            changeposition()
-#            searchtarget(landmark)
-#    obstacleavoid()
 
-#def changeposition():
-#    while arlo.read_front_ping_sensor() > 200 and arlo.read_left_ping_sensor() > 100 and arlo.read_right_ping_sensor() > 100:
-#        arlo.go_diff(40,40,1,1)
-#        sleep(1)
-#        search_and_find()
-#    obstacleavoid()
-
-#def drivetotarget(landmark):
-#    while arlo.read_front_ping_sensor(self) > 200 and arlo.read_left_ping_sensor(self) > 100 and arlo.read_right_ping_sensor(self) > 100:
-#        #vend mod targetbox
-#        #kør mod targetbox
-#        if landmark.lastLandmark == True:
-#            arlo.stop
-#        elif dist(landmark) <= 400:
-#            landmark.nextLandmark
-#            searchtarget(landmark)
-#    obstacleavoid
-#    searchtarget(targetbox)
-
-#def obstacleavoid():
-#    if arlo.read_front_ping_sensor() > 200:
-#        search_and_find()
-#    else:
-#        while arlo.read_front_ping_sensor() < 200:
-#            if arlo.read_left_ping_sensor() > 200:
-#                arlo.go_diff(30,30,0,1)
-#                sleep(0.3)
-#            elif arlo.read_right_ping_sensor() > 200:
-#                arlo.go_diff(30,30,1,0)
-#                sleep(0.3)
-#            else:
-#                arlo.go_diff(30,30,0,0)
-#                sleep(0.5)
-#                arlo.go_diff(30,30,0,1)
-#                sleep(0.3)
-#                arlo.stop
-#        obstacleavoid()
-
-#search_and_find()
 
 ############# LANDMARK CLASS ##############
 
@@ -476,7 +429,3 @@ main()
 
 ############   RALLY CODE   ##############   
 #################  END  ##################
-
-    
-
-
