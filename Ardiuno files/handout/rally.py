@@ -129,7 +129,7 @@ def avoidance():
         sleep(0.25)
         arlo.stop()
         arlo.go_diff(30,30,1,0)
-        sleep(0.0153*70)
+        sleep(0.0153*60)
         arlo.stop()
         if avoidance() != "free":
             return "s_right"
@@ -164,7 +164,7 @@ def avoidance():
         sleep(0.25)
         arlo.stop()
         arlo.go_diff(30,30,0,1)
-        sleep(0.0153*70)
+        sleep(0.0153*60)
         arlo.stop()
         if avoidance() != "free":
             return "s_right"
