@@ -354,7 +354,7 @@ def main():
                         print("dist:", distance)
                         turn(angle)
                         sleep(0.2)
-                        if distance > 250: #We do not want to drive too far away 
+                        if distance > 225: #We do not want to drive too far away 
                             time_to_drive = 0.028*(abs(distance)*0.7)
                         else:
                             time_to_drive = 0.028*(abs(distance-20))
@@ -370,7 +370,7 @@ def main():
                             if end_time-start_time >= time_to_drive:
                                 break
                         arlo.stop()
-                        if end_time-start_time >= time_to_drive and (distance < 250): #If we drove all the way to a non-target landmark
+                        if end_time-start_time >= time_to_drive and (distance <= 225): #If we drove all the way to a non-target landmark
                             # Drive a little to the right of the landmark, so we can see what is behind it
                             arlo.go_diff(45,30,1,0)
                             turn(100)
