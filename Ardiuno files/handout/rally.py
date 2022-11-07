@@ -45,7 +45,6 @@ try:
 except ImportError:
     print("rally_%s.py: robot module not present - forcing not running on Arlo!",version)
     onRobot = False
-
 arlo = robot.Robot()
 class object:
     def __init__(self, id, dist, angle):
@@ -78,7 +77,7 @@ def turn(angle):
         sleep(0.0153*abs(angle))
         arlo.stop()    
 
-def check_id(corners, ids, current_target): #Checks ID of aruco code
+def check_id(corners, ids, current_target):
     for i in range(len(ids)):
         if ids[i][0] == 1 and current_target == 4:
             return (corners[i],ids[i][0])
@@ -86,14 +85,14 @@ def check_id(corners, ids, current_target): #Checks ID of aruco code
             return (corners[i],ids[i][0])
     return None, None
 
-def check_id_mod(corners, ids, last_box): #Check ID of aruco code for codes that are not the target landmarks
+def check_id_mod(corners, ids, last_box):
     for i in range(len(ids)):
         if ids[i][0] not in landmark_numbers and ids[i][0] != last_box:
             return (corners[i],ids[i][0])
     return None,None
 
 
-def compute_angle_and_distance(vector): #computes the distance and angle from the tvec
+def compute_angle_and_distance(vector):
     vector = vector[0].reshape((3,))
     vector_norm = vector/np.linalg.norm(vector)
     beta = np.rad2deg(np.arccos(np.dot(vector_norm,z)))
@@ -103,11 +102,11 @@ def compute_angle_and_distance(vector): #computes the distance and angle from th
     dist = np.linalg.norm(vector)
     return angle, dist
 
-def avoidance(): #Used for avoidance of objects
+def avoidance():
     right = arlo.read_right_ping_sensor()
     mid = arlo.read_front_ping_sensor()
     left = arlo.read_left_ping_sensor()
-    if right < 250:
+    if right < 300:
         print("right")
         arlo.stop()
         arlo.go_diff(30,30,0,1)
@@ -132,16 +131,16 @@ def avoidance(): #Used for avoidance of objects
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*60)
         arlo.stop()
-        #if avoidance() != "free":
-        #    return "s_right"
-        #robot_drive(1)
-        #sleep(0.2)
-        #if avoidance() != "free":
-        #    return "s_left"
-        #sleep(0.15)
-        #arlo.stop()
+        if avoidance() != "free":
+            return "s_right"
+        robot_drive(1)
+        sleep(0.4)
+        if avoidance() != "free":
+            return "s_left"
+        sleep(0.25)
+        arlo.stop()
         return "s_left"
-    if left < 250:
+    if left < 300:
         print("left")
         arlo.stop()
       
@@ -167,14 +166,14 @@ def avoidance(): #Used for avoidance of objects
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*60)
         arlo.stop()
-       # if avoidance() != "free":
-       #     return "s_right"
-       # robot_drive(1)
-       # sleep(0.2)
-       # if avoidance() != "free":
-       #     return "s_right"
-       # sleep(0.15)
-       # arlo.stop()
+        if avoidance() != "free":
+            return "s_right"
+        robot_drive(1)
+        sleep(0.4)
+        if avoidance() != "free":
+            return "s_right"
+        sleep(0.25)
+        arlo.stop()
        
         return "s_right"
     if mid < 250 and right < 350:
@@ -196,15 +195,15 @@ def avoidance(): #Used for avoidance of objects
             return "s_right"
         sleep(0.30)
         arlo.stop()
-        #turn(50)
-        #if avoidance() != "free":
-        #    return "s_right"
-        #robot_drive(1)
-        #sleep(0.4)
-        #if avoidance() != "free":
-        #    return "s_right"
-        #sleep(0.25)
-        #arlo.stop()
+        turn(50)
+        if avoidance() != "free":
+            return "s_right"
+        robot_drive(1)
+        sleep(0.4)
+        if avoidance() != "free":
+            return "s_right"
+        sleep(0.25)
+        arlo.stop()
 
      
         return "s_left"
@@ -248,7 +247,7 @@ def avoidance(): #Used for avoidance of objects
 
 
 ############   RALLY CODE   ##############
-
+# test
 def main():
 
     current_target = 0
@@ -271,7 +270,7 @@ def main():
             (corners, ids, rejected) = cv2.aruco.detectMarkers(frameReference, arucoDict,parameters=arucoParams)
             
     
-            if ids is not None and current_target == 4: #This is obselete, but i am afraid of removing any code at the moment
+            if ids is not None and current_target == 4:
                 t_corners, t_id = check_id(corners,ids,current_target)
                 rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
             elif ids is not None:
@@ -288,27 +287,25 @@ def main():
             sleep(0.5)
             start_time = time.time()
             time_to_drive = 0.028*(abs(distance-15))
-            state = 1 #Set state to drive-state
+            state = 1
             
-        if state == 1: #State for driving to a landmark
+        if state == 1:
             counter = 0
             robot_drive(1)
-            if time_to_drive < 2: #Incase we are too close to the last landmark, then we do not care aobut aviodance
+            if time_to_drive < 2:
                 print("I am too close")
                 robot_drive(1)
                 sleep(time_to_drive)
                 arlo.stop()
                 state = 0
-                if current_target == 4:  #Exit if the found landmark is the last
+                if current_target == 4:
                     exit(0)
                 current_target += 1
             else:
-                check = "free"
-                while state == 1:  #While loop that check for objects and time spent driving
+                while state == 1: 
                     end_time = time.time()
                     time_diff = end_time - start_time
-                    if time_to_drive - time_diff > 1:
-                        check = avoidance()
+                    check = avoidance()
                     if check != "free":
                         search_side = check
                         state = 0
@@ -319,21 +316,21 @@ def main():
                         current_target += 1
                         last_orientation_box = 0
                         state = 0
-        if state == 0 and search_side == "s_right" and counter < 14: #If we want to search right
+        if state == 0 and search_side == "s_right" and counter < 14:
             counter = counter+1
             print(counter)
             print(search_side)
             arlo.go_diff(45,45,1,0)
             sleep(0.3)
             arlo.stop()
-        if state == 0 and search_side =="s_left" and counter < 14: #If we want to search left
+        if state == 0 and search_side =="s_left" and counter < 14:
             counter = counter+1
             print(counter)
             print(search_side)
             arlo.go_diff(45,45,0,1)
             sleep(0.3)
             arlo.stop()
-        elif (state == 0 or state == 3) and counter >= 14: #Incase we have been searching for too long
+        elif (state == 0 or state == 3) and counter >= 14:
             state = 3
             if search_side == "s_left":
                 arlo.go_diff(45,45,0,1)
@@ -349,15 +346,15 @@ def main():
                 rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
                 if tvec is not None:
                     angle, distance = compute_angle_and_distance(tvec)
-                    if distance >= 70:#If the mid non-target landmark is too close
+                    if distance >= 70:
                         print("angle",angle)
                         print("dist:", distance)
                         turn(angle)
                         sleep(0.2)
-                        if distance > 225: #We do not want to drive too far away 
+                        if distance > 250:
                             time_to_drive = 0.028*(abs(distance)*0.7)
                         else:
-                            time_to_drive = 0.028*(abs(distance-20))
+                            time_to_drive = 0.028*(abs(distance-15))
                         print("Going forward")
                         last_orientation_box = t_id
                         robot_drive(1)
@@ -370,12 +367,11 @@ def main():
                             if end_time-start_time >= time_to_drive:
                                 break
                         arlo.stop()
-                        if end_time-start_time >= time_to_drive and (distance <= 225): #If we drove all the way to a non-target landmark
-                            # Drive a little to the right of the landmark, so we can see what is behind it
+                        if end_time-start_time >= time_to_drive and (distance < 200):
                             arlo.go_diff(45,30,1,0)
                             turn(100)
                             robot_drive(1)
-                            sleep(1.2)
+                            sleep(1.25)
                             arlo.stop()
                             search_side = "s_left"
                         counter = 0
