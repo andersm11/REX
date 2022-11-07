@@ -287,7 +287,7 @@ def main():
             turn(angle)
             sleep(0.5)
             start_time = time.time()
-            time_to_drive = 0.028*(abs(distance-20))
+            time_to_drive = 0.028*(abs(distance-15))
             state = 1 #Set state to drive-state
             
         if state == 1: #State for driving to a landmark
@@ -375,7 +375,7 @@ def main():
                             arlo.go_diff(45,30,1,0)
                             turn(100)
                             robot_drive(1)
-                            sleep(1.25)
+                            sleep(1.2)
                             arlo.stop()
                             search_side = "s_left"
                         counter = 0
