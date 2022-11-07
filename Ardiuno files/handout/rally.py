@@ -2,7 +2,6 @@ from pickle import TRUE
 from re import I, search
 from turtle import right
 import time
-#import robot
 import sys
 import numpy as np
 import cv2
@@ -27,16 +26,11 @@ states = [0,1]
 
 #Camera info:
 cam_imageSize = (1280, 720)
-##self.intrinsic_matrix = np.asarray([ 7.1305391967046853e+02, 0., 3.1172820723774367e+02, 0.,
-##       7.0564929862291285e+02, 2.5634470978315028e+02, 0., 0., 1. ], dtype = np.float64)
-##self.intrinsic_matrix = np.asarray([ 6.0727040957659040e+02, 0., 3.0757300398967601e+02, 0.,
-##       6.0768864690145904e+02, 2.8935674612358201e+02, 0., 0., 1. ], dtype = np.float64)
-#cam_intrinsic_matrix = np.asarray([[1672,0,540],[0,1672,400],[0,0,1]])
+
 cam_intrinsic_matrix = np.asarray([1672, 0., cam_imageSize[0] / 2.0, 0.,
        1672, cam_imageSize[1] / 2.0, 0., 0., 1.], dtype = np.float64)
 cam_intrinsic_matrix.shape = (3, 3)
-##self.distortion_coeffs = np.asarray([ 1.1911006165076067e-01, -1.0003366233413549e+00,
-##       1.9287903277399834e-02, -2.3728201444308114e-03, -2.8137265581326476e-01 ], dtype = np.float64)
+
 cam_distortion_coeffs = np.asarray([0., 0., 2.0546093607192093e-02, -3.5538453075048249e-03, 0.], dtype = np.float64)
 
 arucoDict = cv2.aruco.Dictionary_get(cv2.aruco.DICT_6X6_250)
@@ -66,29 +60,6 @@ class object:
 
     def getAngle(self):
         return self.angle #IS DEGREES
-    
-
-
-
-############# LANDMARK CLASS ##############
-
-############# LANDMARK CLASS ##############
-##################  END  ##################
-#
-#
-
-############ Particle filter #############
-
-############ Particle filter #############
-#################  END  ##################
-
-
-
-############  Localization  ##############
-
-
-############  Localization  ##############
-#################  END  ##################
 
 
 ###########  ROBOT FUNCTIONS  ############
@@ -108,7 +79,6 @@ def turn(angle):
 
 def check_id(corners, ids, current_target):
     for i in range(len(ids)):
-        #print(ids[i][0])
         if ids[i][0] == 1 and current_target == 4:
             return (corners[i],ids[i][0])
         if ids[i][0] in landmark_numbers and landmark_numbers[ids[i][0]] == current_target:
@@ -123,12 +93,9 @@ def check_id_mod(corners, ids, last_box):
 
 
 def compute_angle_and_distance(vector):
-    #tvec2 = np.reshape(tvec[0,:],(3,))
     vector = vector[0].reshape((3,))
     vector_norm = vector/np.linalg.norm(vector)
-    #print(vector.shape)
     beta = np.rad2deg(np.arccos(np.dot(vector_norm,z)))
-    #print("dot:",np.dot(vector_norm, z) )
     sign = np.sign(np.dot(np.transpose(x),vector))
     angle = beta*sign
     print("beta", angle, "sign:", sign)
@@ -142,7 +109,6 @@ def avoidance():
     if right < 300:
         print("right")
         arlo.stop()
-        #sleep(1)
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*80)
         robot_drive(1)
@@ -173,13 +139,11 @@ def avoidance():
             return "s_left"
         sleep(0.25)
         arlo.stop()
-
-        #sleep(2)
         return "s_left"
     if left < 300:
         print("left")
         arlo.stop()
-        #sleep(1)
+      
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*70)
         robot_drive(1)
@@ -210,12 +174,12 @@ def avoidance():
             return "s_right"
         sleep(0.25)
         arlo.stop()
-        #sleep(2)
+       
         return "s_right"
     if mid < 250 and right < 350:
         print("mid-right")
         arlo.stop()
-        #sleep(1)
+       
         turn(-100)
         robot_drive(1)
         if avoidance() != "free":
@@ -241,12 +205,12 @@ def avoidance():
         sleep(0.25)
         arlo.stop()
 
-        #sleep(2)
+     
         return "s_left"
     if mid < 200:
         print("mid")
         arlo.stop()
-        #sleep(1)
+     
         turn(100)
         if avoidance() != "free":
             return "s_left"
@@ -274,7 +238,7 @@ def avoidance():
         sleep(0.30)
         arlo.stop()
 
-        #sleep(2)
+
         return "s_right"
     else:
         return "free"
@@ -289,9 +253,6 @@ def avoidance():
 
 def main():
 
-    
-    #print("Opening and initializing camera")
-    #cam = camera.Camera(0, 'arlo', useCaptureThread = True)
     current_target = 0
     last_orientation_box = 0
     search_side = "s_right"
@@ -315,11 +276,9 @@ def main():
             if ids is not None and current_target == 4:
                 t_corners, t_id = check_id(corners,ids,current_target)
                 rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
-                #print("t_id",t_id)
             elif ids is not None:
                 t_corners, t_id = check_id(corners,ids,current_target)
                 rvec, tvec, objPoints = cv2.aruco.estimatePoseSingleMarkers(t_corners,15,cam_intrinsic_matrix,cam_distortion_coeffs)
-                #print("t_id",t_id)
             else:
                 tvec = None
 
@@ -408,7 +367,6 @@ def main():
                         sleep(0.4)
                         check = "free"
                         while check == "free":
-                           # print("i am moving")
                             end_time = time.time()
                             check = avoidance()
                             if end_time-start_time >= time_to_drive:

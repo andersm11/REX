@@ -1,7 +1,6 @@
 import robot 
 from pickle import FALSE, TRUE
 from time import sleep, time  
-#from types import None
 import cv2 # Import the OpenCV library
 import cv2.aruco
 import ctypes
@@ -58,7 +57,6 @@ def stderr_redirector(stream):
 def Take_pic():
     with stderr_redirector(io.StringIO()):
         cam = cv2.VideoCapture(gstreamer_pipeline(), apiPreference=cv2.CAP_GSTREAMER)
-        #cam = cv2.VideoCapture(0)
     if not cam.isOpened(): # Error
         print("Could not open camera")
         exit(-1)
