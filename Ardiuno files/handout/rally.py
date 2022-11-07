@@ -107,7 +107,7 @@ def avoidance(): #Used for avoidance of objects
     right = arlo.read_right_ping_sensor()
     mid = arlo.read_front_ping_sensor()
     left = arlo.read_left_ping_sensor()
-    if right < 300:
+    if right < 250:
         print("right")
         arlo.stop()
         arlo.go_diff(30,30,0,1)
@@ -132,16 +132,16 @@ def avoidance(): #Used for avoidance of objects
         arlo.go_diff(30,30,1,0)
         sleep(0.0153*60)
         arlo.stop()
-        if avoidance() != "free":
-            return "s_right"
-        robot_drive(1)
-        sleep(0.4)
-        if avoidance() != "free":
-            return "s_left"
-        sleep(0.25)
-        arlo.stop()
+        #if avoidance() != "free":
+        #    return "s_right"
+        #robot_drive(1)
+        #sleep(0.2)
+        #if avoidance() != "free":
+        #    return "s_left"
+        #sleep(0.15)
+        #arlo.stop()
         return "s_left"
-    if left < 300:
+    if left < 250:
         print("left")
         arlo.stop()
       
@@ -167,14 +167,14 @@ def avoidance(): #Used for avoidance of objects
         arlo.go_diff(30,30,0,1)
         sleep(0.0153*60)
         arlo.stop()
-        if avoidance() != "free":
-            return "s_right"
-        robot_drive(1)
-        sleep(0.4)
-        if avoidance() != "free":
-            return "s_right"
-        sleep(0.25)
-        arlo.stop()
+       # if avoidance() != "free":
+       #     return "s_right"
+       # robot_drive(1)
+       # sleep(0.2)
+       # if avoidance() != "free":
+       #     return "s_right"
+       # sleep(0.15)
+       # arlo.stop()
        
         return "s_right"
     if mid < 250 and right < 350:
@@ -196,15 +196,15 @@ def avoidance(): #Used for avoidance of objects
             return "s_right"
         sleep(0.30)
         arlo.stop()
-        turn(50)
-        if avoidance() != "free":
-            return "s_right"
-        robot_drive(1)
-        sleep(0.4)
-        if avoidance() != "free":
-            return "s_right"
-        sleep(0.25)
-        arlo.stop()
+        #turn(50)
+        #if avoidance() != "free":
+        #    return "s_right"
+        #robot_drive(1)
+        #sleep(0.4)
+        #if avoidance() != "free":
+        #    return "s_right"
+        #sleep(0.25)
+        #arlo.stop()
 
      
         return "s_left"
@@ -303,10 +303,12 @@ def main():
                     exit(0)
                 current_target += 1
             else:
+                check = "free"
                 while state == 1:  #While loop that check for objects and time spent driving
                     end_time = time.time()
                     time_diff = end_time - start_time
-                    check = avoidance()
+                    if time_to_drive - time_diff > 1:
+                        check = avoidance()
                     if check != "free":
                         search_side = check
                         state = 0
