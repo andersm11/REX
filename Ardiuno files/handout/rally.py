@@ -287,7 +287,7 @@ def main():
             turn(angle)
             sleep(0.5)
             start_time = time.time()
-            time_to_drive = 0.028*(abs(distance-15))
+            time_to_drive = 0.028*(abs(distance-20))
             state = 1 #Set state to drive-state
             
         if state == 1: #State for driving to a landmark
@@ -355,7 +355,7 @@ def main():
                         if distance > 250: #We do not want to drive too far away 
                             time_to_drive = 0.028*(abs(distance)*0.7)
                         else:
-                            time_to_drive = 0.028*(abs(distance-15))
+                            time_to_drive = 0.028*(abs(distance-20))
                         print("Going forward")
                         last_orientation_box = t_id
                         robot_drive(1)
